@@ -234,7 +234,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#hcorner"><span class="post-toc-number">1.</span> <span class="post-toc-text">hcorner</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">一、使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#导入文件"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">导入文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#初始化设置"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">初始化设置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、效果"><span class="post-toc-number">3.</span> <span class="post-toc-text">二、效果</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、Github"><span class="post-toc-number">4.</span> <span class="post-toc-text">三、Github</span></a></li></ol>
 
         <!--
         <li class="mdl-menu__item">
@@ -395,22 +395,21 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>##hcorner<br>－－－－－－一个jquery折角插件</p>
+        <h2 id="hcorner"><a href="#hcorner" class="headerlink" title="hcorner"></a>hcorner</h2><p>－－－－－－一个jquery折角插件</p>
 <p>hcorner是一个很简单的插件，其实也没有多少功能，为一块div提供一个折角的效果，本来是在个人的博客中想用的效果，就把它做成插件了，作为第一个正式上传到github上的项目，其实还很粗糙。</p>
-<p>##一、使用</p>
-<p>###导入文件<br>    <script src="jquery.js" type="text/javascript" charset="utf-8"></script><br>    <script src="hcorner.js" type="text/javascript" charset="utf-8"></script> </p>
-<p>###初始化设置</p>
-<pre><code>$(&quot;#content&quot;).hcorner({
+<h2 id="一、使用"><a href="#一、使用" class="headerlink" title="一、使用"></a>一、使用</h2><h3 id="导入文件"><a href="#导入文件" class="headerlink" title="导入文件"></a>导入文件</h3><pre><code>&lt;script src=&quot;jquery.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;hcorner.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt; 
+</code></pre><h3 id="初始化设置"><a href="#初始化设置" class="headerlink" title="初始化设置"></a>初始化设置</h3><pre><code>$(&quot;#content&quot;).hcorner({
     style:&quot;out-fillet&quot;，
     size:60,
     position:&quot;rtop&quot;,
     color:&quot;red&quot;
 });
 </code></pre><p>style：设置折角的类型，内置的三种风格，为 正常（normal），外圆角（out-fillet），内圆角(in-fillet)。不同类型，设置的参数也不一样。<br>size：设置折角的大小，normal下，可以是一个数，也可以是[10,20]的数组。圆角情况下只允许为一个数。<br>position：折角的位置，四种情况，rtop,ltop,rbottom,lbottom。分别对应，右上角，左上角，右下角，左下角。<br>color：折角的颜色，内圆角情况下，这个参数无效。</p>
-<p>##二、效果<br>normal<br><img src="http://www.hughhe.cn/wp-content/uploads/2015/11/normal.png"></p>
+<h2 id="二、效果"><a href="#二、效果" class="headerlink" title="二、效果"></a>二、效果</h2><p>normal<br><img src="http://www.hughhe.cn/wp-content/uploads/2015/11/normal.png"></p>
 <p>in-fillet<br><img src="http://www.hughhe.cn/wp-content/uploads/2015/11/in-fillet.png"></p>
 <p>out-fillet<br><img src="http://www.hughhe.cn/wp-content/uploads/2015/11/out-fillet.png"></p>
-<p>##三、Github<br>github的地址：<br><a href="https://github.com/hezhengjie/hcorner" target="_blank" rel="external">https://github.com/hezhengjie/hcorner</a></p>
+<h2 id="三、Github"><a href="#三、Github" class="headerlink" title="三、Github"></a>三、Github</h2><p>github的地址：<br><a href="https://github.com/hezhengjie/hcorner" target="_blank" rel="external">https://github.com/hezhengjie/hcorner</a></p>
 
     
 
