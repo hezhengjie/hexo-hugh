@@ -10,7 +10,7 @@
     
     <title>
         
-            about | 
+            路上的一点芝麻 | 
         
         席小白的边缘世界
     </title>
@@ -27,7 +27,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Hugh">
     <meta name="description" content="席小白的边缘世界">
-    <meta name="keywords" content="null">
+    <meta name="keywords" content="null,冒泡 堆叠">
 
     <!--iOS -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -48,9 +48,9 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://hughhe.cn">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="about | 席小白的边缘世界">
+    <meta property="og:title" content="路上的一点芝麻 | 席小白的边缘世界">
     <meta property="og:description" content="席小白的边缘世界">
-    
+    <meta property="og:article:tag" content="冒泡 堆叠"> 
 
     <!--[if lte IE 9]>
         <link rel="stylesheet" href="/css/ie-blocker.css">
@@ -210,6 +210,41 @@
 
                     <!-- Post TOC -->
 
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#冒泡和捕获"><span class="post-toc-number">1.</span> <span class="post-toc-text">冒泡和捕获</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事件流"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">事件流</span></a></li></ol></li></ol>
+
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+
+
+
 
 <!-- Layouts -->
 
@@ -235,7 +270,7 @@
         
     
             <p class="article-headline-p">
-                about
+                路上的一点芝麻
             </p>
         </div>
 
@@ -254,7 +289,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Hugh</strong>
-        <span>3月 26, 2017</span>
+        <span>3月 29, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -288,7 +323,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        
+        <a class="post_tag-link" href="/tags/冒泡-堆叠/">冒泡 堆叠</a>
     </ul>
     
 
@@ -315,7 +350,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=about&url=http://hughhe.cn//about/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=路上的一点芝麻&url=http://hughhe.cn//2017/03/29/路上的一点芝麻/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -333,7 +368,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://hughhe.cn//about/index.html&title=about" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://hughhe.cn//2017/03/29/路上的一点芝麻/index.html&title=路上的一点芝麻" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -342,7 +377,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=席小白的边缘世界&title=about&summary=席小白的边缘世界&pics=http://hughhe.cn/img/favicon.png&url=http://hughhe.cn/about/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=席小白的边缘世界&title=路上的一点芝麻&summary=席小白的边缘世界&pics=http://hughhe.cn/img/favicon.png&url=http://hughhe.cn/2017/03/29/路上的一点芝麻/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -360,7 +395,34 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        
+        <h2 id="冒泡和捕获"><a href="#冒泡和捕获" class="headerlink" title="冒泡和捕获"></a>冒泡和捕获</h2><h3 id="事件流"><a href="#事件流" class="headerlink" title="事件流"></a>事件流</h3><p>标准的事件流有三部分，捕获阶段—目标阶段—冒泡阶段。<br>捕获阶段，该阶段包括从最高节点（IE下为document，其他可以到window）到目标节点的父节点范围内的所有节点。也就是从上到下。<br>目标阶段，该阶段仅包括目标节点。<br>冒泡阶段。冒泡阶段包括从目标节点的父节点返回到最高节点的行程中遇到的节点。也就是从下到上。</p>
+<p>###事件触发<br>事件的触发类型基本有两种，冒泡型和捕获型。<br>冒泡型：IE采用的事件类型（IE只支持冒泡），事件按照从最特定的事件目标到最不特定的事件目标(document对象)的顺序触发。<br>捕获型：与冒泡刚好相反，事件按照从最不特定的事件目标（window）到最特定的事件目标的顺序触发。<br>注意：IE和opera的事件传播只有冒泡过程，没有捕获过程，所以IE的事件传播只能是冒泡，其他浏览器则是标准的事件流，可以选择事件的触发是在捕获还是冒泡。</p>
+<p>###addEventListener和attachEvent<br>addEventListener：W3c标准的事件绑定函数，有三个参数，第一个为事件类型，第二个为执行方法，第三个是一个布尔值，true表示事件在捕获阶段绑定，false表示在冒泡阶段绑定。 attachEvent：IE下采用的事件绑定函数，只有两个参数，第一个为事件类型，第二个为执行方法，所以事件只能在冒泡阶段绑定。</p>
+<p>###阻止冒泡<br>同样分为IE和其他。<br>在其他浏览器下（W3C标准），event.stopPropagation（）阻止冒泡。<br>注意：jquery下委托是无法阻止，也就是说，live()，delegate(),on()绑定的函数并不是冒泡，无法通过这个函数阻止。 IE下，则是通过设置cancelBubble属性来阻止冒泡，window.event.cancelBubble = true;</p>
+<p>###setCapture<br>IE下有个setCapture （FF下也有类似的captureEvents(Event.eventType) ）， 通过setCapture,所有的鼠标事件都会触发目标元素的事件，就是说你在任何地方触发鼠标事件，最后都相当于触发目标元素的鼠标事件。 document.getElementById(“btn”).setCapture(); 通过 releaseCapture或者alert释放。</p>
+<p>##z-index，元素的堆叠</p>
+<p>###正常文档流（没有设置position或者浮动）<br>一般情况下（没有设置position或者浮动），正常的文档流是不会产生堆叠现象的，当然并不是不会堆叠，设置负边距的时候，会产生堆叠，此时只有一条规则：</p>
+<blockquote>
+<p>位于文档流后面的节点会遮盖前面的节点</p>
+</blockquote>
+<p>###定位元素的堆叠<br>明确几点：</p>
+<blockquote>
+<p>1.z-index只对定位元素有效（relative, absolute 或者 fixed） 。<br>2.这里的堆叠只针对同级元素，也就是属于同一个堆叠上下文的元素。<br>3.向上追溯找不到含有z-index值的父元素的情况下，则可以视为自由的z-index元素，它可以与父元素的同级兄弟定位元素或其他自由的定位元素来比较z-index的值</p>
+</blockquote>
+<p>然后根据以下顺序决定同一层元素的堆叠顺序（从后到前）：</p>
+<p>层的根元素<br>被定位了得元素并且z-index值为负，相同z-index的情况下，按照HTML元素的书写顺序排列，下面相同。<br>没有被定位的元素<br>被定位的元素，并且z-index值为auto（默认状态）<br>被定位了的元素并且z-index值为正。  </p>
+<p>###其他影响堆叠的因素<br>1.float： 在定位元素的后面，不定位元素的前面。<br>2.opacity:使用了小于1的opacity属性的层，也比普通层更高层次并且和指定 position 的层同层.<br>3.transform:比普通层和float层高，但是比opacity和position层低。</p>
+<p>总的来说<br>层级的顺序简单来说是这样的：</p>
+<blockquote>
+<p>普通元素&lt; float&lt;transform&lt;opacity = 未设定z-index的定位元素&lt;z-index</p>
+</blockquote>
+<p>##js异步延迟加载</p>
+<p>###正常情况下：<br>浏览器遇到script标签会立即加载并执行指定的脚本，“立即”指的是在渲染该 script 标签之下的文档元素之前，也就是说不等待后续载入的文档元素，读到就加载并执行。同时是同步的也就是说在脚本执行完之前不加载后面的页面。<br>这也是我们为什么把script标签放在body之后的原因。</p>
+<p>###异步加载(只对外链的script有效)<br><img src="data:image/png;base64,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"></p>
+<p>1.async<br>能够异步的加载和执行脚本，不因为加载脚本而阻塞页面的加载。一旦加载到就会立刻执行,并且其执行时间一定在 window的load事件触发之前。这意味着多个async脚本很可能不会按其在页面中的出现次序顺序执行，对于有依赖的脚本这个并没有什么用。</p>
+<p>2.defer<br>同样的异步加载脚本，加载与async无太大区别，但是脚本执行在所有元素解析完成之后，DOMContentLoaded 事件触发之前完成。也就是说浏览器确保多个 defer 脚本按其在HTML页面中的出现顺序依次执行。</p>
+<p>tips：基本所有的浏览器都支持defer，但是async属性是html5新加的，IE似乎并不支持。</p>
+
     
 
     
@@ -428,7 +490,7 @@
 <script>
     $('.btn_click_load').click(function() {  //click to load comments
         var disqus_config = function () {
-            this.page.url = 'http://hughhe.cn/about/index.html';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.url = 'http://hughhe.cn/2017/03/29/路上的一点芝麻/index.html';  // Replace PAGE_URL with your page's canonical URL variable
             this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
         };
         (function() { // DON'T EDIT BELOW THIS LINE
@@ -458,11 +520,27 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
+        <a href="/2017/03/29/Hcorner/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2015/09/12/HTTP小伙的奇妙历险/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 
@@ -656,6 +734,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 
