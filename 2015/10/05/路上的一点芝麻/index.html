@@ -10,7 +10,7 @@
     
     <title>
         
-            HTTP小伙的奇妙历险 | 
+            路上的一点芝麻 | 
         
         席小白的边缘世界
     </title>
@@ -27,7 +27,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Hugh">
     <meta name="description" content="席小白的边缘世界">
-    <meta name="keywords" content="null,HTTP">
+    <meta name="keywords" content="null,冒泡 堆叠">
 
     <!--iOS -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -48,9 +48,9 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://hughhe.cn">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="HTTP小伙的奇妙历险 | 席小白的边缘世界">
+    <meta property="og:title" content="路上的一点芝麻 | 席小白的边缘世界">
     <meta property="og:description" content="席小白的边缘世界">
-    <meta property="og:article:tag" content="HTTP"> 
+    <meta property="og:article:tag" content="冒泡 堆叠"> 
 
     <!--[if lte IE 9]>
         <link rel="stylesheet" href="/css/ie-blocker.css">
@@ -234,7 +234,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP连接"><span class="post-toc-number">1.</span> <span class="post-toc-text">HTTP连接</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP请求"><span class="post-toc-number">2.</span> <span class="post-toc-text">HTTP请求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP响应"><span class="post-toc-number">3.</span> <span class="post-toc-text">HTTP响应</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#冒泡和捕获"><span class="post-toc-number">1.</span> <span class="post-toc-text">冒泡和捕获</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事件流"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">事件流</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事件触发"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">事件触发</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#addEventListener和attachEvent"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">addEventListener和attachEvent</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#阻止冒泡"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">阻止冒泡</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#setCapture"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">setCapture</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#z-index，元素的堆叠"><span class="post-toc-number">2.</span> <span class="post-toc-text">z-index，元素的堆叠</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#正常文档流（没有设置position或者浮动）"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">正常文档流（没有设置position或者浮动）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#定位元素的堆叠"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">定位元素的堆叠</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其他影响堆叠的因素"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">其他影响堆叠的因素</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#js异步延迟加载"><span class="post-toc-number">3.</span> <span class="post-toc-text">js异步延迟加载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#正常情况下："><span class="post-toc-number">3.1.</span> <span class="post-toc-text">正常情况下：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#异步加载-只对外链的script有效"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">异步加载(只对外链的script有效)</span></a></li></ol></li></ol>
 
         <!--
         <li class="mdl-menu__item">
@@ -270,7 +270,7 @@
         
     
             <p class="article-headline-p">
-                HTTP小伙的奇妙历险
+                路上的一点芝麻
             </p>
         </div>
 
@@ -289,7 +289,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Hugh</strong>
-        <span>9月 12, 2015</span>
+        <span>10月 05, 2015</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -323,7 +323,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/HTTP/">HTTP</a>
+        <a class="post_tag-link" href="/tags/冒泡-堆叠/">冒泡 堆叠</a>
     </ul>
     
 
@@ -350,7 +350,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=HTTP小伙的奇妙历险&url=http://hughhe.cn//2015/09/12/HTTP小伙的奇妙历险/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=路上的一点芝麻&url=http://hughhe.cn//2015/10/05/路上的一点芝麻/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -368,7 +368,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://hughhe.cn//2015/09/12/HTTP小伙的奇妙历险/index.html&title=HTTP小伙的奇妙历险" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://hughhe.cn//2015/10/05/路上的一点芝麻/index.html&title=路上的一点芝麻" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -377,7 +377,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=席小白的边缘世界&title=HTTP小伙的奇妙历险&summary=席小白的边缘世界&pics=http://hughhe.cn/img/favicon.png&url=http://hughhe.cn/2015/09/12/HTTP小伙的奇妙历险/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=席小白的边缘世界&title=路上的一点芝麻&summary=席小白的边缘世界&pics=http://hughhe.cn/img/favicon.png&url=http://hughhe.cn/2015/10/05/路上的一点芝麻/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -395,56 +395,31 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>HTTP大家都知道，超文本传输协议,负责传输超文本文件（也就是html文件或者xhtml文件了），可以看做客户端对服务器端说，哥们，我要XXX，服务器端：好的，我找找，马上给你。</p>
-<h2 id="HTTP连接"><a href="#HTTP连接" class="headerlink" title="HTTP连接"></a>HTTP连接</h2><p>在TCP/IP网络模型中，HTTP是属于应用层的协议（同属于这层的还有FTP，SMTP,DNS等），骑在TCP和IP之上的。 那么HTTP是怎样完成数据传输的呢？<br>一次HTTP操作称为一个事务，其工作过程可分为四步：</p>
+        <h2 id="冒泡和捕获"><a href="#冒泡和捕获" class="headerlink" title="冒泡和捕获"></a>冒泡和捕获</h2><h3 id="事件流"><a href="#事件流" class="headerlink" title="事件流"></a>事件流</h3><p>标准的事件流有三部分，捕获阶段—目标阶段—冒泡阶段。<br>捕获阶段，该阶段包括从最高节点（IE下为document，其他可以到window）到目标节点的父节点范围内的所有节点。也就是从上到下。<br>目标阶段，该阶段仅包括目标节点。<br>冒泡阶段。冒泡阶段包括从目标节点的父节点返回到最高节点的行程中遇到的节点。也就是从下到上。</p>
+<h3 id="事件触发"><a href="#事件触发" class="headerlink" title="事件触发"></a>事件触发</h3><p>事件的触发类型基本有两种，冒泡型和捕获型。<br>冒泡型：IE采用的事件类型（IE只支持冒泡），事件按照从最特定的事件目标到最不特定的事件目标(document对象)的顺序触发。<br>捕获型：与冒泡刚好相反，事件按照从最不特定的事件目标（window）到最特定的事件目标的顺序触发。<br>注意：IE和opera的事件传播只有冒泡过程，没有捕获过程，所以IE的事件传播只能是冒泡，其他浏览器则是标准的事件流，可以选择事件的触发是在捕获还是冒泡。</p>
+<h3 id="addEventListener和attachEvent"><a href="#addEventListener和attachEvent" class="headerlink" title="addEventListener和attachEvent"></a>addEventListener和attachEvent</h3><p>addEventListener：W3c标准的事件绑定函数，有三个参数，第一个为事件类型，第二个为执行方法，第三个是一个布尔值，true表示事件在捕获阶段绑定，false表示在冒泡阶段绑定。 attachEvent：IE下采用的事件绑定函数，只有两个参数，第一个为事件类型，第二个为执行方法，所以事件只能在冒泡阶段绑定。</p>
+<h3 id="阻止冒泡"><a href="#阻止冒泡" class="headerlink" title="阻止冒泡"></a>阻止冒泡</h3><p>同样分为IE和其他。<br>在其他浏览器下（W3C标准），event.stopPropagation（）阻止冒泡。<br>注意：jquery下委托是无法阻止，也就是说，live()，delegate(),on()绑定的函数并不是冒泡，无法通过这个函数阻止。 IE下，则是通过设置cancelBubble属性来阻止冒泡，window.event.cancelBubble = true;</p>
+<h3 id="setCapture"><a href="#setCapture" class="headerlink" title="setCapture"></a>setCapture</h3><p>IE下有个setCapture （FF下也有类似的captureEvents(Event.eventType) ）， 通过setCapture,所有的鼠标事件都会触发目标元素的事件，就是说你在任何地方触发鼠标事件，最后都相当于触发目标元素的鼠标事件。 document.getElementById(“btn”).setCapture(); 通过 releaseCapture或者alert释放。</p>
+<h2 id="z-index，元素的堆叠"><a href="#z-index，元素的堆叠" class="headerlink" title="z-index，元素的堆叠"></a>z-index，元素的堆叠</h2><h3 id="正常文档流（没有设置position或者浮动）"><a href="#正常文档流（没有设置position或者浮动）" class="headerlink" title="正常文档流（没有设置position或者浮动）"></a>正常文档流（没有设置position或者浮动）</h3><p>一般情况下（没有设置position或者浮动），正常的文档流是不会产生堆叠现象的，当然并不是不会堆叠，设置负边距的时候，会产生堆叠，此时只有一条规则：</p>
 <blockquote>
-<p>1）首先客户机与服务器需要建立连接。这一步的工作是TCP完成的。<br>2）建立连接后，客户机发送一个请求也就是HTTP请求报文，给服务器，请求方式的格式为：统一资源标识符（URL）、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容。<br>3）服务器接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容。<br>4）客户端接收服务器所返回的信息通过浏览器显示在用户的显示屏上，然后客户机与服务器断开连接。（当然客户端可以选择不断开连接，HTTP1.1默认就是持续连接了）</p>
+<p>位于文档流后面的节点会遮盖前面的节点</p>
 </blockquote>
-<p>打个比喻，有两个地方，一个叫C村，一个叫S村，两个地方要互相交换一下东西，但是两个地方却没有交换信息的渠道，好吧，我，无所不能的神看到了这件事，于是想了想那就先建条道路吧，于是打算发挥神力，在两村之间建造一条叫TCP的路，好吧，但是神发现了一个问题，我现在在C村，C村的位置我知道没问题，但是S村在哪呢？这有什么，我是神耶，掐指一算，地球转起来，经度纬度拿起来，恩，好的，S村的经度是XX（IP地址），纬度是YY（端口号），ok，知道在哪了，那就建吧，啪啦啪啦，建完了。<br>然后呢，哎呀，又出现问题了，S村不知道C村要什么呀，怎么办，这种事不能让我这个神亲自出马吧，刚好C村有一个会骑马的小伙子，叫HTTP。</p>
-<p>我：HTTP，你看这是订单（http报文），你辛苦一下，跑一趟S村，把这个交给他们村长吧，就沿着这条TCP一直跑就行了。</p>
-<p>HTTP：保证完成任务。</p>
-<p>于是HTTP带着订单，骑着白马，开始沿着TCP狂奔，刺溜就到了S村，S村的村长热情的接待了帅气的HTTP小伙，给他介绍S村的菇凉们，HTTP小伙义正言辞的拒绝了，村长看没什么希望，就把订单里的东西准备好，让HTTP带回去，顺带还让他带了一封信给C村的村长，大抵就是，东西已经在今天给你们了，路上丢了不怪我们呀，给个五星好评呀之类的。</p>
-<p>总之，HTTP小伙又出发了，带着从S村带来的货物，返回了C村，收到了C村人民的热情欢迎，HTTP小伙暂时没事了，作为神的我觉得吧，既然你们两个村子暂时没什么东西要送的话，那就把TCP这条路拆了吧，毕竟也花了我不少钱，回收一下还能利用嘛，下次要用在建呗，反正对于神来说就是一瞬间的事嘛。于是，我就把TCP给拆了。想了想，为了表彰HTTP小伙，我为这次的购物行动取名为HTTP1.0.</p>
-<p>后来又发生多次HTTP1.0事件，TCP拆了又建，建了又拆，后来我有点烦了，那个时候我也比较富裕了，所以就把TCP一直放在那里了，那个时候HTTP小伙也老了，负责送货的变成了他的儿子，很荣幸，当初出生的时候是作为神的我为他取的名：HTTP1.1，这小伙子继承了他父亲的事业，在TCP这条路上不停的来回奔跑。</p>
-<h2 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h2><p>上面那个故事里HTTP同学为了准确的拿到需要的货物，从村长那里拿到了货物订单，里面标示了C村需要的货物等信息，当然这个订单有个高大上的名字：http请求。 http请求包括三部分：</p>
+<h3 id="定位元素的堆叠"><a href="#定位元素的堆叠" class="headerlink" title="定位元素的堆叠"></a>定位元素的堆叠</h3><p>明确几点：</p>
 <blockquote>
-<p>1.请求行<br>2.http报头<br>3.请求内容  </p>
+<p>1.z-index只对定位元素有效（relative, absolute 或者 fixed） 。<br>2.这里的堆叠只针对同级元素，也就是属于同一个堆叠上下文的元素。<br>3.向上追溯找不到含有z-index值的父元素的情况下，则可以视为自由的z-index元素，它可以与父元素的同级兄弟定位元素或其他自由的定位元素来比较z-index的值</p>
 </blockquote>
-<p>请求行由三部分组成，第一部分是请求方法，第二部分是URI，第三部分是HTTP版本。 一个标准的请求行：</p>
-<pre><code>GET www.cnblogs.com/index.html HTTP/1.1    
-</code></pre><p>请求方法不少，需要注意这些方法全为大写，比较常见的有以下几种</p>
-<p>GET 请求获取Request-URI所标识的资源，就是我要 我要</p>
-<p>POST 在Request-URI所标识的资源后附加新的数据，可以理解为更新</p>
-<p>PUT 请求服务器存储一个资源，并用Request-URI作为其标识（ps：C村村长对S村村长说，我的东西放不过了，就放你那吧）</p>
-<p>DELETE 请求服务器删除Request-URI所标识的资源 （ps：C村村长：还记得上次放在你那的东西不，我不要了，砸了吧。S村村长：。。。）</p>
-<p>应用举例： GET方法：在浏览器的地址栏中输入网址的方式访问网页时，浏览器采用GET方法向服务器获取资源，eg:GET /form.html HTTP/1.1 (CRLF)</p>
-<p>POST方法要求被请求服务器接受附在请求后面的数据，常用于提交表单。</p>
-<p>请求行标示了我要什么东西，http请求头则附加了许多信息，相当于备注啊，下单时间啊等等信息。 http请求头一般分为三种：</p>
+<p>然后根据以下顺序决定同一层元素的堆叠顺序（从后到前）：</p>
+<p>层的根元素<br>被定位了得元素并且z-index值为负，相同z-index的情况下，按照HTML元素的书写顺序排列，下面相同。<br>没有被定位的元素<br>被定位的元素，并且z-index值为auto（默认状态）<br>被定位了的元素并且z-index值为正。  </p>
+<h3 id="其他影响堆叠的因素"><a href="#其他影响堆叠的因素" class="headerlink" title="其他影响堆叠的因素"></a>其他影响堆叠的因素</h3><p>1.float： 在定位元素的后面，不定位元素的前面。<br>2.opacity:使用了小于1的opacity属性的层，也比普通层更高层次并且和指定 position 的层同层.<br>3.transform:比普通层和float层高，但是比opacity和position层低。</p>
+<p>总的来说<br>层级的顺序简单来说是这样的：</p>
 <blockquote>
-<p>1.普通头(general header) </p>
-<ol>
-<li>请求头(request header)</li>
-<li>实体头(entity header)</li>
-</ol>
+<p>普通元素&lt; float&lt;transform&lt;opacity = 未设定z-index的定位元素&lt;z-index</p>
 </blockquote>
-<p>实体头一般在有实体的时候才用，用来标示实体的信息（post和put中有实体，get一般没有实体）</p>
-<p>下面主要讲请求头包含的信息：<br>Accept<br>Accept请求报头域用于指定客户端接受哪些类型的信息。eg：Accept：image/gif，表明客户端希望接受GIF图象格式的资源；Accept：text/html，表明客户端希望接受html文本。</p>
-<p>Accept-Charset<br>Accept-Charset请求报头域用于指定客户端接受的字符集。eg：Accept-Charset:iso-8859-1,gb2312.如果在请求消息中没有设置这个域，缺省是任何字符集都可以接受。</p>
-<p>Accept-Encoding<br>Accept-Encoding请求报头域类似于Accept，但是它是用于指定可接受的内容编码。eg：Accept-Encoding:gzip.deflate.如果请求消息中没有设置这个域服务器假定客户端对各种内容编码都可以接受。</p>
-<p>Accept-Language<br>Accept-Language请求报头域类似于Accept，但是它是用于指定一种自然语言。eg：Accept-Language:zh-cn.如果请求消息中没有设置这个报头域，服务器假定客户端对各种语言都可以接受。</p>
-<p>Authorization<br>Authorization请求报头域主要用于证明客户端有权查看某个资源。当浏览器访问一个页面时，如果收到服务器的响应代码为401（未授权），可以发送一个包含Authorization请求报头域的请求，要求服务器对其进行验证。</p>
-<p>Host（发送请求时，该报头域是必需的）<br>Host请求报头域主要用于指定被请求资源的Internet主机和端口号，它通常从HTTP URL中提取出来的，eg： 我们在浏览器中输入：<a href="http://www.guet.edu.cn/index.html" target="_blank" rel="external">http://www.guet.edu.cn/index.html</a> 浏览器发送的请求消息中，就会包含Host请求报头域，如下： Host：www.guet.edu.cn 此处使用缺省端口号80，若指定了端口号，则变成：Host：www.guet.edu.cn:指定端口号</p>
-<p>User-Agent<br>User-Agent请求报头域允许客户端将它的操作系统、浏览器和其它属性告诉服务器。 最后一块请求内容吧，一般GET方法是没有的，POST和PUT方法会有，就像之前说的C村村长要追求S村的孙寡妇光送封情书怎么够呢，肯定要偷偷叫HTTP小伙带点东西过去。</p>
-<h2 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h2><p>HTTP小伙吧订单送到了，该S村发货了，很好，根据标准的流程，需要一个发货清单叫HTTP响应，同订单类似，也有三部分。 第一个状态行，表示这次订单的状态啊，比如已发货，缺货，换货中等等状态。</p>
-<pre><code>HTTP/1.1 404 Not Found    
-</code></pre><p>第一部分是HTTP版本，第二部分是响应状态码，第三部分是状态码的描述。 然后就是基本的状态码了：<br>1字头：这一类型的状态码，代表请求已被接受，需要继续处理。（基本不常用）<br>100 Continue 客户端应当继续发送请求</p>
-<p>2字头：代表请求已成功被服务器接收、理解、并接受。<br>200 OK 请求已成功，请求所希望的响应头或数据体将随此响应返回。<br>201 Created 请求已经被实现，而且有一个新的资源已经依据请求的需要而建立，且其 URI 已经随Location 头信息返回。<br>202 Accepted 服务器已接受请求，但尚未处理。</p>
-<p>3字头：代表需要客户端采取进一步的操作才能完成请求。通常，这些状态码用来重定向，后续的请求地址（重定向目标）在本次响应的 Location 域中指明。<br>300 Multiple Choices 被请求的资源有很多，不知道你要哪一个。<br>301 Moved Permanently 被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个 URI 之一。<br>302 Move temporarily 请求的资源临时从不同的 URI响应请求。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。<br>303 See Other 对应当前请求的响应可以在另一个 URI 上被找到，而且客户端应当采用 GET 的方式访问那个资源。<br>304 Not Modified 如果客户端发送了一个带条件的 GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个状态码。<br>305 Use Proxy 被请求的资源必须通过指定的代理才能被访问</p>
-<p>4字头：请求错误<br>400 Bad Request<br>404 Not Found 请求失败，请求所希望得到的资源未被在服务器上发现<br>408 Request Timeout 请求超时<br>5字头： 服务器错误，这类状态码代表了服务器在处理请求的过程中有错误或者异常状态发生<br>500 Internal Server Error 服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。一般来说，这个问题都会在服务器端的源代码出现错误时出现。<br>501 Not Implemented 服务器不支持当前请求所需要的某个功能。当服务器无法识别请求的方法，并且无法支持其对任何资源的请求。<br>502 Bad Gateway 作为网关或者代理工作的服务器尝试执行请求时，从上游服务器接收到无效的响应。<br>503 Service Unavailable 由于临时的服务器维护或者过载，服务器当前无法处理请求。 504 Gateway Timeout 作为网关或者代理工作的服务器尝试执行请求时，未能及时从上游服务器（URI标识出的服务器，例如HTTP、FTP、LDAP）或者辅助服务器（例如DNS）收到响应。</p>
-<p>第二个响应头： 常用的响应报头 Location Location响应报头域用于重定向接受者到一个新的位置。Location响应报头域常用在更换域名的时候。<br>Server Server响应报头域包含了服务器用来处理请求的软件信息。与User-Agent请求报头域是相对应的。 第三个响应内容就是要从S村送到C村的东西了，可以是html，也可以是图片等。</p>
-<p>PS：还有一些常用的报头信息（请求和响应报头都可以有）<br>普通报头信息： Cache-Control 用于指定缓存指令。<br>Date 消息发送的时间<br>Connection普通报头域允许发送指定连接的选项。例如指定连接是连续，或者指定“close”选项，通知服务器，在响应完成后，关闭连接</p>
-<p>实体报头信息：<br>Content-Encoding<br>Content-Encoding实体报头域被用作媒体类型的修饰符，它的值指示了已经被应用到实体正文的附加内容的编码，因而要获得Content-Type报头域中所引用的媒体类型，必须采用相应的解码机制。Content-Encoding这样用于记录文档的压缩方法，eg：Content-Encoding：gzip</p>
-<p>Content-Language Content-Language实体报头域描述了资源所用的自然语言。没有设置该域则认为实体内容将提供给所有的语言阅读<br>者。eg：Content-Language:da</p>
+<h2 id="js异步延迟加载"><a href="#js异步延迟加载" class="headerlink" title="js异步延迟加载"></a>js异步延迟加载</h2><h3 id="正常情况下："><a href="#正常情况下：" class="headerlink" title="正常情况下："></a>正常情况下：</h3><p>浏览器遇到script标签会立即加载并执行指定的脚本，“立即”指的是在渲染该 script 标签之下的文档元素之前，也就是说不等待后续载入的文档元素，读到就加载并执行。同时是同步的也就是说在脚本执行完之前不加载后面的页面。<br>这也是我们为什么把script标签放在body之后的原因。</p>
+<h3 id="异步加载-只对外链的script有效"><a href="#异步加载-只对外链的script有效" class="headerlink" title="异步加载(只对外链的script有效)"></a>异步加载(只对外链的script有效)</h3><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAc0AAAAfCAYAAACFxJaNAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAA5HSURBVHhe7Z29jiM3DID9TtcYfpOkNeCnCJAXcOH2igOuDVK5WSDANWlTpHOTBQKkTJN6D2vsRNTfUBySkubP9q4CLLK7M6IkiuJHUvLepmv/NQ00DTQNNA00DTQNFGlgU/TWLV7659T9+mnT/fr1+Ra9tz6bBsZrwJjszuysw9N4EdUtb9Fn9SBbA1YDE9futOu6E3GTB2N/a5rf6it7Qz68M2g+dd8aaOezX7PrNn7zwcbcneYR/WzkgFy60eeRXiHFOysYi/06VLTVXh3pBCc5uto+F1pbXi1Y0XMpmfYEEyqUvcDcYX9EO6q1JWXtcjbxZKbM7kuYoxnTIOVYYO54Jf7+edN9/vHU/TfTVhLFjILmPHyohOZz9+eP95z9zaOUpdf7YeSjjQdOYa7MCWQ9GdlzQXisPsEh3RzcaPA5Bzl2nmy7hdZWH2MF2KonWyF7wbnPvYaqvMyUAaiDPavM3QLv51x+qjDAg+zb79WLt1IDmQ9lc3fDrICm6/Dzp0P3N57i7wfzO/i9/0qU7hQ8fBYUf/Iysdy0TbIAdlF23Z9fUZ++PztpPA74vjDieTKWuTFhYvhKDM2kRTv0bBe8rP39AZVAnruTqcm5tk/dwTw7GToEmbGd113SZymNQooWQlrs8Q9AIp/CwXNKJNh9oV1pf9IGA+BBhAsioTRkvgfRVqyPmvHWS4ALzyEhgP/TSJhkfnEKGZkWfsrUwXkMskkvU4Mm2w5W18g7gQ6CStE8cMZB3Y80zqSfyqwXL+sge5f06Uw0ZiJVARG1wThJ78GxAgbKFby8KNOMk04QK5W2q8k0/Zolc59i135fc5DT7FOylxKbYKGIfTOXbWrr7qEn+02BAb5PNst8FD5k594rtgyaokA9s5NT9QBGA8B/3A4elFW5qCWMI4B78M4MmWYCQwDhTshGMCQBAgaiEUYATQPh8DM8MwQIpRILzFJwxbXiKEPSFAxKvHvhe64/EhBYwKNxiuEfKvGAaOgW/FfonoWkFwbvhaHQsxjubCaMQZNp/SqAGP4jarLOJzwjE4o+lyljae3sM9SGc16S88RjoZnu1CylRp/i2qoPiBe2CgyK8EaBbH5YSuCgqcnkFiwsJiUCkn0Duw4jza67sI2ltddsosReSt5JtRzAGHyzf5qFimuXZpmPxgdh7sQM89AMkQKbtitZIQdCBACbgWqlAAWa/cLQRRkJTeP1cKa5QRnks88WaaZopwLtvJN4MpleH1i7TLMPivHP8L0E4owrC2Eplx6Ju4MLN8e5zNgK+afQLYamzWK8b7NZGTpYwY49aePiDpsRimc0gkw6dRov5EqwEZ4IrlrpNhvhm7lIzhMnSjTDq3dw6TpSaKr6HGMCanRAgSgBkkQwuYhjkHIhI0gCQSGLrZnnBLvOQROve4ltaPJKnuF3cvbPqShU7qyvVRngWv/3dcdU9h6TD8ncGeXkoQmNslEGVk4o32oA8+/fBTQpxCjwnNYCPNMMMbxr/p9kaDloYqDW7Gr/boAndhoqNOVUC5eeqzJNL5KFJoIGVI0jM+nFG1/epZcVOIjBzENfiUwGUBSa2GFp2sag1AA2JzSTCru/dDXCImwTKVOX9Fndz+rQVLLJwVhmyjTH2DVSZAkQS94pAWNJkFXyTmoHtAron6oMyCUrj8IHYe5ko5RB0zbS69kx2oAzR1tyDQMgZ6AOQe6scyI0bXQT+yuUO/AUKTTdWaMANVJmtVox7x8OB1L91KDp2rCZa40Xo2laro4zJtyUxpOLyK1eDOTgCxGLDhmDcNAVU8biZHIysCrE24W0Q3LGqbWbBZq+mkkzEHGZ/PtaVV8rb7NnyDX2ZrcXLsfSn0dmmlmZKOrCdXjbLgSDIRoTgsPSeY60ayy+BIgl72BoSjaRPYvOnOgM1JJNjngGOD/M+fm0h9Rf3xkfsnPv51IBzR5K/WcngxL7SzhcTTte0IkXczRoDmVCeys3nmlK/Zl38MHziItAO3OjpC+t+rPJeBGIKasOLgS5AEMuz4bn6PJR0fmm95rxRgs5iFNDStK2qD/F0xQ4l+yFIC8eA8j6RPQ1cBbMhaAcNMPzwUUgqk7mJm0yHuSPNWjSOeCzT/qMZsDJvRbq/0dAM6vPUpjg95JyKbZBDZqMsnENXpRpOsaTsLe9kGKSWzQrlGedC7QXwOja4aHQjy/ljg+Sj6qQbZ21Ce5jJczeKlnqshuk9Pas9omKx+FD2dydFiuhWaL6Bd+5wyvNULadnDUuqLJbieayyqljWULm1DHVtK8vldVI589R6yS0t3MauDcbFCsitLKdm9jY5zZJyWeZY8VXtVuJDw2aVavSv8yfcY4U9o6azXZ+hnSyhMxbqHx2aM5cQLiFTh6lz3u2Qa4sP7utPcJCNWg+wiq1MTYNNA00DTQNfCQNPFam+ZFWps21aaBpoGmgaeDuNNCgeXdL0gbUNNA00DTQNHCvGti8vLx07avpoNlAs4FmA80Gmg3kbaBBswUNLWhqNtBsoNlAs4FCG2jQLFRUi8DyEVjTUdNRs4FmA+/dBho0GzRbhNlsoNlAs4FmA4U2cL/QfD52v5i/BPTLl0tbzMLFfO8R3sPM73LttuaK3f68YtZxiz6bXc7jmyat3ffuuH3rjhdsa6/dfnPtzu95fW7Ih3cGzXP322TQno3B7SsM7mKMFv1JvP15no10DwZ/vpo/awebDzZm122P36fNzcrDfyqvdmO7cUQZ+9dp4/HOajZ5Yc1GOcGJjq62z7nXVrXXS3eFKMIqet+9LmLb5+5aKnv2uRO7tNOssE1x7fI2cd4L+xLmuL12F6rr2eeeBoZ//WT+xOkPx+7fRdYY9TUKmnPw4aWrhOal++OHe87+5lBKJTSN1W7eEyixsceN55zC5MwJ5CFncjm+eSgXZmSk/bTMExwSjdALx7GIQ8g7yGnzJXObe22LdFIBtiJ5eE4Vsheb+9xrmJGX2Q8A1MGeVeZugfdTLuhXGOBB9tu3W+4jrW+ZD2Vzd7IroOk6/Pxp3/2FDfrb3vyu/wPqqdKdguPzuCBB8UcvE8tN2yQLYBdl2/3xBfXpZdpJ43HA96URz+VoymkoW0wyTYBo/4wa4cXQZHvkSshyu/N+2x3PqM/tcRgRck7DjPMNpWpvqN9XI/NqZMbnRuZ3JON1j1K8UshLG8z8frt3JUiIZo9mc8KwrG5s1IwzSATcwSanMAYn0WeSQ12/Cdmu3O68N2CE8Qa5Ifq249ShCU6Hy0JFmT4jd21oFu0c4NEGCk5uyNyTfmJCVpKppPPe0PmQTDqpFIwFB7HBayxBO2hdUSkA26cDvgA2UeZLl9itUVrfH9hauh+Ks9i57TruMw5y8rq/KPZSYhMsFNmgF4FEW3cPPdlvCgzwfbJZ5qPwITv3Xodl0BQF6pmdnKoHMBoAPrvNNCirclFLGEcA9+CdMZkmwM1ALJ4J4EwTSq+4VNs/A1im/3A1gDXIkduB8zgbMmwQKOHnfBYHJS4DxuTsol9I61wQKOHn4GDsMw6Ug2AhHZeY2cQSj3Pa4Iwha3ROmYAQHHfILpnIuC8vQTsMmt4BuYw0/RdQekDI7ZyuHdhDmQo7miiXKWPZdkKJTZPpdCY5TyyTZrpTsxR6tsWddU3NAAB6yAYttMLP8AzZGTwjgRsPTU0mGa/tL5R3STsM5LXtOgtNtO6wHwb2Jq29ZhMl9lLyDrWJAMbgm/3zLFRcuzTLfDQ+CHMnCUwemiFSYNN2JSvkQBg79+20UoACzX5h6KKMgOagvIqgyW2+BLAvBhZMpplpVwbJoYP77qP4YQTvIvIkCo+6ps5lquM07SP8UrDFTAbB0WZlAfQaNOn5ooVkmgn2YEZzyLTLRuNGTxGeEZJ66TYvU844+ssZXJZde8aL13IIyTCvyWfRwZbcxJNz5N7uaBbJZZXM71SZYGs43UdnooN2FeVZqfQ71q6z0OSDwT4oXRKa444gQuXO+lqVAc4G//2yZSp7j8mHZO6MreShCY2yUQZWTijfagB7IGhmSqciNJV2Y6EZNlmAJ3ZgOjSFyxdTInILGAGa8ffmOY6qtfIsG4GngBehyV148MaeB1zoA4NSj9DzMkuhiR3amKxAh2awl2FQMDJwWh2aSjapQXNtu75raNYGYrQKWJJp5pKVR+GDMPfqTBNlLOyZJhJoow04c7Ql1zAAcgZq358Hmml/hXJp5GA3WCjBhpuw4Wd3LqmVTvkzTb3dVGhaZ0jKXzI0XRbKZaejL5bkInJfFt2bc89EdwSaaZnTlXp1XXNnmnq7POC8UyBnnOKtxDA39eMkBdCMJW4O2gzU/M1jWT+ZcmxBUJK1h6QcG84UcXkWB2eFmWZWZl8Oduebvo+kVBtu5068mTvWrheFppQpFlzOq13zbHLEn2k6P8z5+dSO75oP2bnXnmmSsmr/2cmgxP4SDlfTjhd04sUcDZpDmdDeyo1nmlJ/qJRQcREIn0/uz+T2LI1aSQYpXgRS2o2Dpj8ziod76fmmBk13ljTiItDYMpaFOr0Q5Mu6+GySZoi01Eqes5lm7AudeQpnmAkUBh9/4T7rJl0EkuBOL+bg81T6bJgBJGe39Dy1GpqZS0LS2uZ+n5RLsQ1q5Vlqu+n5e1qCHdp1ONB+Ox6Tj5XEiou9ILRCeVay6+RCT/hkTbjIRQMo/LNmL85JZ21iliqL66vsBim9Pat9ouJx+FA2d6ensvJsbiOt9fzurzSPLHutpb8V+xEBt+IYspnTqmOZWn7N2dbS8nP9f4zn92bX1Z/TnNvm7XlnPstcZS+uxIcGzbmN6IPLm+387N3pcQGokWw5fwP7Y4BtCQd9v3b9Qf8iEOcfGjTbBl9i8zeZza6aDTQbaDYw3gb+BzewF9RkbmDaAAAAAElFTkSuQmCC"></p>
+<p>1.async<br>能够异步的加载和执行脚本，不因为加载脚本而阻塞页面的加载。一旦加载到就会立刻执行,并且其执行时间一定在 window的load事件触发之前。这意味着多个async脚本很可能不会按其在页面中的出现次序顺序执行，对于有依赖的脚本这个并没有什么用。</p>
+<p>2.defer<br>同样的异步加载脚本，加载与async无太大区别，但是脚本执行在所有元素解析完成之后，DOMContentLoaded 事件触发之前完成。也就是说浏览器确保多个 defer 脚本按其在HTML页面中的出现顺序依次执行。</p>
+<p>tips：基本所有的浏览器都支持defer，但是async属性是html5新加的，IE似乎并不支持。</p>
 
     
 
@@ -513,7 +488,7 @@
 <script>
     $('.btn_click_load').click(function() {  //click to load comments
         var disqus_config = function () {
-            this.page.url = 'http://hughhe.cn/2015/09/12/HTTP小伙的奇妙历险/index.html';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.url = 'http://hughhe.cn/2015/10/05/路上的一点芝麻/index.html';  // Replace PAGE_URL with your page's canonical URL variable
             this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
         };
         (function() { // DON'T EDIT BELOW THIS LINE
@@ -543,7 +518,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2015/10/05/路上的一点芝麻/" id="post_nav-newer" class="prev-content">
+        <a href="/2015/11/19/Hcorner/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -557,7 +532,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/2015/09/11/人工智能？必然还是必然/" id="post_nav-older" class="next-content">
+        <a href="/2015/09/12/HTTP小伙的奇妙历险/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
