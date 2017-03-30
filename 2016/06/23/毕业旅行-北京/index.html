@@ -10,7 +10,7 @@
     
     <title>
         
-            标签: 折角 插件 | 
+            毕业旅行-北京 | 
         
         席小白的边缘世界
     </title>
@@ -27,7 +27,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Hugh">
     <meta name="description" content="席小白的边缘世界">
-    <meta name="keywords" content="null">
+    <meta name="keywords" content="null,北京 旅行">
 
     <!--iOS -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -48,9 +48,9 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://hughhe.cn">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: 折角 插件 | 席小白的边缘世界">
+    <meta property="og:title" content="毕业旅行-北京 | 席小白的边缘世界">
     <meta property="og:description" content="席小白的边缘世界">
-    
+    <meta property="og:article:tag" content="北京 旅行"> 
 
     <!--[if lte IE 9]>
         <link rel="stylesheet" href="/css/ie-blocker.css">
@@ -208,94 +208,330 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
     
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
 
-    <!-- Normal Post -->
-    
-        
-        
-            <!-- Paradox Thumbnail -->
-            <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第一天"><span class="post-toc-number">1.</span> <span class="post-toc-text">第一天</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第二天"><span class="post-toc-number">2.</span> <span class="post-toc-text">第二天</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第三天"><span class="post-toc-number">3.</span> <span class="post-toc-text">第三天</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第四天"><span class="post-toc-number">4.</span> <span class="post-toc-text">第四天</span></a></li></ol>
+
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script>
+    var randomNum = Math.floor(Math.random() * 15 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2015/11/19/Hcorner/">Hcorner</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            hcorner－－－－－－一个jquery折角插件
-hcorner是一个很简单的插件，其实也没有多少功能，为一块div提供一个折角的效果，本来是在个人的博客中想用的效果，就把它做成插件了，作为第一个正式上传到git...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2015/11/19/Hcorner/" target="_self">继续阅读</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Hugh's avatar">
-            </div>
-            <div>
-                <strong>Hugh</strong>
-                <span>11月 19, 2015</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/programming/">开发者</a>
-            </span>
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-        
-        
-        
-    
-
-    
-
-    
-        <script>
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 15 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')')
-
-        locatePost = locatePost.next();
-    }
+    $('.post_thumbnail-random').css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                毕业旅行-北京
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Hugh</strong>
+        <span>6月 23, 2016</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+  <!-- 浏览量 -->
+    <button id="article-functions-looktimes-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons" role="presentation">visibility
+</i>
+        
+    </button>
+    <span id="busuanzi_container_site_uv">
+    <span id="busuanzi_value_site_uv" style="margin-right:10px"></span>
+</span>
+
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/北京-旅行/">北京 旅行</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=毕业旅行-北京&url=http://hughhe.cn//2016/06/23/毕业旅行-北京/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://hughhe.cn//2016/06/23/毕业旅行-北京/index.html&title=毕业旅行-北京" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=席小白的边缘世界&title=毕业旅行-北京&summary=席小白的边缘世界&pics=http://hughhe.cn/img/favicon.png&url=http://hughhe.cn/2016/06/23/毕业旅行-北京/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>毕业的最后几天，秉持着不利用就是浪费的原则，趁着这个学生的身份还能为本人谋点福利，开始了与女朋友的毕业旅行，目的地由初始的日本，变为云南，又改为西安，最终成为北京四日游。</p>
+<h3 id="第一天"><a href="#第一天" class="headerlink" title="第一天"></a>第一天</h3><p><strong>时间</strong>： 6月17日<br><strong>旅游路线</strong>： 王府井 天安门 故宫 景山公园 南锣鼓巷  </p>
+<p>第一天的旅程从传说中的北京烤鸭开始，由于大学养成的习惯，在北京的第一天，睁开眼已经是十点多的早晨了，遂决定先去吃顿午餐然后开始今天的行程。来到北京，怎能不去吃北京烤鸭呢，全聚德，老董烤鸭，便宜坊，四季民福，点开大众点评一看，着烤鸭的价格真是。。。捂紧钱包，最终还是选择了全聚德（才不是因为点评上全聚德的人均要比老董低呢）。</p>
+<p>来到全聚德，说真的，看起来挺豪华的，不过烤鸭真的不咋的，吃的有点腻，还要收10%的服务费，真是<em> </em> *，我的钱包呀。</p>
+<p>吃完午饭，开始了今天的行程，今天主要是参观故宫，说真的，故宫并没有让我有太多的震撼，无法进去参观，里面的一些展览还要另买票，大还真是好大，走了好久，体会到的却只是累，有点令人失望。  </p>
+<p><img src="http://7narx2.com1.z0.glb.clouddn.com/beijingP60617-152742.jpg" width="100%"></p>
+<p><img src="http://7narx2.com1.z0.glb.clouddn.com/beijingP60617-152921.jpg" width="100%"></p>
+<p>除去参观故宫和在南锣鼓巷吃东西以外，今天的主要感受却是北京的地铁换乘好麻烦，从这条线换到另一条线要走好久，还有天杀的起步价，一站路都要3块钱。</p>
+<h3 id="第二天"><a href="#第二天" class="headerlink" title="第二天"></a>第二天</h3><p><strong>时间</strong>：6月18号<br><strong>旅游路线</strong>： 北京大学 清华大学 圆明园  </p>
+<p>照例的早晨睡觉，下午闲逛，吃完早餐去我在北京工作的同学家里看了一下，北京上海同病相怜呀，出同学家的时候碰见了以为老爷爷，竟然是在故宫工作的，本来可以免费带我们进去参观的，/(ㄒoㄒ)/~~，我可怜的20块钱呀，果然熟人好办事。</p>
+<p>下午的目的地是北大清华圆明园，北大清华没进去，被拦在外面了，说是考试周不让参观，气死我了，北大清华了不起呀，都是学校嘛，我皇家大理工。。也差不多嘛。</p>
+<p>然后去了圆明园，圆明园还真大呀，一天只逛了一半，不过圆明园也只剩下一半了，西洋楼只剩石头了，其他更是只有一块牌子介绍这里本来多么美丽，多么漂亮，与其说是参观圆明园，不过是让我们自己想象。<br><img src="http://7narx2.com1.z0.glb.clouddn.com/beijingP60618-163356.jpg" width="100%"></p>
+<p>以前在书上看到圆明园遗址的时候还是挺震撼的，一直想要去看一下，然而真正看到被围在圈子里的那些废墟时，去没有想象中的那种感触，毕竟只是伪文艺青年，没有那么多多愁善感，却也感受不到一个人站在废墟旁的孤寂了。<br><img src="http://7narx2.com1.z0.glb.clouddn.com/beijingP60618-163704.jpg" width="100%"></p>
+<h3 id="第三天"><a href="#第三天" class="headerlink" title="第三天"></a>第三天</h3><p><strong>时间</strong>：6月19号<br><strong>旅游路线</strong>： 长城  </p>
+<p>今天的感受只有两个字：好累。<br><img src="http://7narx2.com1.z0.glb.clouddn.com/beijingP60619-150308.jpg" width="100%"></p>
+<p><img src="http://7narx2.com1.z0.glb.clouddn.com/beijingP60619-153849.jpg" width="100%"></p>
+<h3 id="第四天"><a href="#第四天" class="headerlink" title="第四天"></a>第四天</h3><p><strong>时间</strong>：6月20号<br><strong>旅游路线</strong>： 雍和宫 地坛 簋街 鸟巢 水立方  </p>
+<p>只能感慨时运不济，命途多舛，地坛文物维护，天气又阴沉的，鸟巢水立方也没有想象中的那种绚烂，阴沉的天气下，显得，水立方也那么暗淡。</p>
+<p><img src="http://7narx2.com1.z0.glb.clouddn.com/beijingP60620-192249.jpg" width="100%"><br><img src="http://7narx2.com1.z0.glb.clouddn.com/beijingP60620-195842.jpg" width="100%"></p>
+<p>值得一说的是去吃了簋街的三兄弟，老北京涮羊肉，确实还不错，对面坐了一桌老北京的人，大肚子，光头，大金链，一口北京话，来来往往的好多都是熟客，也终于免费喝了一瓶传说中的北冰洋，南方孩子从来没见过的碳酸饮料，味道一般。</p>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+
+
+
+
+    <!-- 使用 DISQUS_CLICK -->
+    <div id="disqus-comment">	
+        <div id="disqus_thread"></div>
+<!-- include js -->
+<script src="/js/ripple.js"></script>
+
+<!-- add animation -->
+<style>
+        .ripple-container {
+        }
+        .ripple-container .ripple{
+            background-color: rgba(255,255,255,0.4);
+            animation: ripple 2s forwards cubic-bezier(0, 0, 0.2, 1);
+        }
+        @keyframes ripple {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            80% {
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+		.disqus_click_btn {
+            background-color: dodgerblue;
+            color: white;
+            padding: 10px 20px;
+            border:0;
+            font-size: 14px;
+            cursor: pointer
+        }
+</style>
+	
+<!-- add data-ripple attribute -->
+<div class="btn_click_load"> 
+    <button class="disqus_click_btn" data-ripple>阅读评论 「请确保 disq.us &amp; disquscdn.com &amp; disqus.com 可以正常加载」</button>
+</div>
+	
+<script>
+    // add effect to elements
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ripple]'), function(element){
+        // find all elements and attach effect
+        new RippleEffect(element); // element is instance of javascript element node
+    });
+</script>
+
+<script>
+    $('.btn_click_load').click(function() {  //click to load comments
+        var disqus_config = function () {
+            this.page.url = 'http://hughhe.cn/2016/06/23/毕业旅行-北京/index.html';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//hughhe.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+  	
+
+    </div>
+    <style>
+        #disqus-comment{
+            background-color: #eee;
+            padding: 2pc;
+        }
+    </style>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2016/06/01/老谢（一）/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -483,6 +719,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 
