@@ -213,261 +213,57 @@
 
 <!-- Layouts -->
 
-    <!-- Post Module -->
-    <div class="material-post_container">
-
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-    <!-- Paradox Post Header -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script>
-    var randomNum = Math.floor(Math.random() * 15 + 1);
-
-    $('.post_thumbnail-random').css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
-</script>
-
-        
-    
-            <p class="article-headline-p">
-                标签墙
-            </p>
-        </div>
-
-
-
-
-
-                
-                    <!-- Paradox Post Info -->
-                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>Hugh</strong>
-        <span>3月 26, 2017</span>
-    </div>
-
-    <div class="section-spacer"></div>
-
-    <!-- Favorite -->
-    <!--
-        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-            <i class="material-icons" role="presentation">favorite</i>
-            <span class="visuallyhidden">favorites</span>
-        </button>
-    -->
-
-    <!-- Qrcode -->
-    
-  <!-- 浏览量 -->
-    <button id="article-functions-looktimes-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-upgraded=",MaterialButton,MaterialRipple">
-        <i class="material-icons" role="presentation">visibility
-</i>
-        
-    </button>
-    <span id="busuanzi_container_site_uv">
-    <span id="busuanzi_value_site_uv" style="margin-right:10px"></span>
-</span>
-
-
-    <!-- Tags (bookmark) -->
-    
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        
-    </ul>
-    
-
-    <!-- Share -->
-    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-    
-
-    
-        
-            <!-- Busuanzi Views -->
-            <a class="post_share-link" href="#">
-                <li class="mdl-menu__item">
-                    <span id="busuanzi_container_page_pv">
-                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
-                    </span>
-                </li>
-            </a>
-        
-    
-
-    <!-- Share Weibo -->
-    
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=标签墙&url=http://hughhe.cn//tags/index.html&pic=&searchPic=false&style=simple" target="_blank">
-            <li class="mdl-menu__item">
-                分享到微博
-            </li>
-        </a>
-    
-
-    <!-- Share Twitter -->
-    
-
-    <!-- Share Facebook -->
-    
-
-    <!-- Share Google+ -->
-    
-
-    <!-- Share LinkedIn -->
-    
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://hughhe.cn//tags/index.html&title=标签墙" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 LinkedIn
-            </li>
-        </a>
-    
-
-    <!-- Share QQ -->
-    
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=席小白的边缘世界&title=标签墙&summary=席小白的边缘世界&pics=http://hughhe.cn/img/favicon.png&url=http://hughhe.cn/tags/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 QQ
-            </li>
-        </a>
-    
-
-    <!-- Share Telegram -->
-    
-</ul>
-
-</div>
-
-                
-
-                <!-- Post Content -->
-                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-    
-        
-    
-
-    
-</div>
-
-
-                
-
-                <!-- Post Comments -->
-                
-                    
-
-
-
-
-    <!-- 使用 DISQUS_CLICK -->
-    <div id="disqus-comment">	
-        <div id="disqus_thread"></div>
-<!-- include js -->
-<script src="/js/ripple.js"></script>
-
-<!-- add animation -->
-<style>
-        .ripple-container {
-        }
-        .ripple-container .ripple{
-            background-color: rgba(255,255,255,0.4);
-            animation: ripple 2s forwards cubic-bezier(0, 0, 0.2, 1);
-        }
-        @keyframes ripple {
-            0% {
-                transform: scale(0);
-                opacity: 1;
-            }
-            80% {
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-		.disqus_click_btn {
-            background-color: dodgerblue;
-            color: white;
-            padding: 10px 20px;
-            border:0;
-            font-size: 14px;
-            cursor: pointer
-        }
-</style>
-	
-<!-- add data-ripple attribute -->
-<div class="btn_click_load"> 
-    <button class="disqus_click_btn" data-ripple>阅读评论 「请确保 disq.us &amp; disquscdn.com &amp; disqus.com 可以正常加载」</button>
-</div>
-	
-<script>
-    // add effect to elements
-    Array.prototype.forEach.call(document.querySelectorAll('[data-ripple]'), function(element){
-        // find all elements and attach effect
-        new RippleEffect(element); // element is instance of javascript element node
-    });
-</script>
-
-<script>
-    $('.btn_click_load').click(function() {  //click to load comments
-        var disqus_config = function () {
-            this.page.url = 'http://hughhe.cn/tags/index.html';  // Replace PAGE_URL with your page's canonical URL variable
-            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-        };
-        (function() { // DON'T EDIT BELOW THIS LINE
-            var d = document;
-            var s = d.createElement('script');
-            s.src = '//hughhe.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', + new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-        $('.btn_click_load').css('display','none');
-    });
-</script>
-  	
-
-    </div>
+    <!-- Tags Cloud -->
     <style>
-        #disqus-comment{
-            background-color: #eee;
-            padding: 2pc;
+    #bottom{
+        position: relative;
+    }
+
+    @media screen and (max-width: 480px) {
+        .material-tagscloud{
+            margin: 6em 2em 0;
         }
-    </style>
+    }
 
-                
-            </div>
+    .material-tagscloud a{
+        text-decoration:none;
+        padding: 1px 9px;
+        margin: 9px 1px;
+        line-height: 40px;
+        white-space: nowrap;
+        transition: .6s;
+        opacity: .85;
+    }
 
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    <!-- Prev Nav -->
-    
+    .material-tagscloud a:hover{
+        transition: .6s;
+        opacity: 1;
+        background: #FAFAFA;
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+    }
+</style>
 
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
-
-    <!-- Next Nav -->
-    
-</nav>
-
-        </div>
+<div class=" material-tagscloud">
+    <div class="material-post mdl-grid">
+        <a href="/tags/ES6/" style="font-size: 16px; color: #757575">ES6</a> <a href="/tags/HTTP/" style="font-size: 16px; color: #757575">HTTP</a> <a href="/tags/IE-移动端-javascript/" style="font-size: 16px; color: #757575">IE 移动端 javascript</a> <a href="/tags/IOS-H5-javascript/" style="font-size: 16px; color: #757575">IOS H5 javascript</a> <a href="/tags/css-堆叠/" style="font-size: 16px; color: #757575">css 堆叠</a> <a href="/tags/error-前端-javascript/" style="font-size: 16px; color: #757575">error 前端 javascript</a> <a href="/tags/flex/" style="font-size: 16px; color: #757575">flex</a> <a href="/tags/javascript-跨域/" style="font-size: 16px; color: #757575">javascript 跨域</a> <a href="/tags/上海-吃货/" style="font-size: 35px; color: #212121">上海 吃货</a> <a href="/tags/人工智能/" style="font-size: 16px; color: #757575">人工智能</a> <a href="/tags/便当-动漫/" style="font-size: 16px; color: #757575">便当 动漫</a> <a href="/tags/冒泡-堆叠/" style="font-size: 16px; color: #757575">冒泡 堆叠</a> <a href="/tags/北京-旅行/" style="font-size: 16px; color: #757575">北京 旅行</a> <a href="/tags/坂本-装逼/" style="font-size: 16px; color: #757575">坂本 装逼</a> <a href="/tags/字诀-梅/" style="font-size: 16px; color: #757575">字诀 梅</a> <a href="/tags/工作-总结/" style="font-size: 16px; color: #757575">工作 总结</a> <a href="/tags/异步-javascript/" style="font-size: 16px; color: #757575">异步 javascript</a> <a href="/tags/微能力者/" style="font-size: 16px; color: #757575">微能力者</a> <a href="/tags/悟空/" style="font-size: 16px; color: #757575">悟空</a> <a href="/tags/情人节/" style="font-size: 16px; color: #757575">情人节</a> <a href="/tags/情人节-单身/" style="font-size: 16px; color: #757575">情人节 单身</a> <a href="/tags/折角-插件/" style="font-size: 16px; color: #757575">折角 插件</a> <a href="/tags/晚安世界-故事/" style="font-size: 16px; color: #757575">晚安世界 故事</a> <a href="/tags/百度/" style="font-size: 16px; color: #757575">百度</a> <a href="/tags/百度-推广-屏蔽/" style="font-size: 16px; color: #757575">百度 推广 屏蔽</a> <a href="/tags/纸模/" style="font-size: 16px; color: #757575">纸模</a> <a href="/tags/组件/" style="font-size: 16px; color: #757575">组件</a> <a href="/tags/组件-vue/" style="font-size: 16px; color: #757575">组件 vue</a> <a href="/tags/老谢-侠/" style="font-size: 16px; color: #757575">老谢 侠</a>
     </div>
+</div>
+
+
+<script>
+    var adjustFooter = function() {
+        if( ($('#bottom').offset().top + $('#bottom').outerHeight() ) < $(window).height() ) {
+            var footerBottom = $(window).height() - $('#bottom').outerHeight() - $('#bottom').offset().top;
+            $('#bottom').css('bottom', '-' + footerBottom + 'px');
+        }
+    };
+
+    $(document).ready(function() {
+        adjustFooter();
+    });
+</script>
+
+
 
 
 
