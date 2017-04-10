@@ -1,0 +1,279 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>HTTP小伙的奇妙历险</title>
+
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/css/reveal.min.css">
+        
+        <!-- theme -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            var theme ='black';
+            switch (theme){
+                case 'black':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/black.min.css';
+                    break;
+                case 'beige':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/beige.min.css';
+                    break;
+                case 'blood':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/blood.min.css';
+                    break;
+                case 'league':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/league.min.css';
+                    break;
+                case 'moon':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/moon.min.css';
+                    break;
+                case 'night':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/night.min.css';
+                    break;
+                case 'serif':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/serif.min.css';
+                    break;
+                case 'sky':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/sky.min.css';
+                    break;
+                case 'solarized':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/solarized.min.css';
+                    break;
+                case 'white':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/white.min.css';
+                    break;
+                default:
+            }
+            
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/lib/css/zenburn.min.css">
+        <!--<link href="https://cdn.bootcss.com/reveal.js/3.4.1/css/print/pdf.min.css" rel="stylesheet">-->
+        <link href="https://cdn.bootcss.com/reveal.js/3.4.1/css/print/paper.min.css" rel="stylesheet">
+        <!-- Printing and PDF exports -->
+        
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown
+                         data-separator="^\n"
+                         data-separator-vertical="^\n"
+                         data-separator-notes="^Note:">
+  <script type="text/template">
+      
+
+HTTP大家都知道，超文本传输协议,负责传输超文本文件（也就是html文件或者xhtml文件了），可以看做客户端对服务器端说，哥们，我要XXX，服务器端：好的，我找找，马上给你。
+
+## HTTP连接
+在TCP/IP网络模型中，HTTP是属于应用层的协议（同属于这层的还有FTP，SMTP,DNS等），骑在TCP和IP之上的。 那么HTTP是怎样完成数据传输的呢？
+一次HTTP操作称为一个事务，其工作过程可分为四步：
+
+>1）首先客户机与服务器需要建立连接。这一步的工作是TCP完成的。  
+2）建立连接后，客户机发送一个请求也就是HTTP请求报文，给服务器，请求方式的格式为：统一资源标识符（URL）、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容。
+3）服务器接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容。
+4）客户端接收服务器所返回的信息通过浏览器显示在用户的显示屏上，然后客户机与服务器断开连接。（当然客户端可以选择不断开连接，HTTP1.1默认就是持续连接了）
+
+
+打个比喻，有两个地方，一个叫C村，一个叫S村，两个地方要互相交换一下东西，但是两个地方却没有交换信息的渠道，好吧，我，无所不能的神看到了这件事，于是想了想那就先建条道路吧，于是打算发挥神力，在两村之间建造一条叫TCP的路，好吧，但是神发现了一个问题，我现在在C村，C村的位置我知道没问题，但是S村在哪呢？这有什么，我是神耶，掐指一算，地球转起来，经度纬度拿起来，恩，好的，S村的经度是XX（IP地址），纬度是YY（端口号），ok，知道在哪了，那就建吧，啪啦啪啦，建完了。
+然后呢，哎呀，又出现问题了，S村不知道C村要什么呀，怎么办，这种事不能让我这个神亲自出马吧，刚好C村有一个会骑马的小伙子，叫HTTP。
+
+我：HTTP，你看这是订单（http报文），你辛苦一下，跑一趟S村，把这个交给他们村长吧，就沿着这条TCP一直跑就行了。
+
+HTTP：保证完成任务。
+
+于是HTTP带着订单，骑着白马，开始沿着TCP狂奔，刺溜就到了S村，S村的村长热情的接待了帅气的HTTP小伙，给他介绍S村的菇凉们，HTTP小伙义正言辞的拒绝了，村长看没什么希望，就把订单里的东西准备好，让HTTP带回去，顺带还让他带了一封信给C村的村长，大抵就是，东西已经在今天给你们了，路上丢了不怪我们呀，给个五星好评呀之类的。
+
+总之，HTTP小伙又出发了，带着从S村带来的货物，返回了C村，收到了C村人民的热情欢迎，HTTP小伙暂时没事了，作为神的我觉得吧，既然你们两个村子暂时没什么东西要送的话，那就把TCP这条路拆了吧，毕竟也花了我不少钱，回收一下还能利用嘛，下次要用在建呗，反正对于神来说就是一瞬间的事嘛。于是，我就把TCP给拆了。想了想，为了表彰HTTP小伙，我为这次的购物行动取名为HTTP1.0.
+
+后来又发生多次HTTP1.0事件，TCP拆了又建，建了又拆，后来我有点烦了，那个时候我也比较富裕了，所以就把TCP一直放在那里了，那个时候HTTP小伙也老了，负责送货的变成了他的儿子，很荣幸，当初出生的时候是作为神的我为他取的名：HTTP1.1，这小伙子继承了他父亲的事业，在TCP这条路上不停的来回奔跑。
+
+## HTTP请求
+上面那个故事里HTTP同学为了准确的拿到需要的货物，从村长那里拿到了货物订单，里面标示了C村需要的货物等信息，当然这个订单有个高大上的名字：http请求。 http请求包括三部分：
+>1.请求行
+2.http报头
+3.请求内容  
+
+请求行由三部分组成，第一部分是请求方法，第二部分是URI，第三部分是HTTP版本。 一个标准的请求行：
+
+    GET www.cnblogs.com/index.html HTTP/1.1    
+
+请求方法不少，需要注意这些方法全为大写，比较常见的有以下几种
+
+GET 请求获取Request-URI所标识的资源，就是我要 我要
+
+POST 在Request-URI所标识的资源后附加新的数据，可以理解为更新
+
+PUT 请求服务器存储一个资源，并用Request-URI作为其标识（ps：C村村长对S村村长说，我的东西放不过了，就放你那吧）
+
+DELETE 请求服务器删除Request-URI所标识的资源 （ps：C村村长：还记得上次放在你那的东西不，我不要了，砸了吧。S村村长：。。。）
+
+应用举例： GET方法：在浏览器的地址栏中输入网址的方式访问网页时，浏览器采用GET方法向服务器获取资源，eg:GET /form.html HTTP/1.1 (CRLF)
+
+POST方法要求被请求服务器接受附在请求后面的数据，常用于提交表单。
+
+请求行标示了我要什么东西，http请求头则附加了许多信息，相当于备注啊，下单时间啊等等信息。 http请求头一般分为三种：
+
+>1.普通头(general header) 
+2. 请求头(request header)
+3. 实体头(entity header)
+
+实体头一般在有实体的时候才用，用来标示实体的信息（post和put中有实体，get一般没有实体）
+
+下面主要讲请求头包含的信息：
+Accept
+Accept请求报头域用于指定客户端接受哪些类型的信息。eg：Accept：image/gif，表明客户端希望接受GIF图象格式的资源；Accept：text/html，表明客户端希望接受html文本。
+
+Accept-Charset
+Accept-Charset请求报头域用于指定客户端接受的字符集。eg：Accept-Charset:iso-8859-1,gb2312.如果在请求消息中没有设置这个域，缺省是任何字符集都可以接受。
+
+Accept-Encoding
+Accept-Encoding请求报头域类似于Accept，但是它是用于指定可接受的内容编码。eg：Accept-Encoding:gzip.deflate.如果请求消息中没有设置这个域服务器假定客户端对各种内容编码都可以接受。
+
+Accept-Language
+Accept-Language请求报头域类似于Accept，但是它是用于指定一种自然语言。eg：Accept-Language:zh-cn.如果请求消息中没有设置这个报头域，服务器假定客户端对各种语言都可以接受。
+
+Authorization
+Authorization请求报头域主要用于证明客户端有权查看某个资源。当浏览器访问一个页面时，如果收到服务器的响应代码为401（未授权），可以发送一个包含Authorization请求报头域的请求，要求服务器对其进行验证。
+
+Host（发送请求时，该报头域是必需的）
+Host请求报头域主要用于指定被请求资源的Internet主机和端口号，它通常从HTTP URL中提取出来的，eg： 我们在浏览器中输入：http://www.guet.edu.cn/index.html 浏览器发送的请求消息中，就会包含Host请求报头域，如下： Host：www.guet.edu.cn 此处使用缺省端口号80，若指定了端口号，则变成：Host：www.guet.edu.cn:指定端口号
+
+User-Agent
+User-Agent请求报头域允许客户端将它的操作系统、浏览器和其它属性告诉服务器。 最后一块请求内容吧，一般GET方法是没有的，POST和PUT方法会有，就像之前说的C村村长要追求S村的孙寡妇光送封情书怎么够呢，肯定要偷偷叫HTTP小伙带点东西过去。
+
+## HTTP响应
+HTTP小伙吧订单送到了，该S村发货了，很好，根据标准的流程，需要一个发货清单叫HTTP响应，同订单类似，也有三部分。 第一个状态行，表示这次订单的状态啊，比如已发货，缺货，换货中等等状态。
+
+    HTTP/1.1 404 Not Found    
+第一部分是HTTP版本，第二部分是响应状态码，第三部分是状态码的描述。 然后就是基本的状态码了：
+1字头：这一类型的状态码，代表请求已被接受，需要继续处理。（基本不常用）
+100 Continue 客户端应当继续发送请求
+
+2字头：代表请求已成功被服务器接收、理解、并接受。
+200 OK 请求已成功，请求所希望的响应头或数据体将随此响应返回。
+201 Created 请求已经被实现，而且有一个新的资源已经依据请求的需要而建立，且其 URI 已经随Location 头信息返回。
+202 Accepted 服务器已接受请求，但尚未处理。
+
+3字头：代表需要客户端采取进一步的操作才能完成请求。通常，这些状态码用来重定向，后续的请求地址（重定向目标）在本次响应的 Location 域中指明。 
+300 Multiple Choices 被请求的资源有很多，不知道你要哪一个。
+301 Moved Permanently 被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个 URI 之一。
+302 Move temporarily 请求的资源临时从不同的 URI响应请求。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。
+303 See Other 对应当前请求的响应可以在另一个 URI 上被找到，而且客户端应当采用 GET 的方式访问那个资源。
+304 Not Modified 如果客户端发送了一个带条件的 GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个状态码。
+305 Use Proxy 被请求的资源必须通过指定的代理才能被访问
+
+4字头：请求错误
+400 Bad Request
+404 Not Found 请求失败，请求所希望得到的资源未被在服务器上发现
+408 Request Timeout 请求超时
+5字头： 服务器错误，这类状态码代表了服务器在处理请求的过程中有错误或者异常状态发生
+500 Internal Server Error 服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。一般来说，这个问题都会在服务器端的源代码出现错误时出现。
+501 Not Implemented 服务器不支持当前请求所需要的某个功能。当服务器无法识别请求的方法，并且无法支持其对任何资源的请求。
+502 Bad Gateway 作为网关或者代理工作的服务器尝试执行请求时，从上游服务器接收到无效的响应。
+503 Service Unavailable 由于临时的服务器维护或者过载，服务器当前无法处理请求。 504 Gateway Timeout 作为网关或者代理工作的服务器尝试执行请求时，未能及时从上游服务器（URI标识出的服务器，例如HTTP、FTP、LDAP）或者辅助服务器（例如DNS）收到响应。
+
+第二个响应头： 常用的响应报头 Location Location响应报头域用于重定向接受者到一个新的位置。Location响应报头域常用在更换域名的时候。
+Server Server响应报头域包含了服务器用来处理请求的软件信息。与User-Agent请求报头域是相对应的。 第三个响应内容就是要从S村送到C村的东西了，可以是html，也可以是图片等。
+
+PS：还有一些常用的报头信息（请求和响应报头都可以有）
+普通报头信息： Cache-Control 用于指定缓存指令。 
+Date 消息发送的时间
+Connection普通报头域允许发送指定连接的选项。例如指定连接是连续，或者指定“close”选项，通知服务器，在响应完成后，关闭连接
+
+实体报头信息：
+Content-Encoding
+Content-Encoding实体报头域被用作媒体类型的修饰符，它的值指示了已经被应用到实体正文的附加内容的编码，因而要获得Content-Type报头域中所引用的媒体类型，必须采用相应的解码机制。Content-Encoding这样用于记录文档的压缩方法，eg：Content-Encoding：gzip
+
+Content-Language Content-Language实体报头域描述了资源所用的自然语言。没有设置该域则认为实体内容将提供给所有的语言阅读
+者。eg：Content-Language:da
+
+  </script>
+</section>
+            </div>
+        </div>
+
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/lib/js/head.min.js"></script>
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/js/reveal.min.js"></script>
+
+        <script>
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+ // 是否在右下角展示控制条
+  controls: true,
+  // 是否显示演示的进度条
+  progress: true,
+  // 是否显示当前幻灯片的页数编号，也可以使用代码 “slideNumber: 'c/t'” ，表示当前页/总页数。
+  slideNumber: false,
+  // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  history: false,
+  // 是否启用键盘快捷键来导航
+  keyboard: true,
+  // 是否启用幻灯片的概览模式，可使用 "Esc" 或 "o" 键来切换概览模式
+  overview: true,
+  // 是否将幻灯片垂直居中
+  center: true,
+  // 是否在触屏设备上启用触摸滑动切换
+  touch: true,
+  // 是否循环演示
+  loop: false,
+  // 是否将演示的方向变成 RTL，即从右往左
+  rtl: false,
+  // 是否每次演示的时候，随机幻灯片的顺序
+  shuffle: false,
+  // 全局开启和关闭碎片。
+  fragments: true,
+  // 标识演示文稿是否在嵌入模式中运行，即包含在屏幕的有限部分中的
+  embedded: false,
+  // 标识当问号键被点击的时候是否应该显示一个帮助的覆盖层
+  help: true,
+  // 标识演讲者备注标志是否让所有观看者可见
+  showNotes: false,
+  // 两个幻灯片之间自动切换的时间间隔（毫秒）
+  // 当设置成 0 的时候则禁止自动切换
+  // 该值可以被幻灯片上的 “data-autoslide” 属性覆盖
+  autoSlide: 0,
+  // 当遇到用户输入的时候停止自动切换
+  autoSlideStoppable: true,
+  // 当自动滑动时，使用此方法进行导航。
+  autoSlideMethod: Reveal.navigateNext,
+  // 是否启用通过鼠标滚轮来导航幻灯片
+  mouseWheel: false,
+  // 是否在移动设备上隐藏地址栏
+  hideAddressBar: true,
+  // 是否在一个弹出的 iframe 中打开幻灯片中的链接
+  previewLinks: false,
+  // 切换过渡效果
+  transition: 'default', // none/fade/slide/convex/concave/zoom
+  // 过渡速度
+  transitionSpeed: 'default', // default/fast/slow
+  // 全屏幻灯片背景的过渡效果
+  backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+  // 加载除当前可见的幻灯片之外的幻灯片数量
+  viewDistance: 3,
+  // 视差背景图片
+  parallaxBackgroundImage: '',
+  // e.g. 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'
+  // 视差背景尺寸
+  parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+  // 移动视差背景（水平和垂直）滑动变化的数量, 例如 100
+  // - 除了指定自动计算
+  // - 设置为 0 时，禁止沿轴运动
+  parallaxBackgroundHorizontal: null,
+  parallaxBackgroundVertical: null,
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/marked.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/markdown.min.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/notes/notes.min.js', async: true },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
+</html>
