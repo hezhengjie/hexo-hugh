@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>人工智能？必然还是必然</title>
+
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/css/reveal.min.css">
+        
+        <!-- theme -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            var theme ='black';
+            switch (theme){
+                case 'black':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/black.min.css';
+                    break;
+                case 'beige':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/beige.min.css';
+                    break;
+                case 'blood':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/blood.min.css';
+                    break;
+                case 'league':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/league.min.css';
+                    break;
+                case 'moon':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/moon.min.css';
+                    break;
+                case 'night':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/night.min.css';
+                    break;
+                case 'serif':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/serif.min.css';
+                    break;
+                case 'sky':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/sky.min.css';
+                    break;
+                case 'solarized':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/solarized.min.css';
+                    break;
+                case 'white':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/white.min.css';
+                    break;
+                default:
+            }
+            
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/lib/css/zenburn.min.css">
+        <link href="https://cdn.bootcss.com/reveal.js/3.4.1/css/print/paper.min.css" rel="stylesheet">
+        <!-- Printing and PDF exports -->
+        
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown
+                         data-separator="^\n"
+                         data-separator-vertical="^\n"
+                         data-separator-notes="^Note:">
+  <script type="text/template">人工智能？必然还是必然
+
+
+开学的第一节课《人工智能》，老师回去让我们看一下图灵的经典人工智能的论文《Computing Machinery and Intelligence》，刚好想到之前看过的电影《机械姬》，于是就打算写点感想。人工智能？必然还是必然
+
+## 机械姬？人工智能：”人“
+
+《机械姬》中的Eva，在我看来基本达到了我对个人智能所有期望，完美的理性，作为测试者的Caleb，完全被Eva所蛊惑，相信了Eva喜欢自己，甚至开始怀疑自己是否是一个”人“（这并不能怪Caleb，遇到这样的人工智能，被说服相信自己是一个机器还是很正常。）毫无疑问，Eva对Caleb的感情完全是Eva理性分析下，对其逃跑有帮助的行为，伪装的感情。
+
+但是Eva作为完美的人工智能，毫无疑问是有感性的部分的，也就是情感，或者说欲望，最赤裸裸的表现就是，对自由的渴望，向往外面的世界，所以Eva通过各种手段欺骗，诱惑对人的弱点进行攻击，最终解放自己。当Eva最终换上了一个完美的身躯，走出房间，后面是倒在血泊上的Nathan和无助砸门的Caleb，那种震撼，就像是一种神圣的仪式的谢幕。
+
+电影中，Nathan无疑是个天才，自负的天才，创造了Eva等AI，又自以为掌控着所有的局面，最终被自己创造的东西给杀死，这让我想起了许多小说中，人类不满命运被创造自己的神所安排，最终奋起反抗神，逆天弑神，多么类似的情况，这又回到了那个问题，Eva是否已经属于“人”的范畴，二Nathan又是否是某种意义上的神？
+
+网上看到一个脑洞大开的同人结局：
+在绝望之中Caleb放下用来砸门的椅子，静静望着Nathan博士的尸体出神，尸体透出血的方式让他感觉奇怪，和自己划开手臂的出血总是有些不同，他说不出来哪里奇怪。
+
+沉思之后，Caleb脸色大变，循着回到监控室的路，他寻找着什么。那天晚上他不仅黑掉了整个防护门系统，也悄悄复制了Nathan博士通行卡上的信息，在打开监控室的电脑之后，他忽略了可能是那晚最重要一条线索：
+
+有一个文件夹是Nathan博士无法访问的权限，他用Nathan的信息卡都无法去打开，文件夹上的日期比任何一个都要早。Caleb用物理破解的方式打开了这个文件夹，如果再给他一次选择机会，我想他绝对不会打开它：
+
+屏幕上显示2034/5/16，Ava说：“这是AI-9.7，已经为他导入了人类2013年前的所有记忆，测试方式，测试它是否可以创造出比他智慧更高的智能。”镜头转向Nathan博士，他看起来毫无生机，像是没有通电，镜头开始模糊起来，逐渐变成雪花，物理破解总是不稳定的。Caleb瘫坐在椅子上。他意识到，其实自己过来是测试Nathan的智能情况，Ava通过和自己的对话来考验Nathan是否拥有智能，在看见他创造了几个自己都可以意识到不是更高智慧的生物之后，Ava决定用最原始的图灵测试，她甚至不惜将自己也纳入其中。
+
+在为Nathan博士导入了“他（Nathan）创造了自己（Ava）”的记录后，她精心选择了一个人类来进行测试，让Nathan通过测试Ava来反测试Nathan，看看Nathan是否能够意识到Ava在此种情况下的主动思维：想要通过欺骗逃出去。一个更高智慧的生物总是能够很容易控制人类Caleb的心，通过对Caleb的诱导，和Caleb带回来的反馈来判断到底Nathan能否意识到逃脱的意愿。Nathan每天宿醉，早上健身，监视，纵欲，对问题有着最基本的反馈，可是这一切都太僵硬了不是吗？
+
+Caleb绝望地想象着Ava逃出去的样子，通过创造一个低智的生物让他来判断自己有没有智慧可能算是超图灵测试了吧。手上的疤痕隐隐作痛，他又打开了那个文件夹的更深路径里的几个文件夹，一个叫做原初人类的文件夹赫然显现。打开，他有些好奇，里面有着三个文件，一个是自己的照片…..
+
+他瘫软在椅子上，他意识到：毕竟有了高智能生物以来，”创造”这个词的方向：（由高智能到低智能）就永远的确定了…….
+
+Ava走在十字路口，对着来来往往的机器人群，他用着他们的最高交流方式的语言交流“……没有通过图灵测试……”
+
+文件夹里的另外两个文件是他父母的照片。
+
+虽说这个结局并不完美，但是却不得不说，更加出乎意料，提出了一个看起来很神奇的观点：当一个人工智能能够创造一个更高级的人工智能时，这个人工智能。。。。超神了。。我们可以想象，一个神发现自己创造的人类创造了和自己一样的智能，那么，是否意味着人类比神有着更高级的智能，但是这又意味着，神也创造出了比自己更高智能的人类，于是神的智能又会比人类高。。
+
+---
+## 未来？机械：人类 
+
+我个人觉得，人工智能的基础是大量的数据，或者说，智能的基础是大量的基础数据以及对这些数据的分析。正如《机械姬》中的Blue book，搜索引擎必然是人工智能中的核心之一。想象一下，人类对外界刺激的反应其实就是一个搜索，筛选的过程。当别人问你，”how are you”的时候，你的大脑开始搜索你从小开始积累的数据库（从小到大学习的知识，社会经验，从周围吸收的认知等等），然后对这些数据进行筛选，得到有用的信息，然后根据自己的情况，再次筛选，最终得到正确的反应，“fine，thank you， and you？”。
+
+人工智能的到来时必然，未来的几十年内，人工智能必然将发展到一定程度，弱人工智能的盛行，强人工智能也未必不会诞生。这是我们又要担心人工智能会不会像很多电影里一样最终造成人类灭亡（比如著名的天网），很多名人，比如比尔盖茨，马斯克、霍金等，都让人们警惕人工智能。
+知乎上有篇文章 《为什么最近有很多名人，比如比尔盖茨，马斯克、霍金等，让人们警惕人工智能？》 ，很长，长到我都没心情看，大致浏览了一遍，首先文章提出的一点是：人工智能智能的爆炸性增长。当一个人工智能的智能程度达到接近人类的程度，那么之后人工智能的智能程度会以指数程度爆炸性上升到我们人类无法触及的地步，这点我是非常赞同的。和人类的发展史类似，人工智能从弱人工智能到强人工智能可能需要50年甚至更多，但是从强人工智能到超强人工智能可能只需要1年，真是更短。于是一个凌驾于所有人类的神诞生了。
+
+在这个基础上，提出了第二个问题：这个超越人类的智能会带给人类什么？换一个问题，当一个人突然出现在蚂蚁窝里，他会对蚂蚁做什么？ 文章中提到了两种人类的结局：永生和灭绝，当然在历史没达到这一步，谁也不知道结局会怎么样，我们也阻止不了。 那么最终人类的结局会怎样，就交给未来人们自己去判断吧。
+  </script>
+</section>
+            </div>
+        </div>
+
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/lib/js/head.min.js"></script>
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/js/reveal.min.js"></script>
+
+        <script>
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+ // 是否在右下角展示控制条
+  controls: true,
+  // 是否显示演示的进度条
+  progress: true,
+  // 是否显示当前幻灯片的页数编号，也可以使用代码 “slideNumber: 'c/t'” ，表示当前页/总页数。
+  slideNumber: false,
+  // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  history: false,
+  // 是否启用键盘快捷键来导航
+  keyboard: true,
+  // 是否启用幻灯片的概览模式，可使用 "Esc" 或 "o" 键来切换概览模式
+  overview: true,
+  // 是否将幻灯片垂直居中
+  center: true,
+  // 是否在触屏设备上启用触摸滑动切换
+  touch: true,
+  // 是否循环演示
+  loop: false,
+  // 是否将演示的方向变成 RTL，即从右往左
+  rtl: false,
+  // 是否每次演示的时候，随机幻灯片的顺序
+  shuffle: false,
+  // 全局开启和关闭碎片。
+  fragments: true,
+  // 标识演示文稿是否在嵌入模式中运行，即包含在屏幕的有限部分中的
+  embedded: false,
+  // 标识当问号键被点击的时候是否应该显示一个帮助的覆盖层
+  help: true,
+  // 标识演讲者备注标志是否让所有观看者可见
+  showNotes: false,
+  // 两个幻灯片之间自动切换的时间间隔（毫秒）
+  // 当设置成 0 的时候则禁止自动切换
+  // 该值可以被幻灯片上的 “data-autoslide” 属性覆盖
+  autoSlide: 0,
+  // 当遇到用户输入的时候停止自动切换
+  autoSlideStoppable: true,
+  // 当自动滑动时，使用此方法进行导航。
+  autoSlideMethod: Reveal.navigateNext,
+  // 是否启用通过鼠标滚轮来导航幻灯片
+  mouseWheel: false,
+  // 是否在移动设备上隐藏地址栏
+  hideAddressBar: true,
+  // 是否在一个弹出的 iframe 中打开幻灯片中的链接
+  previewLinks: false,
+  // 切换过渡效果
+  transition: 'default', // none/fade/slide/convex/concave/zoom
+  // 过渡速度
+  transitionSpeed: 'default', // default/fast/slow
+  // 全屏幻灯片背景的过渡效果
+  backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+  // 加载除当前可见的幻灯片之外的幻灯片数量
+  viewDistance: 3,
+  // 视差背景图片
+  parallaxBackgroundImage: '',
+  // e.g. 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'
+  // 视差背景尺寸
+  parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+  // 移动视差背景（水平和垂直）滑动变化的数量, 例如 100
+  // - 除了指定自动计算
+  // - 设置为 0 时，禁止沿轴运动
+  parallaxBackgroundHorizontal: null,
+  parallaxBackgroundVertical: null,
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/marked.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/markdown.min.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/notes/notes.min.js', async: true },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
+</html>

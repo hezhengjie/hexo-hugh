@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>IOS这个坑货</title>
+
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/css/reveal.min.css">
+        
+        <!-- theme -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            var theme ='black';
+            switch (theme){
+                case 'black':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/black.min.css';
+                    break;
+                case 'beige':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/beige.min.css';
+                    break;
+                case 'blood':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/blood.min.css';
+                    break;
+                case 'league':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/league.min.css';
+                    break;
+                case 'moon':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/moon.min.css';
+                    break;
+                case 'night':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/night.min.css';
+                    break;
+                case 'serif':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/serif.min.css';
+                    break;
+                case 'sky':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/sky.min.css';
+                    break;
+                case 'solarized':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/solarized.min.css';
+                    break;
+                case 'white':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/white.min.css';
+                    break;
+                default:
+            }
+            
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/lib/css/zenburn.min.css">
+        <link href="https://cdn.bootcss.com/reveal.js/3.4.1/css/print/paper.min.css" rel="stylesheet">
+        <!-- Printing and PDF exports -->
+        
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown
+                         data-separator="^\n"
+                         data-separator-vertical="^\n"
+                         data-separator-notes="^Note:">
+  <script type="text/template">IOS这个坑货
+
+## IOS的高亮
+近来做一个页面，在本人的android下完全没有问题，一到iphone下，那表现，点击一块，突然出现一个灰色的背景色，一闪而过，这个就奇怪了，
+
+后来查了一下，发现IOS有个原生的属性-webkit-tap-highlight-color，IOS默认给所有可点击的元素（a元素或者任意点击有反应的元素，包括通过js设置的可点击的元素）都设置了这个属性，所以会出现半透明的灰色背景，当然要是取消掉，把这个属性设为透明就行，-webkit-tap-highlight-color: transparent;
+
+这个属性在android也是生效的，如果我们需要一个按钮有这个点击高亮效果，就可以用这个属性了。
+
+## IOS的:active
+今天产品提出要点击一块按钮，出现灰色透明蒙层，这让我想起了之前的那个效果，毫不犹豫的我加上了-webkit-tap-highlight-color：rgba(0,0,0,0.1),完美。
+
+但是，产品不满意啊，你看android下是没问题，IOS下，点击这个，那个高亮的范围大了一圈呢，仔细一看，确实，点击一下，灰色范围确实会比点击区域略微大一点，好蛋疼，没办法，采用另一种方式实现吧，:active这个伪类多好，我们在active状态下加一个蒙层。
+
+	a:active:after{
+	    content:'';
+	    display:block;
+	    position: absolute;
+	    width: 100%;
+	    height: 100%;
+	    background: rgba(0,0,0,0.1);
+	    top:0;
+	    left:0;
+	}
+当然，ios下对这个:active的适配有点问题，需要我们先绑定touchstart事件，
+
+	<body ontouchstart>
+	或者
+	document.body.addEventListener('touchstart', function () {});
+	
+完美，android下完美实现，但是IOS下又出问题了，a链接无法跳转了，似乎是蒙层遮盖了链接。
+
+研究下发现,a:active应该选择的是a链接的激活状态，也就是在你点击该链接之后，页面正在转向新地址的时候，链接显示此状态，
+
+在移动端：active是在touchstart的时候触发，a链接的跳转则是click事件触发之后执行，移动端点击是事件的触发顺序是：touchstart –> touchmove -> touchend –> click，
+经测试，在这个状态下，只触发了touchstart,touchmove和touchend，click并没有被触发，触发touchstart事件后，:after元素覆盖了a标签，并拦截了click事件。
+
+这里要涉及IOS的一个bug，
+
+在进行事件委托时，如果将未存在于DOM的元素事件直接委托到body上的话,会导致事件委托失效，调试结果为事件响应到body子元素为止，既没有冒泡到body上，也没有被body所捕获。但如果事件是DOM元素本身具有的，则不会触发bug。换而言之，只有元素的非标准事件（比如click事件之于div）才会触发此bug
+
+简单的说就是，当使用委托给一个元素添加click事件时，如果事件是委托到 document 或 body 上，并且委托的元素是默认不可点击的（如 div, span 等），此时 click 事件会失效。
+在IOS下，点击在:after浮层上的click事件失效了，所以没有触发，android下则是可以。
+
+总之，在移动端的click事件有点问题，建议还是用touch代替。
+
+然后我在网上发现另一种解决方法，利用box-shadow属性，内阴影，扩展到里面的全部，这样解决上上面无法跳转的问题，相对也比较简单。
+
+	a:active{
+	    box-shadow: inset 0 0 1000px rgba(0, 0, 0, .5);
+	}
+
+  </script>
+</section>
+            </div>
+        </div>
+
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/lib/js/head.min.js"></script>
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/js/reveal.min.js"></script>
+
+        <script>
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+ // 是否在右下角展示控制条
+  controls: true,
+  // 是否显示演示的进度条
+  progress: true,
+  // 是否显示当前幻灯片的页数编号，也可以使用代码 “slideNumber: 'c/t'” ，表示当前页/总页数。
+  slideNumber: false,
+  // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  history: false,
+  // 是否启用键盘快捷键来导航
+  keyboard: true,
+  // 是否启用幻灯片的概览模式，可使用 "Esc" 或 "o" 键来切换概览模式
+  overview: true,
+  // 是否将幻灯片垂直居中
+  center: true,
+  // 是否在触屏设备上启用触摸滑动切换
+  touch: true,
+  // 是否循环演示
+  loop: false,
+  // 是否将演示的方向变成 RTL，即从右往左
+  rtl: false,
+  // 是否每次演示的时候，随机幻灯片的顺序
+  shuffle: false,
+  // 全局开启和关闭碎片。
+  fragments: true,
+  // 标识演示文稿是否在嵌入模式中运行，即包含在屏幕的有限部分中的
+  embedded: false,
+  // 标识当问号键被点击的时候是否应该显示一个帮助的覆盖层
+  help: true,
+  // 标识演讲者备注标志是否让所有观看者可见
+  showNotes: false,
+  // 两个幻灯片之间自动切换的时间间隔（毫秒）
+  // 当设置成 0 的时候则禁止自动切换
+  // 该值可以被幻灯片上的 “data-autoslide” 属性覆盖
+  autoSlide: 0,
+  // 当遇到用户输入的时候停止自动切换
+  autoSlideStoppable: true,
+  // 当自动滑动时，使用此方法进行导航。
+  autoSlideMethod: Reveal.navigateNext,
+  // 是否启用通过鼠标滚轮来导航幻灯片
+  mouseWheel: false,
+  // 是否在移动设备上隐藏地址栏
+  hideAddressBar: true,
+  // 是否在一个弹出的 iframe 中打开幻灯片中的链接
+  previewLinks: false,
+  // 切换过渡效果
+  transition: 'default', // none/fade/slide/convex/concave/zoom
+  // 过渡速度
+  transitionSpeed: 'default', // default/fast/slow
+  // 全屏幻灯片背景的过渡效果
+  backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+  // 加载除当前可见的幻灯片之外的幻灯片数量
+  viewDistance: 3,
+  // 视差背景图片
+  parallaxBackgroundImage: '',
+  // e.g. 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'
+  // 视差背景尺寸
+  parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+  // 移动视差背景（水平和垂直）滑动变化的数量, 例如 100
+  // - 除了指定自动计算
+  // - 设置为 0 时，禁止沿轴运动
+  parallaxBackgroundHorizontal: null,
+  parallaxBackgroundVertical: null,
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/marked.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/markdown.min.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/notes/notes.min.js', async: true },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>【层叠村的故事】关于元素的堆叠</title>
+
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/css/reveal.min.css">
+        
+        <!-- theme -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            var theme ='black';
+            switch (theme){
+                case 'black':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/black.min.css';
+                    break;
+                case 'beige':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/beige.min.css';
+                    break;
+                case 'blood':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/blood.min.css';
+                    break;
+                case 'league':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/league.min.css';
+                    break;
+                case 'moon':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/moon.min.css';
+                    break;
+                case 'night':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/night.min.css';
+                    break;
+                case 'serif':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/serif.min.css';
+                    break;
+                case 'sky':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/sky.min.css';
+                    break;
+                case 'solarized':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/solarized.min.css';
+                    break;
+                case 'white':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/white.min.css';
+                    break;
+                default:
+            }
+            
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/lib/css/zenburn.min.css">
+        <link href="https://cdn.bootcss.com/reveal.js/3.4.1/css/print/paper.min.css" rel="stylesheet">
+        <!-- Printing and PDF exports -->
+        
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown
+                         data-separator="^\n"
+                         data-separator-vertical="^\n"
+                         data-separator-notes="^Note:">
+  <script type="text/template">【层叠村的故事】关于元素的堆叠
+
+## 村庄内   
+从前有一个村庄，我们叫其< html >村（也就是传说中的根层叠上下文），村庄里有许多家族，有的家族比较穷，没有住的地方，所以吧，家族成员们（不在层叠上下文中的普通元素）只能睡在村子里，有钱的家族吧，则自己建别墅，建房子（创建新的层叠上下文），没钱的家族都是相似的，有钱的家族各有各的有钱法，有的有钱的家族搞得的互联网（拥有一个值为非static的position且z-index为非auto），有的家族搞房地产（opacity小于1），有的家族搞金融（元素的transform值不是none），有钱的家族搞的产业各不一样，我们就不一一列举了，一般来说，这个时代，搞互联网的有钱人是最多的，村子里也不例外。  
+
+村子是个看钱的地方，各个家族吧，你越有钱，他就能住的越前面，所以把，你一进村子里，最先看到的就是一大群别墅，在往后才是被别墅遮住的普通人们。（这就是，层叠上下文的层叠水平要比普通元素高）
+
+## 家族内
+
+当然，每个家族里面可能不止一个人，这个时候家族内部就又有矛盾了，谁最大，谁最后，出去的时候排成一排，谁排最前面，谁排最后面，一般来说吧，按年纪大小是没问题，最先出生的，经验最老的，最后压轴出场，年纪最小的排最前面（正常元素的层叠顺序是根据文档流的顺序来排列），然后这就出问题了，有些人年纪小，但是辈分大呀，你不能让我孙子站我后面呀，于是各个家族吧，就定了个家谱，把所有人按照辈分排了一下：  
+  
+ >1.创建层叠上下文的元素的背景和边界（层叠上下文的background和border）；  
+2.z-index为负值的子元素，数值越小越辈分越老，越后面；  
+3.最普通的block块状元素;  
+4.非定位的float浮动元素；  
+5.inline或者inline-block的内联元素；  
+6.z-index:auto或者z-index:0的定位元素（定位元素的z-index的默  认值为auto）以及其他层叠上下文元素（比如使用了小于1的opacity属性的元素，transform值不是none的元素）   
+7.z-index为正值的定位元素（这个元素创建了一个子层叠上下文），数值越小越辈分越老，越后面； 
+
+当家族大了，人太多之后就会有问题，有的人想要分家了（子层叠上下文），可以，自己在家族的院子里建一间房子，给自己的家人住，算是大家族里面的一个旁系，但是还是归属于这个家族，不过在这个旁系里，对于这个旁系里的成员来说，最大的就是家主，也就是建立和这个旁系的人了，于是得自己再搞一个族谱，给自己这个旁系里面的成员定个辈分，当然这个旁系算是分出去，旁系里面的除了家主就不在入家族的族谱了，而是入自己这个旁系的族谱了。
+
+这个辈分排行只能在自己的家里用了，你不能出去对别人说，嘿，孙子，我是你爷爷（每个层叠上下文自成体系的，和兄弟元素独立）  。
+
+毫无疑问，大家都住在一个村子里，其实整个村子就是一个大的家族，所以村子的家族排序也是按照整个通用的族谱来的。
+
+## 再说几点  
+有几个点要明确：  1.在不考虑css3的情况下，z-index只对定位元素有效（relative, absolute 或者 fixed） 。  2.以上的七个堆叠顺序只针对同级元素，也就是属于同一个层叠上下文的元素（说白了就是族谱只对自己的家族有用）。  3.父元素的层叠顺序会影响子元素（比如，在一个家族中有许多旁系，当你这个旁系在家族中的地位提高，毫无疑问，你自己的地位也提高了，一荣俱荣，一损俱损）
+
+## 参考文献  
+[深入理解CSS中的层叠上下文和层叠顺序](http://www.zhangxinxu.com/wordpress/?p=511)
+  </script>
+</section>
+            </div>
+        </div>
+
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/lib/js/head.min.js"></script>
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/js/reveal.min.js"></script>
+
+        <script>
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+ // 是否在右下角展示控制条
+  controls: true,
+  // 是否显示演示的进度条
+  progress: true,
+  // 是否显示当前幻灯片的页数编号，也可以使用代码 “slideNumber: 'c/t'” ，表示当前页/总页数。
+  slideNumber: false,
+  // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  history: false,
+  // 是否启用键盘快捷键来导航
+  keyboard: true,
+  // 是否启用幻灯片的概览模式，可使用 "Esc" 或 "o" 键来切换概览模式
+  overview: true,
+  // 是否将幻灯片垂直居中
+  center: true,
+  // 是否在触屏设备上启用触摸滑动切换
+  touch: true,
+  // 是否循环演示
+  loop: false,
+  // 是否将演示的方向变成 RTL，即从右往左
+  rtl: false,
+  // 是否每次演示的时候，随机幻灯片的顺序
+  shuffle: false,
+  // 全局开启和关闭碎片。
+  fragments: true,
+  // 标识演示文稿是否在嵌入模式中运行，即包含在屏幕的有限部分中的
+  embedded: false,
+  // 标识当问号键被点击的时候是否应该显示一个帮助的覆盖层
+  help: true,
+  // 标识演讲者备注标志是否让所有观看者可见
+  showNotes: false,
+  // 两个幻灯片之间自动切换的时间间隔（毫秒）
+  // 当设置成 0 的时候则禁止自动切换
+  // 该值可以被幻灯片上的 “data-autoslide” 属性覆盖
+  autoSlide: 0,
+  // 当遇到用户输入的时候停止自动切换
+  autoSlideStoppable: true,
+  // 当自动滑动时，使用此方法进行导航。
+  autoSlideMethod: Reveal.navigateNext,
+  // 是否启用通过鼠标滚轮来导航幻灯片
+  mouseWheel: false,
+  // 是否在移动设备上隐藏地址栏
+  hideAddressBar: true,
+  // 是否在一个弹出的 iframe 中打开幻灯片中的链接
+  previewLinks: false,
+  // 切换过渡效果
+  transition: 'default', // none/fade/slide/convex/concave/zoom
+  // 过渡速度
+  transitionSpeed: 'default', // default/fast/slow
+  // 全屏幻灯片背景的过渡效果
+  backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+  // 加载除当前可见的幻灯片之外的幻灯片数量
+  viewDistance: 3,
+  // 视差背景图片
+  parallaxBackgroundImage: '',
+  // e.g. 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'
+  // 视差背景尺寸
+  parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+  // 移动视差背景（水平和垂直）滑动变化的数量, 例如 100
+  // - 除了指定自动计算
+  // - 设置为 0 时，禁止沿轴运动
+  parallaxBackgroundHorizontal: null,
+  parallaxBackgroundVertical: null,
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/marked.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/markdown.min.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/notes/notes.min.js', async: true },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
+</html>
