@@ -184,7 +184,6 @@ function MaterialTooltip(e) {
 function MaterialLayout(e) {
     "use strict";
     this.element_ = e, this.init();
-    Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
 }
 
 function MaterialLayoutTab(e, t, s, i) {
