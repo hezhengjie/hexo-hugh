@@ -183,7 +183,15 @@ function MaterialTooltip(e) {
 
 function MaterialLayout(e) {
     "use strict";
-    this.element_ = e, this.init()
+    this.element_ = e, this.init();
+    var cloudTieConfig = {
+        url: document.location.href,
+        sourceId: "",
+        productKey: "79da1328acc34d46b4865fba9eea61e9",
+        target: "cloud-tie-wrapper"
+    };
+    var yunManualLoad = true;
+    Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
 }
 
 function MaterialLayoutTab(e, t, s, i) {
@@ -2249,8 +2257,6 @@ $(document).ready(function() {
 //**********************************   Burder_js
 //**********************************
 //**********************************
-var cloudTieConfig;var  yunManualLoad;
-
 (function() {
 
     'use strict';
@@ -2271,13 +2277,4 @@ var cloudTieConfig;var  yunManualLoad;
             }
 
         });
-     cloudTieConfig = {
-        url: document.location.href,
-        sourceId: "",
-        productKey: "79da1328acc34d46b4865fba9eea61e9",
-        target: "cloud-tie-wrapper"
-    };
-    yunManualLoad = true;
-    Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
-
 })();
