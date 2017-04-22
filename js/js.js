@@ -2249,6 +2249,7 @@ $(document).ready(function() {
 //**********************************   Burder_js
 //**********************************
 //**********************************
+var cloudTieConfig;var  yunManualLoad;
 
 (function() {
 
@@ -2270,7 +2271,7 @@ $(document).ready(function() {
             }
 
         });
-    cloudTieConfig = {
+     cloudTieConfig = {
         url: document.location.href,
         sourceId: "",
         productKey: "79da1328acc34d46b4865fba9eea61e9",
