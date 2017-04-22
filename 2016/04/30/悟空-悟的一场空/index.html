@@ -785,7 +785,20 @@ It will not impact the appearance and can give developers a lot of support :)
 
                     <!-- Import File -->
 <script src="/js/lazyload.min.js"></script>
-<script src="/js/js.min.js"></script>
+
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+    var cloudTieConfig = {
+        url: document.location.href,
+        sourceId: "",
+        productKey: "79da1328acc34d46b4865fba9eea61e9",
+        target: "cloud-tie-wrapper"
+    };
+    var yunManualLoad = true;
+    Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
+
+
 <script src="/js/nprogress.js"></script>
 
 <script type="text/javascript">
@@ -839,18 +852,6 @@ It will not impact the appearance and can give developers a lot of support :)
 
 <!-- MathJax Load-->
 
-
-<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
-<script>
-    var cloudTieConfig = {
-        url: document.location.href,
-        sourceId: "",
-        productKey: "79da1328acc34d46b4865fba9eea61e9",
-        target: "cloud-tie-wrapper"
-    };
-    var yunManualLoad = true;
-    Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
-</script>
 
                 </main>
             </div>
