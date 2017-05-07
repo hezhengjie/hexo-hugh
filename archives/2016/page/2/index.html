@@ -763,6 +763,21 @@ varES5中最原始的变量声明，用于声明变量，其实JavaScript是弱.
 
     
 </div>
+<script type="text/javascript">
+    $.ajax({
+        url: "https://sslapi.hitokoto.cn/",
+        dataType: "json",
+        method:'GET',
+        async: true,
+        success: function(result) {
+            $('#hitokoto').find('.hitokoto-content').text(result.hitokoto);
+            $('#hitokoto').find('.hitokoto_author').text('-「'+result.from+'」');
+        },
+        error: function() {
+            $('#hitokoto').find('.hitokoto-content').text('愿岁并谢，与长友兮');
+        }
+    })
+</script>
 
 
                     
@@ -1064,21 +1079,6 @@ It will not impact the appearance and can give developers a lot of support :)
                     <!-- Import File -->
 <script src="/js/lazyload.min.js"></script>
 <script src="/js/js.min.js"></script>
-<script type="text/javascript">
-    $.ajax({
-        url: "https://sslapi.hitokoto.cn/",
-        dataType: "json",
-        method:'GET',
-        async: true,
-        success: function(result) {
-            $('#hitokoto').find('.hitokoto-content').text(result.hitokoto);
-            $('#hitokoto').find('.hitokoto_author').text('-「'+result.from+'」');
-        },
-        error: function() {
-            $('#hitokoto').find('.hitokoto-content').text('愿岁并谢，与长友兮');
-        }
-    })
-</script>
 <script src="/js/nprogress.js"></script>
 
 <script type="text/javascript">

@@ -297,6 +297,21 @@ hcorner是一个很简单的插件，其实也没有多少功能，为一块div�
 
     
 </div>
+<script type="text/javascript">
+    $.ajax({
+        url: "https://sslapi.hitokoto.cn/",
+        dataType: "json",
+        method:'GET',
+        async: true,
+        success: function(result) {
+            $('#hitokoto').find('.hitokoto-content').text(result.hitokoto);
+            $('#hitokoto').find('.hitokoto_author').text('-「'+result.from+'」');
+        },
+        error: function() {
+            $('#hitokoto').find('.hitokoto-content').text('愿岁并谢，与长友兮');
+        }
+    })
+</script>
 
 
                     
@@ -590,21 +605,6 @@ It will not impact the appearance and can give developers a lot of support :)
                     <!-- Import File -->
 <script src="/js/lazyload.min.js"></script>
 <script src="/js/js.min.js"></script>
-<script type="text/javascript">
-    $.ajax({
-        url: "https://sslapi.hitokoto.cn/",
-        dataType: "json",
-        method:'GET',
-        async: true,
-        success: function(result) {
-            $('#hitokoto').find('.hitokoto-content').text(result.hitokoto);
-            $('#hitokoto').find('.hitokoto_author').text('-「'+result.from+'」');
-        },
-        error: function() {
-            $('#hitokoto').find('.hitokoto-content').text('愿岁并谢，与长友兮');
-        }
-    })
-</script>
 <script src="/js/nprogress.js"></script>
 
 <script type="text/javascript">
