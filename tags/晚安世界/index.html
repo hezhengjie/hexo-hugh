@@ -591,6 +591,30 @@ It will not impact the appearance and can give developers a lot of support :)
                     <!-- Import File -->
 <script src="/js/lazyload.min.js"></script>
 <script src="/js/js.min.js"></script>
+<script type="text/javascript">
+    $.ajax({
+        url: "https://sslapi.hitokoto.cn/",
+        dataType: "json",
+        method:'GET',
+        async: true,
+        success: function(result) {
+            console.log(result);
+            $('#hitokoto').find('.hitokoto-content').text(result.hitokoto);
+            $('#hitokoto').find('.hitokoto_author').text('-「'+result.from+'」');
+        },
+        error: function() {
+            $('#hitokoto').find('.hitokoto-content').text('愿岁并谢，与长友兮');
+        }
+    })
+//    function async(data){
+//        console.log(data);
+//    }
+//    setTimeout(function () {
+//        var hjs = document.createElement('script');
+//        hjs.setAttribute('src', 'http://api.hitokoto.us/rand?encode=jsc&fun=async');
+//        document.body.appendChild(hjs);
+//    }, 100);
+</script>
 <script src="/js/nprogress.js"></script>
 
 <script type="text/javascript">
@@ -618,8 +642,6 @@ It will not impact the appearance and can give developers a lot of support :)
 
 
 
-
-
     <!-- Busuanzi -->
     <script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
@@ -636,7 +658,7 @@ It will not impact the appearance and can give developers a lot of support :)
 
 <!-- Window Load-->
 <script>
-    $(window).load(function() {
+    $(window).load(function () {
         // Post_Toc parent position fixed
         $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
     });
