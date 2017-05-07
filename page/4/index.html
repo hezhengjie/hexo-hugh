@@ -784,7 +784,6 @@ It will not impact the appearance and can give developers a lot of support :)
         method:'GET',
         async: true,
         success: function(result) {
-            console.log(result);
             $('#hitokoto').find('.hitokoto-content').text(result.hitokoto);
             $('#hitokoto').find('.hitokoto_author').text('-「'+result.from+'」');
         },
