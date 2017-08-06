@@ -235,7 +235,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#html"><span class="post-toc-number">1.</span> <span class="post-toc-text">html</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#css"><span class="post-toc-number">2.</span> <span class="post-toc-text">css</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ES6"><span class="post-toc-number">3.</span> <span class="post-toc-text">ES6</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vue"><span class="post-toc-number">4.</span> <span class="post-toc-text">Vue</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自己的项目结构分析"><span class="post-toc-number">5.</span> <span class="post-toc-text">自己的项目结构分析</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一般规范"><span class="post-toc-number">1.</span> <span class="post-toc-text">一般规范</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文件-资源命名"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">文件/资源命名</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#html"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">html</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#css"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">css</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#js"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">js</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ES6"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">ES6</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vue"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">Vue</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自己的项目结构分析"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">自己的项目结构分析</span></a></li></ol></li></ol>
 
         <!--
         <li class="mdl-menu__item">
@@ -398,9 +398,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>##一般规范 </p>
-<p>###文件/资源命名  </p>
-<p>1.普通资源(html,css,js)</p>
+        <h2 id="一般规范"><a href="#一般规范" class="headerlink" title="一般规范"></a>一般规范</h2><h3 id="文件-资源命名"><a href="#文件-资源命名" class="headerlink" title="文件/资源命名"></a>文件/资源命名</h3><p>1.普通资源(html,css,js)</p>
 <p>全部以小写字母命名，以-（减号）作为分隔符  </p>
 <pre><code>my-script.js  
 my-camel-case-name.css
@@ -572,7 +570,7 @@ body:after {
 父级选择器的声明样式 (.selected, .active, .enlarged etc.)
 上下文媒体查询
 子选择器作为最后的部分  
-</code></pre><p>###js<br>1.避免全局污染，创建IIFE（立即执行的函数表达式）  </p>
+</code></pre><h3 id="js"><a href="#js" class="headerlink" title="js"></a>js</h3><p>1.避免全局污染，创建IIFE（立即执行的函数表达式）  </p>
 <pre><code>(function(){
   &#39;use strict&#39;;
 
@@ -691,7 +689,7 @@ beforeCreate() {},
 mounted() {},
 };
 </code></pre><p>3.开发<br>（1）template或者render内部的html中不要出现太过复杂的行内表达式，用computd或者method来计算<br>（2）props原子化（props尽量为基本类型（字符串，数字，布尔））<br>（3）将 this 赋值给 component 变量，不要在编写这样的代码 const self = this; ，而是应该直接使用变量 component 。<br>（4）事件命名<br>事件命名也连字符命名<br>一个事件的名字对应组件外的一组意义操作，如：upload-success, upload-error<br>事件命名应该以动词<br>（5）可以将组件名作为 css 类的命名空间。</p>
-<h3 id="自己的项目结构分析"><a href="#自己的项目结构分析" class="headerlink" title="自己的项目结构分析"></a>自己的项目结构分析</h3><p>/html (根据文件夹区分页面，存放落地页的html)<br>/src/api(同样根据文件夹区分业务，存放各业务的api，底层一个封装好的request)<br>/src/components(同样根据文件夹区分业务，存放各业务的vue组件)<br>/src/entry(同样根据文件夹区分业务，存放各业务的入口js)<br>/src/mock(所有业务的mock数据)<br>/src/page(同样根据文件夹区分业务，存放各业务的主挂载点App)<br>/src/static(同样根据文件夹区分业务，存放各业务的静态资源)<br>/jsonServer（jsonserver的配置文件）<br>/f2eci.json(CI的配置)<br>/webpack.config.js(webpack配置)<br>/server.js(devServer配置)<br><img src="/2017/05/20/如何写一段好看的前端代码/./如何写一段好看的前端代码/2.png" alt="das"><br><img src="/2017/05/20/如何写一段好看的前端代码/./如何写一段好看的前端代码/1.png" alt="das"></p>
+<h3 id="自己的项目结构分析"><a href="#自己的项目结构分析" class="headerlink" title="自己的项目结构分析"></a>自己的项目结构分析</h3><p>/html (根据文件夹区分页面，存放落地页的html)<br>/src/api(同样根据文件夹区分业务，存放各业务的api，底层一个封装好的request)<br>/src/components(同样根据文件夹区分业务，存放各业务的vue组件)<br>/src/entry(同样根据文件夹区分业务，存放各业务的入口js)<br>/src/mock(所有业务的mock数据)<br>/src/page(同样根据文件夹区分业务，存放各业务的主挂载点App)<br>/src/static(同样根据文件夹区分业务，存放各业务的静态资源)<br>/jsonServer（jsonserver的配置文件）<br>/f2eci.json(CI的配置)<br>/webpack.config.js(webpack配置)<br>/server.js(devServer配置)<br><img src="/2017/05/20/如何写一段好看的前端代码/2.png" alt="das"><br><img src="/2017/05/20/如何写一段好看的前端代码/1.png" alt="das"></p>
 
     
 
