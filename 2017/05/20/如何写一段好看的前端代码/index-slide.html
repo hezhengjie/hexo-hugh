@@ -1,0 +1,590 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>如何写一段好看的前端代码</title>
+
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/css/reveal.min.css">
+        
+        <!-- theme -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            var theme ='black';
+            switch (theme){
+                case 'black':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/black.min.css';
+                    break;
+                case 'beige':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/beige.min.css';
+                    break;
+                case 'blood':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/blood.min.css';
+                    break;
+                case 'league':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/league.min.css';
+                    break;
+                case 'moon':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/moon.min.css';
+                    break;
+                case 'night':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/night.min.css';
+                    break;
+                case 'serif':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/serif.min.css';
+                    break;
+                case 'sky':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/sky.min.css';
+                    break;
+                case 'solarized':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/solarized.min.css';
+                    break;
+                case 'white':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/white.min.css';
+                    break;
+                default:
+            }
+            
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/lib/css/zenburn.min.css">
+        <link href="https://cdn.bootcss.com/reveal.js/3.4.1/css/print/paper.min.css" rel="stylesheet">
+        <!-- Printing and PDF exports -->
+        
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown
+                         data-separator="^\n"
+                         data-separator-vertical="^\n"
+                         data-separator-notes="^Note:">
+  <script type="text/template">如何写一段好看的前端代码
+
+
+##一般规范 
+
+###文件/资源命名  
+
+1.普通资源(html,css,js)
+
+全部以小写字母命名，以-（减号）作为分隔符  
+
+	my-script.js  
+	my-camel-case-name.css
+	
+2.协议  
+ 非必要情况，以无协议头的形式引入资源（script，css，图片资源等）
+ 
+3.文本缩进  
+ 一次缩进tab（简单，方便）    
+ 
+4.注释  
+ 多写注释,主要是各种函数和变量的注释，对不容易理解的代码，添加明确的注释。
+ 
+	/**
+	* TODO 未处理IE6-8的兼容性
+	* My method description.  Like other pieces of your comment 	blocks, 
+	* this can span multiple lines.
+	*
+	* @method methodName
+	* @param {String} foo Argument 1
+	* @param {Object} config A config object
+	* @param {String} config.name The name on the config object
+	* @return {Boolean} Returns true on success
+	*/
+ 
+5.代码检查
+
+ ESlint  
+ 
+### html  
+
+1.文档类型  
+
+固定为<!DOCTYPE html>
+
+2.meta    
+
+	<!-- 声明文档使用的字符编码 -->
+    <meta charset='utf-8'>
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 页面描述 -->
+    <meta name="description" content="不超过150个字符"/>
+    <!-- 页面关键词 -->
+    <meta name="keywords" content=""/>
+    <!-- 网页作者 -->
+    <meta name="author" content="name, email@gmail.com"/>
+    <!-- 搜索引擎抓取 -->
+    <meta name="robots" content="index,follow"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+    <!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边 http://bigc.at/ios-webapp-viewport-meta.orz -->
+ 
+    <!-- iOS 设备 begin -->
+    <meta name="apple-mobile-web-app-title" content="标题">
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+ 
+    <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+    <!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 不让百度转码 -->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <!-- iOS 图标 begin -->
+    <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-57x57-precomposed.png"/>
+    <!-- iPhone 和 iTouch，默认 57x57 像素，必须有 -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114-precomposed.png"/>
+    <!-- Retina iPhone 和 Retina iTouch，114x114 像素，可以没有，但推荐有 -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144-precomposed.png"/>
+    <!-- Retina iPad，144x144 像素，可以没有，但推荐有 -->
+    <!-- iOS 图标 end -->
+ 
+    <!-- iOS 启动画面 begin -->
+    <link rel="apple-touch-startup-image" sizes="768x1004" href="/splash-screen-768x1004.png"/>
+    <!-- iPad 竖屏 768 x 1004（标准分辨率） -->
+    <link rel="apple-touch-startup-image" sizes="1536x2008" href="/splash-screen-1536x2008.png"/>
+    <!-- iPad 竖屏 1536x2008（Retina） -->
+    <link rel="apple-touch-startup-image" sizes="1024x748" href="/Default-Portrait-1024x748.png"/>
+    <!-- iPad 横屏 1024x748（标准分辨率） -->
+    <link rel="apple-touch-startup-image" sizes="2048x1496" href="/splash-screen-2048x1496.png"/>
+    <!-- iPad 横屏 2048x1496（Retina） -->
+ 
+    <link rel="apple-touch-startup-image" href="/splash-screen-320x480.png"/>
+    <!-- iPhone/iPod Touch 竖屏 320x480 (标准分辨率) -->
+    <link rel="apple-touch-startup-image" sizes="640x960" href="/splash-screen-640x960.png"/>
+    <!-- iPhone/iPod Touch 竖屏 640x960 (Retina) -->
+    <link rel="apple-touch-startup-image" sizes="640x1136" href="/splash-screen-640x1136.png"/>
+    <!-- iPhone 5/iPod Touch 5 竖屏 640x1136 (Retina) -->
+    <!-- iOS 启动画面 end -->
+ 
+    <!-- iOS 设备 end -->
+    <meta name="msapplication-TileColor" content="#000"/>
+    <!-- Windows 8 磁贴颜色 -->
+    <meta name="msapplication-TileImage" content="icon.png"/>
+    <!-- Windows 8 磁贴图标 -->
+ 
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+    <!-- 添加 RSS 订阅 -->
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>
+    
+    
+  移动端常用：  
+    
+  	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">  
+ 	 <!-- 声明文档使用的字符编码 -->  
+ 	 <meta charset='utf-8'>
+ 	 <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+3.标签  
+语义化标签（header，nav，main，aside，section，article，footer）  
+无内容元素的标签不闭合（br）
+
+4.引号  
+使用双引号(“”) 而不是单引号(”) 。（类名，Id等）
+
+5.纯粹的html  
+
+不过多的引入样式或者逻辑（不使用内联或者内嵌样式，不使用行内脚本）  
+不要引入一些特定的 HTML 结构来解决一些视觉设计问题（比如一些无意义的icon，这些icon可以用before或者after等伪类来解决）
+
+###  css
+
+1.ID的使用  
+使用ID唯一有效的是确定网页或整个站点中的位置,也就是尽可能的用ID去标示和这个DOM在整个文档中的位置，比如header，content（由于ID选择器的权重非常高，高于大多数class）
+
+2.class的命名  
+以BEM为命名守则 （并不是所有地方都用bem，相对独立或者通用的css不必遵守BEM的命名方式），命名需要尽量语义化
+
+	.block{}
+	.block__element{}
+	.block--modifier{}
+
+例子：    
+
+	.person{}
+	.person__hand{}
+	.person--female{}
+	.person--female__hand{}
+	.person__hand--left{}	
+
+3.选择器   
+(1)多使用直接子选择器（减少查找的性能消耗）  
+  
+		.content > .content-body > .title {
+	  font-size: 1.5rem;
+	}
+(2)除非必要，不要使用标签选择器 （仅允许在最底层时使用标签选择器，以防止修改DOm时不会影响相关css）
+
+4.css属性  
+（1） 使用缩写属性（border，padding等）  
+（2）省略“0”值后面的单位（font-size：0）  
+（3）颜色始终使用小写的十六进制数字（可以的话用3个字符）  
+（4）声明顺序：  
+
+	display
+	position, left, top, right etc.
+	overflow, float, clear etc.
+	margin, padding
+	background, border etc.
+	font, text  
+	
+5.书写  
+（1）属性名的冒号后使用一个空格    
+
+	h3 {
+	  font-weight: bold;
+	}
+（2）每个选择器和属性声明总是使用新的一行。  
+
+	h1,
+	h2,
+	h3 {
+	  font-weight: normal;
+	  line-height: 1.2;
+	}
+	
+（3）属性选择器或属性值用双引号（””），URI值（url()）不要使用引号。  
+  
+	@import url(//cdn.com/foundation.css);
+	 
+	html {
+	  font-family: "open sans", arial, sans-serif;
+	}
+	 
+	body:after {
+	  content: "pause";
+	}
+
+6.less与sass  
+（1）嵌套顺序
+
+	当前选择器的样式属性
+	父级选择器的伪类选择器 (:first-letter, :hover, :active etc)
+	伪类元素 (:before and :after)
+	父级选择器的声明样式 (.selected, .active, .enlarged etc.)
+	上下文媒体查询
+	子选择器作为最后的部分  
+
+###js  
+1.避免全局污染，创建IIFE（立即执行的函数表达式）  
+
+	(function(){
+	  'use strict';
+	 
+	  // Code goes here
+	 
+	}());
+2.严格模式，如上开启
+
+3.变量  
+
+ES6下，对于常量或不修改的变量声明使用const，对于只在当前作用域下有效的变量，应使用let，全局变量使用var。将所有 const 变量放在一起，然后将所有 let 变量放在一起，用逗号隔开。  
+
+	 let a = 10,
+	      b = 10,
+	      i,
+	      c,
+	      d,
+	      x;
+	      
+4.字符串 
+
+（1）使用单引号 '来创建字符串。  
+（2）超过80个字符的字符串应该使用字符串连接换行注。  
+
+	var errorMessage = 'This is a super long error that ' +
+	  'was thrown because of Batman.' +
+	  'When you stop to think about ' +
+	  'how Batman had anything to do ' +
+	  'with this, you would get nowhere ' +
+	  'fast.';
+（3）编程构建字符串时，使用字符串模板而不是字符串连接    
+
+	return `How are you, ${name}?`; 
+	
+5.类型判断   
+ 
+总是使用 === 精确的比较操作符  
+
+6.变量赋值
+（1）利用逻辑操作符 || 和 && 来进行判断赋值  
+
+	x = x || y || 1;
+（2）用数组和对象字面量来代替数组和对象构造器  
+
+	var o = {};
+	var p = [];
+	
+(3)三元条件判断来代替if-else   
+ 
+	return x === 10 ? 'valid' : 'invalid'; 
+	
+7，命名  
+变量和函数采用驼峰式命名，首字母小写  
+私有以及内部变量和函数以下划线开头（_test）  
+部分变量首字母来标示类型  
+s：表示字符串。例如：sName，sHtml；  
+n：表示数字。例如：nPage，nTotal；  
+b：表示逻辑。例如：bChecked，bHasLogin；  
+dom：表示Dom对象，例如：domForm，domInput；  
+
+8.函数  
+
+（1）块级域中不用使用函数声明形式，以函数变量的形式声明函数
+（2）执行语句内部使用匿名函数（看情况采用es6箭头函数）
+### ES6  
+
+1.关于变量，字符串参考上方  
+
+2.解构赋值  
+复杂数组和对象的赋值采用解构赋值
+
+3.类  
+总是使用 class 关键字，避免直接修改 prototype。   
+	
+	class SomeClass {
+	  constructor() {
+	    // constructor
+	  }
+	
+	  get aval() {
+	    // public getter
+	  }
+	
+	  set aval(val) {
+	    // public setter
+	  }
+	
+	  doSth() {
+	    // 公用方法
+	  }
+	
+	  get _aval() {
+	    // private getter
+	  }
+	
+	  set _aval() {
+	    // private setter
+	  }
+	
+	  _doSth() {
+	    // 私有方法
+	  }
+	}  
+4.模块  
+不要使用通配符 * 的 import  
+多变量要导出时应采用对象解构形式  
+导出单一一个类时，确保你的文件名就是你的类名  
+导出一个默认小驼峰命名的函数时，文件名应该就是导出的方法名    
+	
+	const CheckBox = require('./CheckBox');
+导出单例、函数库或裸对象时，使用大驼峰命名规则 
+  
+	const AirbnbStyleGuide = {
+	  es6: {
+	  }
+	};
+	
+	export default AirbnbStyleGuide;   
+	
+5.属性访问
+
+使用点 . 操作符来访问常量属性  
+使用中括号[] 操作符来访问变量属性
+
+6.遍历    
+
+遍历数组：forEach（正常遍历，遍历所有元素），map（处理数组的每一个元素），every （判断是否所有元素符合要求，return false跳出）,some(判断是否有一个元素符合要求，return true 跳出) for...of（可以用break，continue来跳出循环）
+
+遍历对象：
+用Object.keys转换对象为数组进行遍历
+
+7.promise  
+
+异步请求都转为promise对象  
+
+自定义finally   
+
+	Promise.prototype.finally = function (callback) {
+	  let P = this.constructor;
+	  return this.then(
+	    value  => P.resolve(callback()).then(() => value),
+	    reason => P.resolve(callback()).then(() => { throw reason })
+	  );
+	};
+
+### Vue  
+
+1.文件名
+
+2.组件
+（1）组件的命名  
+ 组件的文件名以驼峰命名，首字母大写  
+ 在App中引用组件，以app- 前缀作为命名空间，连字符作为分割 : 如果非常通用的话可使用一个单词来命名，这样可以方便于其它项目里复用。
+（2）组件结构化  
+	
+		export default {
+        // 不要忘记了 name 属性
+    name: 'RangeSlider',
+
+    // 组件属性、变量
+    props: {
+            bar: {}, // 按字母顺序
+            foo: {},
+            fooBar: {},
+        },
+    // 变量
+    data() {},
+    computed: {},
+    // 使用其它组件
+    components: {},
+    // 方法
+    watch: {},
+    methods: {},
+    // 生命周期函数
+    beforeCreate() {},
+    mounted() {},
+	};
+
+3.开发  
+（1）template或者render内部的html中不要出现太过复杂的行内表达式，用computd或者method来计算  
+（2）props原子化（props尽量为基本类型（字符串，数字，布尔））  
+（3）将 this 赋值给 component 变量，不要在编写这样的代码 const self = this; ，而是应该直接使用变量 component 。  
+（4）事件命名
+事件命名也连字符命名  
+一个事件的名字对应组件外的一组意义操作，如：upload-success, upload-error  
+事件命名应该以动词  
+（5）可以将组件名作为 css 类的命名空间。
+
+### 自己的项目结构分析
+
+/html (根据文件夹区分页面，存放落地页的html)  
+/src/api(同样根据文件夹区分业务，存放各业务的api，底层一个封装好的request)  
+/src/components(同样根据文件夹区分业务，存放各业务的vue组件)  
+/src/entry(同样根据文件夹区分业务，存放各业务的入口js)  
+/src/mock(所有业务的mock数据)  
+/src/page(同样根据文件夹区分业务，存放各业务的主挂载点App)  
+/src/static(同样根据文件夹区分业务，存放各业务的静态资源)  
+/jsonServer（jsonserver的配置文件）
+/f2eci.json(CI的配置)
+/webpack.config.js(webpack配置)
+/server.js(devServer配置)
+![das](./如何写一段好看的前端代码/2.png)
+![das](./如何写一段好看的前端代码/1.png)
+  </script>
+</section>
+            </div>
+        </div>
+
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/lib/js/head.min.js"></script>
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/js/reveal.min.js"></script>
+
+        <script>
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+ // 是否在右下角展示控制条
+  controls: true,
+  // 是否显示演示的进度条
+  progress: true,
+  // 是否显示当前幻灯片的页数编号，也可以使用代码 “slideNumber: 'c/t'” ，表示当前页/总页数。
+  slideNumber: false,
+  // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  history: false,
+  // 是否启用键盘快捷键来导航
+  keyboard: true,
+  // 是否启用幻灯片的概览模式，可使用 "Esc" 或 "o" 键来切换概览模式
+  overview: true,
+  // 是否将幻灯片垂直居中
+  center: true,
+  // 是否在触屏设备上启用触摸滑动切换
+  touch: true,
+  // 是否循环演示
+  loop: false,
+  // 是否将演示的方向变成 RTL，即从右往左
+  rtl: false,
+  // 是否每次演示的时候，随机幻灯片的顺序
+  shuffle: false,
+  // 全局开启和关闭碎片。
+  fragments: true,
+  // 标识演示文稿是否在嵌入模式中运行，即包含在屏幕的有限部分中的
+  embedded: false,
+  // 标识当问号键被点击的时候是否应该显示一个帮助的覆盖层
+  help: true,
+  // 标识演讲者备注标志是否让所有观看者可见
+  showNotes: false,
+  // 两个幻灯片之间自动切换的时间间隔（毫秒）
+  // 当设置成 0 的时候则禁止自动切换
+  // 该值可以被幻灯片上的 “data-autoslide” 属性覆盖
+  autoSlide: 0,
+  // 当遇到用户输入的时候停止自动切换
+  autoSlideStoppable: true,
+  // 当自动滑动时，使用此方法进行导航。
+  autoSlideMethod: Reveal.navigateNext,
+  // 是否启用通过鼠标滚轮来导航幻灯片
+  mouseWheel: false,
+  // 是否在移动设备上隐藏地址栏
+  hideAddressBar: true,
+  // 是否在一个弹出的 iframe 中打开幻灯片中的链接
+  previewLinks: false,
+  // 切换过渡效果
+  transition: 'default', // none/fade/slide/convex/concave/zoom
+  // 过渡速度
+  transitionSpeed: 'default', // default/fast/slow
+  // 全屏幻灯片背景的过渡效果
+  backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+  // 加载除当前可见的幻灯片之外的幻灯片数量
+  viewDistance: 3,
+  // 视差背景图片
+  parallaxBackgroundImage: '',
+  // e.g. 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'
+  // 视差背景尺寸
+  parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+  // 移动视差背景（水平和垂直）滑动变化的数量, 例如 100
+  // - 除了指定自动计算
+  // - 设置为 0 时，禁止沿轴运动
+  parallaxBackgroundHorizontal: null,
+  parallaxBackgroundVertical: null,
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/marked.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/markdown.min.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/notes/notes.min.js', async: true },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
+</html>

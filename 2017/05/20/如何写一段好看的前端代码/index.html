@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+    <!-- 
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.3.0 -->
+
+    <!-- Title -->
+    
+    <title>
+        
+            如何写一段好看的前端代码 | 
+        
+        席小白的边缘世界
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Meta & Info -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="Hugh">
+    <meta name="description" content="席小白的边缘世界">
+    <meta name="keywords" content="null,代码,规范">
+
+    <!--iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="席小白的边缘世界">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://hughhe.cn">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="如何写一段好看的前端代码 | 席小白的边缘世界">
+    <meta property="og:description" content="席小白的边缘世界">
+    <meta property="og:article:tag" content="代码"> <meta property="og:article:tag" content="规范"> 
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="/css/material.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <!-- Config CSS -->
+
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #8fc8d9 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #8fc8d9 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #8fc8d9 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/queue.js"></script>
+
+    <!-- UC Browser Compatible -->
+    <script>
+        var agent = navigator.userAgent.toLowerCase();
+        if(agent.indexOf('ucbrowser')>0) {
+            document.write("<link rel=\"stylesheet\" href=\"/css/uc.css\">");
+            alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+        }
+    </script>
+
+    
+
+    
+
+    <!-- Bing Background -->
+    
+
+    <!-- Custom Head -->
+    
+<link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#html"><span class="post-toc-number">1.</span> <span class="post-toc-text">html</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#css"><span class="post-toc-number">2.</span> <span class="post-toc-text">css</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ES6"><span class="post-toc-number">3.</span> <span class="post-toc-text">ES6</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vue"><span class="post-toc-number">4.</span> <span class="post-toc-text">Vue</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自己的项目结构分析"><span class="post-toc-number">5.</span> <span class="post-toc-text">自己的项目结构分析</span></a></li></ol>
+
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script>
+    var randomNum = Math.floor(Math.random() * 15 + 1);
+
+    $('.post_thumbnail-random').css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                如何写一段好看的前端代码
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Hugh</strong>
+        <span>5月 20, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+  <!-- 浏览量 -->
+    <button id="article-functions-looktimes-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons" role="presentation">visibility
+</i>
+        
+    </button>
+    <span id="busuanzi_container_page_pv">
+    <span id="busuanzi_value_page_pv" style="margin-right:10px"></span>
+</span>
+
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/代码/">代码</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/规范/">规范</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=如何写一段好看的前端代码&url=http://hughhe.cn//2017/05/20/如何写一段好看的前端代码/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://hughhe.cn//2017/05/20/如何写一段好看的前端代码/index.html&title=如何写一段好看的前端代码" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=席小白的边缘世界&title=如何写一段好看的前端代码&summary=席小白的边缘世界&pics=http://hughhe.cn/img/favicon.png&url=http://hughhe.cn/2017/05/20/如何写一段好看的前端代码/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+
+
+    <!-- Slide -->
+    <a href="./index-slide.html">
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+
+        <i class="material-icons" role="presentation">videocam</i>
+        <span class="visuallyhidden">videocam</span>
+
+    </button>
+    </a>
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>##一般规范 </p>
+<p>###文件/资源命名  </p>
+<p>1.普通资源(html,css,js)</p>
+<p>全部以小写字母命名，以-（减号）作为分隔符  </p>
+<pre><code>my-script.js  
+my-camel-case-name.css
+</code></pre><p>2.协议<br> 非必要情况，以无协议头的形式引入资源（script，css，图片资源等）</p>
+<p>3.文本缩进<br> 一次缩进tab（简单，方便）    </p>
+<p>4.注释<br> 多写注释,主要是各种函数和变量的注释，对不容易理解的代码，添加明确的注释。</p>
+<pre><code>/**
+* TODO 未处理IE6-8的兼容性
+* My method description.  Like other pieces of your comment     blocks, 
+* this can span multiple lines.
+*
+* @method methodName
+* @param {String} foo Argument 1
+* @param {Object} config A config object
+* @param {String} config.name The name on the config object
+* @return {Boolean} Returns true on success
+*/
+</code></pre><p>5.代码检查</p>
+<p> ESlint  </p>
+<h3 id="html"><a href="#html" class="headerlink" title="html"></a>html</h3><p>1.文档类型  </p>
+<p>固定为&lt;!DOCTYPE html&gt;</p>
+<p>2.meta    </p>
+<pre><code>&lt;!-- 声明文档使用的字符编码 --&gt;
+&lt;meta charset=&#39;utf-8&#39;&gt;
+&lt;!-- 优先使用 IE 最新版本和 Chrome --&gt;
+&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;/&gt;
+&lt;!-- 页面描述 --&gt;
+&lt;meta name=&quot;description&quot; content=&quot;不超过150个字符&quot;/&gt;
+&lt;!-- 页面关键词 --&gt;
+&lt;meta name=&quot;keywords&quot; content=&quot;&quot;/&gt;
+&lt;!-- 网页作者 --&gt;
+&lt;meta name=&quot;author&quot; content=&quot;name, email@gmail.com&quot;/&gt;
+&lt;!-- 搜索引擎抓取 --&gt;
+&lt;meta name=&quot;robots&quot; content=&quot;index,follow&quot;/&gt;
+&lt;!-- 为移动设备添加 viewport --&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no&quot;&gt;
+&lt;!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边 http://bigc.at/ios-webapp-viewport-meta.orz --&gt;
+
+&lt;!-- iOS 设备 begin --&gt;
+&lt;meta name=&quot;apple-mobile-web-app-title&quot; content=&quot;标题&quot;&gt;
+&lt;!-- 添加到主屏后的标题（iOS 6 新增） --&gt;
+&lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot;/&gt;
+&lt;!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 --&gt;
+
+&lt;meta name=&quot;apple-itunes-app&quot; content=&quot;app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL&quot;&gt;
+&lt;!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） --&gt;
+&lt;meta name=&quot;apple-mobile-web-app-status-bar-style&quot; content=&quot;black&quot;/&gt;
+&lt;!-- 设置苹果工具栏颜色 --&gt;
+&lt;meta name=&quot;format-detection&quot; content=&quot;telphone=no, email=no&quot;/&gt;
+&lt;!-- 忽略页面中的数字识别为电话，忽略email识别 --&gt;
+&lt;!-- 启用360浏览器的极速模式(webkit) --&gt;
+&lt;meta name=&quot;renderer&quot; content=&quot;webkit&quot;&gt;
+&lt;!-- 避免IE使用兼容模式 --&gt;
+&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+&lt;!-- 不让百度转码 --&gt;
+&lt;meta http-equiv=&quot;Cache-Control&quot; content=&quot;no-siteapp&quot; /&gt;
+&lt;!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 --&gt;
+&lt;meta name=&quot;HandheldFriendly&quot; content=&quot;true&quot;&gt;
+&lt;!-- 微软的老式浏览器 --&gt;
+&lt;meta name=&quot;MobileOptimized&quot; content=&quot;320&quot;&gt;
+&lt;!-- uc强制竖屏 --&gt;
+&lt;meta name=&quot;screen-orientation&quot; content=&quot;portrait&quot;&gt;
+&lt;!-- QQ强制竖屏 --&gt;
+&lt;meta name=&quot;x5-orientation&quot; content=&quot;portrait&quot;&gt;
+&lt;!-- UC强制全屏 --&gt;
+&lt;meta name=&quot;full-screen&quot; content=&quot;yes&quot;&gt;
+&lt;!-- QQ强制全屏 --&gt;
+&lt;meta name=&quot;x5-fullscreen&quot; content=&quot;true&quot;&gt;
+&lt;!-- UC应用模式 --&gt;
+&lt;meta name=&quot;browsermode&quot; content=&quot;application&quot;&gt;
+&lt;!-- QQ应用模式 --&gt;
+&lt;meta name=&quot;x5-page-mode&quot; content=&quot;app&quot;&gt;
+&lt;!-- windows phone 点击无高光 --&gt;
+&lt;meta name=&quot;msapplication-tap-highlight&quot; content=&quot;no&quot;&gt;
+&lt;!-- iOS 图标 begin --&gt;
+&lt;link rel=&quot;apple-touch-icon-precomposed&quot; href=&quot;/apple-touch-icon-57x57-precomposed.png&quot;/&gt;
+&lt;!-- iPhone 和 iTouch，默认 57x57 像素，必须有 --&gt;
+&lt;link rel=&quot;apple-touch-icon-precomposed&quot; sizes=&quot;114x114&quot; href=&quot;/apple-touch-icon-114x114-precomposed.png&quot;/&gt;
+&lt;!-- Retina iPhone 和 Retina iTouch，114x114 像素，可以没有，但推荐有 --&gt;
+&lt;link rel=&quot;apple-touch-icon-precomposed&quot; sizes=&quot;144x144&quot; href=&quot;/apple-touch-icon-144x144-precomposed.png&quot;/&gt;
+&lt;!-- Retina iPad，144x144 像素，可以没有，但推荐有 --&gt;
+&lt;!-- iOS 图标 end --&gt;
+
+&lt;!-- iOS 启动画面 begin --&gt;
+&lt;link rel=&quot;apple-touch-startup-image&quot; sizes=&quot;768x1004&quot; href=&quot;/splash-screen-768x1004.png&quot;/&gt;
+&lt;!-- iPad 竖屏 768 x 1004（标准分辨率） --&gt;
+&lt;link rel=&quot;apple-touch-startup-image&quot; sizes=&quot;1536x2008&quot; href=&quot;/splash-screen-1536x2008.png&quot;/&gt;
+&lt;!-- iPad 竖屏 1536x2008（Retina） --&gt;
+&lt;link rel=&quot;apple-touch-startup-image&quot; sizes=&quot;1024x748&quot; href=&quot;/Default-Portrait-1024x748.png&quot;/&gt;
+&lt;!-- iPad 横屏 1024x748（标准分辨率） --&gt;
+&lt;link rel=&quot;apple-touch-startup-image&quot; sizes=&quot;2048x1496&quot; href=&quot;/splash-screen-2048x1496.png&quot;/&gt;
+&lt;!-- iPad 横屏 2048x1496（Retina） --&gt;
+
+&lt;link rel=&quot;apple-touch-startup-image&quot; href=&quot;/splash-screen-320x480.png&quot;/&gt;
+&lt;!-- iPhone/iPod Touch 竖屏 320x480 (标准分辨率) --&gt;
+&lt;link rel=&quot;apple-touch-startup-image&quot; sizes=&quot;640x960&quot; href=&quot;/splash-screen-640x960.png&quot;/&gt;
+&lt;!-- iPhone/iPod Touch 竖屏 640x960 (Retina) --&gt;
+&lt;link rel=&quot;apple-touch-startup-image&quot; sizes=&quot;640x1136&quot; href=&quot;/splash-screen-640x1136.png&quot;/&gt;
+&lt;!-- iPhone 5/iPod Touch 5 竖屏 640x1136 (Retina) --&gt;
+&lt;!-- iOS 启动画面 end --&gt;
+
+&lt;!-- iOS 设备 end --&gt;
+&lt;meta name=&quot;msapplication-TileColor&quot; content=&quot;#000&quot;/&gt;
+&lt;!-- Windows 8 磁贴颜色 --&gt;
+&lt;meta name=&quot;msapplication-TileImage&quot; content=&quot;icon.png&quot;/&gt;
+&lt;!-- Windows 8 磁贴图标 --&gt;
+
+&lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; title=&quot;RSS&quot; href=&quot;/rss.xml&quot;/&gt;
+&lt;!-- 添加 RSS 订阅 --&gt;
+&lt;link rel=&quot;shortcut icon&quot; type=&quot;image/ico&quot; href=&quot;/favicon.ico&quot;/&gt;
+</code></pre><p>  移动端常用：  </p>
+<pre><code>  &lt;meta content=&quot;text/html; charset=utf-8&quot; http-equiv=&quot;Content-Type&quot;&gt;  
+  &lt;!-- 声明文档使用的字符编码 --&gt;  
+  &lt;meta charset=&#39;utf-8&#39;&gt;
+  &lt;!-- 为移动设备添加 viewport --&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no&quot;&gt;
+</code></pre><p>3.标签<br>语义化标签（header，nav，main，aside，section，article，footer）<br>无内容元素的标签不闭合（br）</p>
+<p>4.引号<br>使用双引号(“”) 而不是单引号(”) 。（类名，Id等）</p>
+<p>5.纯粹的html  </p>
+<p>不过多的引入样式或者逻辑（不使用内联或者内嵌样式，不使用行内脚本）<br>不要引入一些特定的 HTML 结构来解决一些视觉设计问题（比如一些无意义的icon，这些icon可以用before或者after等伪类来解决）</p>
+<h3 id="css"><a href="#css" class="headerlink" title="css"></a>css</h3><p>1.ID的使用<br>使用ID唯一有效的是确定网页或整个站点中的位置,也就是尽可能的用ID去标示和这个DOM在整个文档中的位置，比如header，content（由于ID选择器的权重非常高，高于大多数class）</p>
+<p>2.class的命名<br>以BEM为命名守则 （并不是所有地方都用bem，相对独立或者通用的css不必遵守BEM的命名方式），命名需要尽量语义化</p>
+<pre><code>.block{}
+.block__element{}
+.block--modifier{}
+</code></pre><p>例子：    </p>
+<pre><code>.person{}
+.person__hand{}
+.person--female{}
+.person--female__hand{}
+.person__hand--left{}    
+</code></pre><p>3.选择器<br>(1)多使用直接子选择器（减少查找的性能消耗）  </p>
+<pre><code>    .content &gt; .content-body &gt; .title {
+  font-size: 1.5rem;
+}
+</code></pre><p>(2)除非必要，不要使用标签选择器 （仅允许在最底层时使用标签选择器，以防止修改DOm时不会影响相关css）</p>
+<p>4.css属性<br>（1） 使用缩写属性（border，padding等）<br>（2）省略“0”值后面的单位（font-size：0）<br>（3）颜色始终使用小写的十六进制数字（可以的话用3个字符）<br>（4）声明顺序：  </p>
+<pre><code>display
+position, left, top, right etc.
+overflow, float, clear etc.
+margin, padding
+background, border etc.
+font, text  
+</code></pre><p>5.书写<br>（1）属性名的冒号后使用一个空格    </p>
+<pre><code>h3 {
+  font-weight: bold;
+}
+</code></pre><p>（2）每个选择器和属性声明总是使用新的一行。  </p>
+<pre><code>h1,
+h2,
+h3 {
+  font-weight: normal;
+  line-height: 1.2;
+}
+</code></pre><p>（3）属性选择器或属性值用双引号（””），URI值（url()）不要使用引号。  </p>
+<pre><code>@import url(//cdn.com/foundation.css);
+
+html {
+  font-family: &quot;open sans&quot;, arial, sans-serif;
+}
+
+body:after {
+  content: &quot;pause&quot;;
+}
+</code></pre><p>6.less与sass<br>（1）嵌套顺序</p>
+<pre><code>当前选择器的样式属性
+父级选择器的伪类选择器 (:first-letter, :hover, :active etc)
+伪类元素 (:before and :after)
+父级选择器的声明样式 (.selected, .active, .enlarged etc.)
+上下文媒体查询
+子选择器作为最后的部分  
+</code></pre><p>###js<br>1.避免全局污染，创建IIFE（立即执行的函数表达式）  </p>
+<pre><code>(function(){
+  &#39;use strict&#39;;
+
+  // Code goes here
+
+}());
+</code></pre><p>2.严格模式，如上开启</p>
+<p>3.变量  </p>
+<p>ES6下，对于常量或不修改的变量声明使用const，对于只在当前作用域下有效的变量，应使用let，全局变量使用var。将所有 const 变量放在一起，然后将所有 let 变量放在一起，用逗号隔开。  </p>
+<pre><code> let a = 10,
+      b = 10,
+      i,
+      c,
+      d,
+      x;
+</code></pre><p>4.字符串 </p>
+<p>（1）使用单引号 ‘来创建字符串。<br>（2）超过80个字符的字符串应该使用字符串连接换行注。  </p>
+<pre><code>var errorMessage = &#39;This is a super long error that &#39; +
+  &#39;was thrown because of Batman.&#39; +
+  &#39;When you stop to think about &#39; +
+  &#39;how Batman had anything to do &#39; +
+  &#39;with this, you would get nowhere &#39; +
+  &#39;fast.&#39;;
+</code></pre><p>（3）编程构建字符串时，使用字符串模板而不是字符串连接    </p>
+<pre><code>return `How are you, ${name}?`; 
+</code></pre><p>5.类型判断   </p>
+<p>总是使用 === 精确的比较操作符  </p>
+<p>6.变量赋值<br>（1）利用逻辑操作符 || 和 &amp;&amp; 来进行判断赋值  </p>
+<pre><code>x = x || y || 1;
+</code></pre><p>（2）用数组和对象字面量来代替数组和对象构造器  </p>
+<pre><code>var o = {};
+var p = [];
+</code></pre><p>(3)三元条件判断来代替if-else   </p>
+<pre><code>return x === 10 ? &#39;valid&#39; : &#39;invalid&#39;; 
+</code></pre><p>7，命名<br>变量和函数采用驼峰式命名，首字母小写<br>私有以及内部变量和函数以下划线开头（_test）<br>部分变量首字母来标示类型<br>s：表示字符串。例如：sName，sHtml；<br>n：表示数字。例如：nPage，nTotal；<br>b：表示逻辑。例如：bChecked，bHasLogin；<br>dom：表示Dom对象，例如：domForm，domInput；  </p>
+<p>8.函数  </p>
+<p>（1）块级域中不用使用函数声明形式，以函数变量的形式声明函数<br>（2）执行语句内部使用匿名函数（看情况采用es6箭头函数）</p>
+<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><p>1.关于变量，字符串参考上方  </p>
+<p>2.解构赋值<br>复杂数组和对象的赋值采用解构赋值</p>
+<p>3.类<br>总是使用 class 关键字，避免直接修改 prototype。   </p>
+<pre><code>class SomeClass {
+  constructor() {
+    // constructor
+  }
+
+  get aval() {
+    // public getter
+  }
+
+  set aval(val) {
+    // public setter
+  }
+
+  doSth() {
+    // 公用方法
+  }
+
+  get _aval() {
+    // private getter
+  }
+
+  set _aval() {
+    // private setter
+  }
+
+  _doSth() {
+    // 私有方法
+  }
+}  
+</code></pre><p>4.模块<br>不要使用通配符 * 的 import<br>多变量要导出时应采用对象解构形式<br>导出单一一个类时，确保你的文件名就是你的类名<br>导出一个默认小驼峰命名的函数时，文件名应该就是导出的方法名    </p>
+<pre><code>const CheckBox = require(&#39;./CheckBox&#39;);
+</code></pre><p>导出单例、函数库或裸对象时，使用大驼峰命名规则 </p>
+<pre><code>const AirbnbStyleGuide = {
+  es6: {
+  }
+};
+
+export default AirbnbStyleGuide;   
+</code></pre><p>5.属性访问</p>
+<p>使用点 . 操作符来访问常量属性<br>使用中括号[] 操作符来访问变量属性</p>
+<p>6.遍历    </p>
+<p>遍历数组：forEach（正常遍历，遍历所有元素），map（处理数组的每一个元素），every （判断是否所有元素符合要求，return false跳出）,some(判断是否有一个元素符合要求，return true 跳出) for…of（可以用break，continue来跳出循环）</p>
+<p>遍历对象：<br>用Object.keys转换对象为数组进行遍历</p>
+<p>7.promise  </p>
+<p>异步请求都转为promise对象  </p>
+<p>自定义finally   </p>
+<pre><code>Promise.prototype.finally = function (callback) {
+  let P = this.constructor;
+  return this.then(
+    value  =&gt; P.resolve(callback()).then(() =&gt; value),
+    reason =&gt; P.resolve(callback()).then(() =&gt; { throw reason })
+  );
+};
+</code></pre><h3 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h3><p>1.文件名</p>
+<p>2.组件<br>（1）组件的命名<br> 组件的文件名以驼峰命名，首字母大写<br> 在App中引用组件，以app- 前缀作为命名空间，连字符作为分割 : 如果非常通用的话可使用一个单词来命名，这样可以方便于其它项目里复用。<br>（2）组件结构化  </p>
+<pre><code>    export default {
+    // 不要忘记了 name 属性
+name: &#39;RangeSlider&#39;,
+
+// 组件属性、变量
+props: {
+        bar: {}, // 按字母顺序
+        foo: {},
+        fooBar: {},
+    },
+// 变量
+data() {},
+computed: {},
+// 使用其它组件
+components: {},
+// 方法
+watch: {},
+methods: {},
+// 生命周期函数
+beforeCreate() {},
+mounted() {},
+};
+</code></pre><p>3.开发<br>（1）template或者render内部的html中不要出现太过复杂的行内表达式，用computd或者method来计算<br>（2）props原子化（props尽量为基本类型（字符串，数字，布尔））<br>（3）将 this 赋值给 component 变量，不要在编写这样的代码 const self = this; ，而是应该直接使用变量 component 。<br>（4）事件命名<br>事件命名也连字符命名<br>一个事件的名字对应组件外的一组意义操作，如：upload-success, upload-error<br>事件命名应该以动词<br>（5）可以将组件名作为 css 类的命名空间。</p>
+<h3 id="自己的项目结构分析"><a href="#自己的项目结构分析" class="headerlink" title="自己的项目结构分析"></a>自己的项目结构分析</h3><p>/html (根据文件夹区分页面，存放落地页的html)<br>/src/api(同样根据文件夹区分业务，存放各业务的api，底层一个封装好的request)<br>/src/components(同样根据文件夹区分业务，存放各业务的vue组件)<br>/src/entry(同样根据文件夹区分业务，存放各业务的入口js)<br>/src/mock(所有业务的mock数据)<br>/src/page(同样根据文件夹区分业务，存放各业务的主挂载点App)<br>/src/static(同样根据文件夹区分业务，存放各业务的静态资源)<br>/jsonServer（jsonserver的配置文件）<br>/f2eci.json(CI的配置)<br>/webpack.config.js(webpack配置)<br>/server.js(devServer配置)<br><img src="/2017/05/20/如何写一段好看的前端代码/./如何写一段好看的前端代码/2.png" alt="das"><br><img src="/2017/05/20/如何写一段好看的前端代码/./如何写一段好看的前端代码/1.png" alt="das"></p>
+
+    
+
+    
+</div>
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+
+
+
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/05/07/智斗类小说和漫画推荐/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="Hugh's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        hugh-he@foxmail.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:hugh-he@foxmail.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/" target="_self">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2017/05/">五月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/06/">六月 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/05/">五月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">四月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/10/">十月 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/09/">九月 2015<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/02/">二月 2015<span class="sidebar_archives-count">2</span></a>
+            </ul>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/programming/">开发者<span class="sidebar_archives-count">18</span></a></li><li><a class="sidebar_archives-link" href="/categories/story/">异物语<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/OTAKU/">御宅族<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/life/">浮世绘<span class="sidebar_archives-count">9</span></a>
+            </ul>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/tags" title="标签云">
+                
+                    <i class="material-icons sidebar-material-icons">bookmark</i>
+                
+                标签云
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="友情链接">
+                
+                    <i class="material-icons sidebar-material-icons">links</i>
+                
+                友情链接
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+        <a href="http://weibo.com/3309465791/profile?topnav=1&amp;wvr=6" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-weibo.png);">
+                <span class="visuallyhidden">Weibo</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/hezhengjie" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-github.png);">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+        <a href="http://www.linkedin.com/nhome/?trk=hb_signin" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-linkedin.png);">
+                <span class="visuallyhidden">LinkedIn</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Zhihu -->
+    
+        <a href="https://www.zhihu.com/people/he-zheng-jie-75/activities" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-zhihu.png);">
+                <span class="visuallyhidden">Zhihu</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Bilibili -->
+    
+        <a href="http://space.bilibili.com/2183184/#!/" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-bilibili.png);">
+                <span class="visuallyhidden">Bilibili</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;
+            <script type="text/javascript">
+                var fd = new Date();
+                document.write(fd.getFullYear());
+            </script>
+            &nbsp;席小白的边缘世界
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import File -->
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/js.min.js"></script>
+<script src="/js/nprogress.js"></script>
+
+<script type="text/javascript">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+<!-- Swiftye -->
+
+
+<!-- Local Search-->
+
+<!-- Window Load-->
+<script>
+    $(window).load(function () {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+
+
+                </main>
+            </div>
+        </body>
+    
+
+</html>
