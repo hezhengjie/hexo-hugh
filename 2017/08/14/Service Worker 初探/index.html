@@ -442,80 +442,84 @@
 <blockquote>
 <p>注意：scope 最多只能在sw文件的同层，比如你注册的sw的path为/a/b/sw.js，那么你的scope最多只能设为/a/b(即默认的值)，或者往下层走，/a/b/c等，/a这种是不被允许的。</p>
 </blockquote>
-<p>作用域的最大作用是为了保证每个业务的sw相对独立，不互相污染，当然有时还是避免不了作用域的污染，比如有个业务的sw注册到了根目录下，这样它就有个操作这个根目录下所有sw的能力，所以比较好的做法，是注册前，将根目录下的sw注销掉。  </p>
-<pre><code> navigator.serviceWorker.getRegistrations().then(function (regs) {
-        for (var reg of regs) {
-            if (reg.scope === &#39;https://myhost/&#39;) {
-                reg.unregister();
-            }
-        }
-        }）
-</code></pre><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>注册完之后，浏览器开辟了一个新的线程worker context 来运行这个Service Worker，游离于主线程之外，不能操作DOM。</p>
-<p>注册完成之后，service worker会自动安装，然后会触发install事件，在这个事件的回调里，我们来离线缓存一些东西，service worker中，我们不能操作DOM，但是可以操作其他东西，比如 cache，indexedDB等。</p>
-<pre><code>var CACHE_VERSION = &#39;app-v1&#39;; // 缓存文件的版本
-var CACHE_FILES = [ // 需要缓存的页面文件
-    &#39;js/app.js&#39;,
-    &#39;css/style.css&#39;
-];
-self.addEventListener(&#39;install&#39;, function (event) { // 监听worker的install事件
-    event.waitUntil( // 延迟install事件直到缓存初始化完成
-        new Promise(function() {
-            caches.open(CACHE_VERSION)
-                .then(function (cache) {
-                    console.log(&#39;Opened cache&#39;);
-                    return cache.addAll(CACHE_FILES);
-                })
-            self.skipWaiting();//更新sw时,跳过waiting
-        })
-    );
-});
-</code></pre><p>新的service worker 安装完成后，会直接进入激活状态，更新时的sw会进入waiting，详细见下面的更新部分。</p>
+<p>作用域的最大作用是为了保证每个业务的sw相对独立，不互相污染，当然有时还是避免不了作用域的污染，比如有个业务的sw注册到了根目录下，这样它就有个操作这个根目录下所有sw的能力，所以比较好的做法，是注册前，将根目录下的sw注销掉。 </p>
+<pre class="line-numbers language-js"><code class="language-js">     navigator<span class="token punctuation">.</span>serviceWorker<span class="token punctuation">.</span><span class="token function">getRegistrations</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>regs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> reg <span class="token keyword">of</span> regs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>reg<span class="token punctuation">.</span>scope <span class="token operator">===</span> <span class="token string">'https://myhost/'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    reg<span class="token punctuation">.</span><span class="token function">unregister</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>）
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>注册完之后，浏览器开辟了一个新的线程worker context 来运行这个Service Worker，游离于主线程之外，不能操作DOM。</p>
+<p>注册完成之后，service worker会自动安装，然后会触发install事件，在这个事件的回调里，我们来离线缓存一些东西，service worker中，我们不能操作DOM，但是可以操作其他东西，比如 cache，indexedDB等。  </p>
+<pre class="line-numbers language-js"><code class="language-js">    <span class="token keyword">var</span> CACHE_VERSION <span class="token operator">=</span> <span class="token string">'app-v1'</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 缓存文件的版本</span>
+    <span class="token keyword">var</span> CACHE_FILES <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token comment" spellcheck="true">// 需要缓存的页面文件</span>
+        <span class="token string">'js/app.js'</span><span class="token punctuation">,</span>
+        <span class="token string">'css/style.css'</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+    self<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'install'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 监听worker的install事件</span>
+        event<span class="token punctuation">.</span><span class="token function">waitUntil</span><span class="token punctuation">(</span> <span class="token comment" spellcheck="true">// 延迟install事件直到缓存初始化完成</span>
+            <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                caches<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span>CACHE_VERSION<span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>cache<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Opened cache'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">return</span> cache<span class="token punctuation">.</span><span class="token function">addAll</span><span class="token punctuation">(</span>CACHE_FILES<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span><span class="token function">skipWaiting</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//更新sw时,跳过waiting</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>新的service worker 安装完成后，会直接进入激活状态，更新时的sw会进入waiting，详细见下面的更新部分。</p>
 <h4 id="激活"><a href="#激活" class="headerlink" title="激活"></a>激活</h4><p>安装之后会自动激活，触发activate事件，在这个事件的回调里我们可以进行sw文件的版本比较，消除旧版本的缓存。  </p>
-<pre><code>self.addEventListener(&#39;activate&#39;, function (event) { // 监听worker的activate事件
-    event.waitUntil( // 延迟activate事件直到
-        Promise.all([
-        // 更新客户端
-        self.clients.claim(),
-        caches.keys().then(function(keys){
-            return Promise.all(keys.map(function(key, i){ // 清除旧版本缓存
-                if(key !== CACHE_VERSION){
-                    return caches.delete(keys[i]);
-                }
-            }))
-        })]
-    )
-    )
-});
-</code></pre><p>还有一个最常用的事件是fetch，会监控所有fetch请求，拦截这些请求，并进行我们自己的判断，若是命中缓存则直接从缓存中去，没有，则走正常的请求，并把请求的返回缓存一下，之后再请求就可以从缓存中取了。</p>
-<pre><code>self.addEventListener(&#39;fetch&#39;, function (event) { // 截取页面的资源请求
-    event.respondWith( // 返回页面的资源请求
-        caches.match(event.request).then(function(res){ // 判断缓存是否命中
-            if(res){  // 返回缓存中的资源
-                return res;
-            }
-            requestBackend(event); // 执行请求备份操作
-        })
-    )
-});
+<pre class="line-numbers language-js"><code class="language-js">    self<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'activate'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 监听worker的activate事件</span>
+        event<span class="token punctuation">.</span><span class="token function">waitUntil</span><span class="token punctuation">(</span> <span class="token comment" spellcheck="true">// 延迟activate事件直到</span>
+            Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+            <span class="token comment" spellcheck="true">// 更新客户端</span>
+            self<span class="token punctuation">.</span>clients<span class="token punctuation">.</span><span class="token function">claim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            caches<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>keys<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span>keys<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 清除旧版本缓存</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span>key <span class="token operator">!==</span> CACHE_VERSION<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                        <span class="token keyword">return</span> caches<span class="token punctuation">.</span><span class="token keyword">delete</span><span class="token punctuation">(</span>keys<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>还有一个最常用的事件是fetch，会监控所有fetch请求，拦截这些请求，并进行我们自己的判断，若是命中缓存则直接从缓存中去，没有，则走正常的请求，并把请求的返回缓存一下，之后再请求就可以从缓存中取了。  </p>
+<pre class="line-numbers language-js"><code class="language-js">    self<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'fetch'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 截取页面的资源请求</span>
+        event<span class="token punctuation">.</span><span class="token function">respondWith</span><span class="token punctuation">(</span> <span class="token comment" spellcheck="true">// 返回页面的资源请求</span>
+            caches<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>request<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 判断缓存是否命中</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">{</span>  <span class="token comment" spellcheck="true">// 返回缓存中的资源</span>
+                    <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token function">requestBackend</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 执行请求备份操作</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-function requestBackend(event){  // 请求备份操作
-    var url = event.request.clone();
-    return fetch(url).then(function(res){ // 请求线上资源
-        //if not a valid response send the error
-        if(!res || res.status !== 200 || res.type !== &#39;basic&#39;){
-            return res;
-        }
+    <span class="token keyword">function</span> <span class="token function">requestBackend</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">{</span>  <span class="token comment" spellcheck="true">// 请求备份操作</span>
+        <span class="token keyword">var</span> url <span class="token operator">=</span> event<span class="token punctuation">.</span>request<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token function">fetch</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 请求线上资源</span>
+            <span class="token comment" spellcheck="true">//if not a valid response send the error</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>res <span class="token operator">||</span> res<span class="token punctuation">.</span>status <span class="token operator">!==</span> <span class="token number">200</span> <span class="token operator">||</span> res<span class="token punctuation">.</span>type <span class="token operator">!==</span> <span class="token string">'basic'</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
-        var response = res.clone();
+            <span class="token keyword">var</span> response <span class="token operator">=</span> res<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        caches.open(CACHE_VERSION).then(function(cache){ // 缓存从线上获取的资源
-            cache.put(event.request, response);
-        });
+            caches<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span>CACHE_VERSION<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>cache<span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 缓存从线上获取的资源</span>
+                cache<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        return res;
-    })
-}
-</code></pre><h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><p>更新SW时，由于已经有一个SW在运行了，所以新的SW会安装并触发 install 事件，但是安装完不会立即激活，完成安装后会进入 waiting 状态。直到所有已打开的页面都关闭，旧的 Service Worker 自动停止，新的 Service Worker 才会在接下来重新打开的页面里生效。</p>
+            <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><p>更新SW时，由于已经有一个SW在运行了，所以新的SW会安装并触发 install 事件，但是安装完不会立即激活，完成安装后会进入 waiting 状态。直到所有已打开的页面都关闭，旧的 Service Worker 自动停止，新的 Service Worker 才会在接下来重新打开的页面里生效。</p>
 <p>要想及时更新可以在 install 事件中执行 self.skipWaiting() 方法跳过 waiting 状态，然后会直接进入 activate 阶段。接着在 activate 事件发生时，通过执行 self.clients.claim() 方法，更新所有客户端上的 Service Worker。</p>
 <p>参考项目：<br><a href="https://github.com/hezhengjie/sw-test" target="_blank" rel="external">SW-test</a></p>
 <p>参考文献：  </p>
