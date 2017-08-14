@@ -419,22 +419,23 @@
 <blockquote>
 <p>注册 —&gt; 安装 —&gt; 激活 —&gt; 更新</p>
 </blockquote>
-<h3 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h3><p>当你的应用之前未注册过 Service Worker 的话，第一步是注册我们的sw文件，注册的代码相对简单：  </p>
-<pre><code>if (&#39;serviceWorker&#39; in navigator) {
-window.addEventListener(&#39;load&#39;, () =&gt; {
-        navigator.serviceWorker.register(&#39;/sw.js&#39;, {scope: &#39;/&#39;})
-            .then(function (registration) {
-                // 注册成功
-                console.log(&#39;ServiceWorker registration successful with scope: &#39;, registration.scope);
-            })
-            .catch(function (err) {
+<h3 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h3><p>当你的应用之前未注册过 Service Worker 的话，第一步是注册我们的sw文件，注册的代码相对简单：</p>
+<pre class="line-numbers language-js"><code class="language-js">    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">'serviceWorker'</span> <span class="token keyword">in</span> navigator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'load'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            navigator<span class="token punctuation">.</span>serviceWorker<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">'/sw.js'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>scope<span class="token punctuation">:</span> <span class="token string">'/'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>registration<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">// 注册成功</span>
+                    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'ServiceWorker registration successful with scope: '</span><span class="token punctuation">,</span> registration<span class="token punctuation">.</span>scope<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-                // 注册失败:(
-                console.log(&#39;ServiceWorker registration failed: &#39;, err);
-            });
-     })
-}
-</code></pre><p>注册只是把sw文件加载到了客户端，并没有执行sw文件，需要注意的是作用域，也就是上面代码中的scope。</p>
+                    <span class="token comment" spellcheck="true">// 注册失败:(</span>
+                    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'ServiceWorker registration failed: '</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注册只是把sw文件加载到了客户端，并没有执行sw文件，需要注意的是作用域，也就是上面代码中的scope。</p>
 <p>Service Worker 线程将接收 scope 指定路径上所有异步请求，如果我们的 Service Worker 的 sw文件在 /a/sw.js， 不传 scope 值的情况下, scope 的默认值就是 /a。  </p>
 <p>scope 的值的意义在于，如果 scope 的值为 /a/b， 那么 Service Worker 线程只能捕获到 path 为 /a/b 开头的( /a/b/page1, /a/b/page2，…)页面的异步事件。  </p>
 <p>Service Worker 没有页面作用域的概念，作用域范围内的所有页面请求都会被当前激活的 Service Worker 所监控，所以在 Service Worker 的 js 逻辑中全局变量需要慎用。</p>

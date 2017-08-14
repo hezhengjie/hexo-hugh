@@ -103,8 +103,9 @@ Service Worker的生命周期大致如下：
 
 ### 注册
 
-当你的应用之前未注册过 Service Worker 的话，第一步是注册我们的sw文件，注册的代码相对简单：  
-
+当你的应用之前未注册过 Service Worker 的话，第一步是注册我们的sw文件，注册的代码相对简单：
+  
+``` js
 	if ('serviceWorker' in navigator) {
 	window.addEventListener('load', () => {
 	        navigator.serviceWorker.register('/sw.js', {scope: '/'})
@@ -119,7 +120,7 @@ Service Worker的生命周期大致如下：
 	            });
 	     })
 	}
-	
+``` 
 注册只是把sw文件加载到了客户端，并没有执行sw文件，需要注意的是作用域，也就是上面代码中的scope。
 
 Service Worker 线程将接收 scope 指定路径上所有异步请求，如果我们的 Service Worker 的 sw文件在 /a/sw.js， 不传 scope 值的情况下, scope 的默认值就是 /a。  
