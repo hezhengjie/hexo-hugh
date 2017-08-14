@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Service Worker初探</title>
+
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/css/reveal.min.css">
+        
+        <!-- theme -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            var theme ='black';
+            switch (theme){
+                case 'black':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/black.min.css';
+                    break;
+                case 'beige':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/beige.min.css';
+                    break;
+                case 'blood':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/blood.min.css';
+                    break;
+                case 'league':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/league.min.css';
+                    break;
+                case 'moon':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/moon.min.css';
+                    break;
+                case 'night':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/night.min.css';
+                    break;
+                case 'serif':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/serif.min.css';
+                    break;
+                case 'sky':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/sky.min.css';
+                    break;
+                case 'solarized':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/solarized.min.css';
+                    break;
+                case 'white':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/white.min.css';
+                    break;
+                default:
+            }
+            
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/lib/css/zenburn.min.css">
+        <link href="https://cdn.bootcss.com/reveal.js/3.4.1/css/print/paper.min.css" rel="stylesheet">
+        <!-- Printing and PDF exports -->
+        
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown
+                         data-separator="^\n"
+                         data-separator-vertical="^\n"
+                         data-separator-notes="^Note:">
+  <script type="text/template">Service Worker初探
+
+
+## 前言
+
+随着移动端在今天的盛行，开发者们为了让H5的体验更接近Native，做出了一系列的努力和优化，Service worker就是其中一点，它让缓存做到更优雅，以给 web 应用提供更好更丰富的使用体验。
+
+
+
+## 使用    
+
+Service Worker的特点： 
+   
+>1.运行于浏览器后台(独立于主线程外的worker线程)，可以控制打开的作用域范围下所有的页面请求    
+>
+2.单独的作用域范围，单独的运行环境和执行线程   
+> 
+3.API基于Promise实现的，代码风格比较友好
+
+当然，Service Worker的使用也有一定的限制：  
+
+>1.因为Service Worker可以拦截请求，所以网站必须使用 HTTPS。除了使用本地开发环境调试时(如域名使用 localhost和127.0.0.1)  
+
+>2.不能操作页面 DOM。但可以通过事件机制来处理  
+
+>3.在移动端，除了IOS的Safari，大部分现代浏览器都已经得到了支持。
+
+
+## 流程  
+
+Service Worker的生命周期大致如下：  
+
+>install -> installed -> actvating -> Active -> Activated -> Redundant  
+
+我们使用Service Worker大致需要以下几步：
+>注册 —> 安装 —> 激活 —> 更新
+
+
+### 注册
+
+当你的应用之前未注册过 Service Worker 的话，第一步是注册我们的sw文件，注册的代码相对简单：  
+
+	if ('serviceWorker' in navigator) {
+	window.addEventListener('load', () => {
+	        navigator.serviceWorker.register('/sw.js', {scope: '/'})
+	            .then(function (registration) {
+	                // 注册成功
+	                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+	            })
+	            .catch(function (err) {
+	
+	                // 注册失败:(
+	                console.log('ServiceWorker registration failed: ', err);
+	            });
+	     })
+	}
+	
+注册只是把sw文件加载到了客户端，并没有执行sw文件，需要注意的是作用域，也就是上面代码中的scope。
+
+Service Worker 线程将接收 scope 指定路径上所有异步请求，如果我们的 Service Worker 的 sw文件在 /a/sw.js， 不传 scope 值的情况下, scope 的默认值就是 /a。  
+
+scope 的值的意义在于，如果 scope 的值为 /a/b， 那么 Service Worker 线程只能捕获到 path 为 /a/b 开头的( /a/b/page1, /a/b/page2，...)页面的异步事件。  
+
+Service Worker 没有页面作用域的概念，作用域范围内的所有页面请求都会被当前激活的 Service Worker 所监控，所以在 Service Worker 的 js 逻辑中全局变量需要慎用。
+
+>注意：scope 最多只能在sw文件的同层，比如你注册的sw的path为/a/b/sw.js，那么你的scope最多只能设为/a/b(即默认的值)，或者往下层走，/a/b/c等，/a这种是不被允许的。
+
+作用域的最大作用是为了保证每个业务的sw相对独立，不互相污染，当然有时还是避免不了作用域的污染，比如有个业务的sw注册到了根目录下，这样它就有个操作这个根目录下所有sw的能力，所以比较好的做法，是注册前，将根目录下的sw注销掉。  
+	
+	 navigator.serviceWorker.getRegistrations().then(function (regs) {
+	        for (var reg of regs) {
+	            if (reg.scope === 'https://myhost/') {
+	                reg.unregister();
+	            }
+	        }
+	        }）
+
+#### 安装 
+
+注册完之后，浏览器开辟了一个新的线程worker context 来运行这个Service Worker，游离于主线程之外，不能操作DOM。
+
+注册完成之后，service worker会自动安装，然后会触发install事件，在这个事件的回调里，我们来离线缓存一些东西，service worker中，我们不能操作DOM，但是可以操作其他东西，比如 cache，indexedDB等。
+
+	var CACHE_VERSION = 'app-v1'; // 缓存文件的版本
+	var CACHE_FILES = [ // 需要缓存的页面文件
+	    'js/app.js',
+	    'css/style.css'
+	];
+	self.addEventListener('install', function (event) { // 监听worker的install事件
+	    event.waitUntil( // 延迟install事件直到缓存初始化完成
+	        new Promise(function() {
+	            caches.open(CACHE_VERSION)
+	                .then(function (cache) {
+	                    console.log('Opened cache');
+	                    return cache.addAll(CACHE_FILES);
+	                })
+	            self.skipWaiting();//更新sw时,跳过waiting
+	        })
+	    );
+	});
+新的service worker 安装完成后，会直接进入激活状态，更新时的sw会进入waiting，详细见下面的更新部分。
+
+
+#### 激活
+安装之后会自动激活，触发activate事件，在这个事件的回调里我们可以进行sw文件的版本比较，消除旧版本的缓存。  
+
+	self.addEventListener('activate', function (event) { // 监听worker的activate事件
+	    event.waitUntil( // 延迟activate事件直到
+	        Promise.all([
+	        // 更新客户端
+	        self.clients.claim(),
+	        caches.keys().then(function(keys){
+	            return Promise.all(keys.map(function(key, i){ // 清除旧版本缓存
+	                if(key !== CACHE_VERSION){
+	                    return caches.delete(keys[i]);
+	                }
+	            }))
+	        })]
+	    )
+	    )
+	});
+
+还有一个最常用的事件是fetch，会监控所有fetch请求，拦截这些请求，并进行我们自己的判断，若是命中缓存则直接从缓存中去，没有，则走正常的请求，并把请求的返回缓存一下，之后再请求就可以从缓存中取了。
+
+	self.addEventListener('fetch', function (event) { // 截取页面的资源请求
+	    event.respondWith( // 返回页面的资源请求
+	        caches.match(event.request).then(function(res){ // 判断缓存是否命中
+	            if(res){  // 返回缓存中的资源
+	                return res;
+	            }
+	            requestBackend(event); // 执行请求备份操作
+	        })
+	    )
+	});
+	
+	function requestBackend(event){  // 请求备份操作
+	    var url = event.request.clone();
+	    return fetch(url).then(function(res){ // 请求线上资源
+	        //if not a valid response send the error
+	        if(!res || res.status !== 200 || res.type !== 'basic'){
+	            return res;
+	        }
+	
+	        var response = res.clone();
+	
+	        caches.open(CACHE_VERSION).then(function(cache){ // 缓存从线上获取的资源
+	            cache.put(event.request, response);
+	        });
+	
+	        return res;
+	    })
+	}
+
+#### 更新
+
+更新SW时，由于已经有一个SW在运行了，所以新的SW会安装并触发 install 事件，但是安装完不会立即激活，完成安装后会进入 waiting 状态。直到所有已打开的页面都关闭，旧的 Service Worker 自动停止，新的 Service Worker 才会在接下来重新打开的页面里生效。
+
+要想及时更新可以在 install 事件中执行 self.skipWaiting() 方法跳过 waiting 状态，然后会直接进入 activate 阶段。接着在 activate 事件发生时，通过执行 self.clients.claim() 方法，更新所有客户端上的 Service Worker。
+
+
+参考项目：
+[SW-test](https://github.com/hezhengjie/sw-test)
+
+参考文献：  
+
+[怎么使用 Service Worker](https://lavas.baidu.com/doc/offline-and-cache-loading/service-worker/how-to-use-service-worker)  
+[如何优雅的为 PWA 注册 Service Worker](https://zhuanlan.zhihu.com/p/28161855)  
+[网站渐进式增强体验(PWA)改造：Service Worker 应用详解](https://lzw.me/a/pwa-service-worker.html)
+
+
+
+
+
+  </script>
+</section>
+            </div>
+        </div>
+
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/lib/js/head.min.js"></script>
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/js/reveal.min.js"></script>
+
+        <script>
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+ // 是否在右下角展示控制条
+  controls: true,
+  // 是否显示演示的进度条
+  progress: true,
+  // 是否显示当前幻灯片的页数编号，也可以使用代码 “slideNumber: 'c/t'” ，表示当前页/总页数。
+  slideNumber: false,
+  // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  history: false,
+  // 是否启用键盘快捷键来导航
+  keyboard: true,
+  // 是否启用幻灯片的概览模式，可使用 "Esc" 或 "o" 键来切换概览模式
+  overview: true,
+  // 是否将幻灯片垂直居中
+  center: true,
+  // 是否在触屏设备上启用触摸滑动切换
+  touch: true,
+  // 是否循环演示
+  loop: false,
+  // 是否将演示的方向变成 RTL，即从右往左
+  rtl: false,
+  // 是否每次演示的时候，随机幻灯片的顺序
+  shuffle: false,
+  // 全局开启和关闭碎片。
+  fragments: true,
+  // 标识演示文稿是否在嵌入模式中运行，即包含在屏幕的有限部分中的
+  embedded: false,
+  // 标识当问号键被点击的时候是否应该显示一个帮助的覆盖层
+  help: true,
+  // 标识演讲者备注标志是否让所有观看者可见
+  showNotes: false,
+  // 两个幻灯片之间自动切换的时间间隔（毫秒）
+  // 当设置成 0 的时候则禁止自动切换
+  // 该值可以被幻灯片上的 “data-autoslide” 属性覆盖
+  autoSlide: 0,
+  // 当遇到用户输入的时候停止自动切换
+  autoSlideStoppable: true,
+  // 当自动滑动时，使用此方法进行导航。
+  autoSlideMethod: Reveal.navigateNext,
+  // 是否启用通过鼠标滚轮来导航幻灯片
+  mouseWheel: false,
+  // 是否在移动设备上隐藏地址栏
+  hideAddressBar: true,
+  // 是否在一个弹出的 iframe 中打开幻灯片中的链接
+  previewLinks: false,
+  // 切换过渡效果
+  transition: 'default', // none/fade/slide/convex/concave/zoom
+  // 过渡速度
+  transitionSpeed: 'default', // default/fast/slow
+  // 全屏幻灯片背景的过渡效果
+  backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+  // 加载除当前可见的幻灯片之外的幻灯片数量
+  viewDistance: 3,
+  // 视差背景图片
+  parallaxBackgroundImage: '',
+  // e.g. 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'
+  // 视差背景尺寸
+  parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+  // 移动视差背景（水平和垂直）滑动变化的数量, 例如 100
+  // - 除了指定自动计算
+  // - 设置为 0 时，禁止沿轴运动
+  parallaxBackgroundHorizontal: null,
+  parallaxBackgroundVertical: null,
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/marked.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/markdown.min.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/notes/notes.min.js', async: true },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
+</html>
