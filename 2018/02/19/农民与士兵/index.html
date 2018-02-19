@@ -10,7 +10,7 @@
     
     <title>
         
-            标签: 冒泡 | 
+            农民与士兵 | 
         
         席小白的边缘世界
     </title>
@@ -27,7 +27,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Hugh">
     <meta name="description" content="席小白的边缘世界">
-    <meta name="keywords" content="null">
+    <meta name="keywords" content="null,故事,小说,记忆">
 
     <!--iOS -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -48,9 +48,9 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://hughhe.cn">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: 冒泡 | 席小白的边缘世界">
+    <meta property="og:title" content="农民与士兵 | 席小白的边缘世界">
     <meta property="og:description" content="席小白的边缘世界">
-    
+    <meta property="og:article:tag" content="故事"> <meta property="og:article:tag" content="小说"> <meta property="og:article:tag" content="记忆"> 
 
     <!--[if lte IE 9]>
         <link rel="stylesheet" href="/css/ie-blocker.css">
@@ -210,108 +210,292 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
     
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
 
-    <!-- Normal Post -->
-    
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
         
-        
-            <!-- Paradox Thumbnail -->
-            <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script>
+    var randomNum = Math.floor(Math.random() * 15 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2015/10/05/路上的一点芝麻/">路上的一点芝麻</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            冒泡和捕获事件流标准的事件流有三部分，捕获阶段—目标阶段—冒泡阶段。捕获阶段，该阶段包括从最高节...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2015/10/05/路上的一点芝麻/" target="_self">继续阅读</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Hugh's avatar">
-            </div>
-            <div>
-                <strong>Hugh</strong>
-                <span>10月 05, 2015</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                <a class="post_category-link" href="/categories/programming/">开发者</a>
-            </span>
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-        
-        
-        
-    
-
-    
-
-    
-        <script>
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 15 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')')
-
-        locatePost = locatePost.next();
-    }
+    $('.post_thumbnail-random').css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                农民与士兵
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Hugh</strong>
+        <span>2月 19, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+  <!-- 浏览量 -->
+    <button id="article-functions-looktimes-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons" role="presentation">visibility
+</i>
+        
+    </button>
+    <span id="busuanzi_container_page_pv">
+    <span id="busuanzi_value_page_pv" style="margin-right:10px"></span>
+</span>
+
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/小说/">小说</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/故事/">故事</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/记忆/">记忆</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=农民与士兵&url=http://hughhe.cn//2018/02/19/农民与士兵/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://hughhe.cn//2018/02/19/农民与士兵/index.html&title=农民与士兵" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 LinkedIn
+            </li>
+        </a>
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=席小白的边缘世界&title=农民与士兵&summary=席小白的边缘世界&pics=http://hughhe.cn/img/favicon.png&url=http://hughhe.cn/2018/02/19/农民与士兵/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+
+
+    <!-- Slide -->
+    <a href="./index-slide.html">
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+
+        <i class="material-icons" role="presentation">videocam</i>
+        <span class="visuallyhidden">videocam</span>
+
+    </button>
+    </a>
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>那是战争进行的第八年，我们的部队正向战争中心移动，飞机已经起飞，炮声不断传来。  </p>
+<p>就在那时，我第一次见到了他。  </p>
+<p>那天，我在树林迷了路，落在了部队后面，等我穿过树林，已经傍晚了，我看到了他。</p>
+<p>他坐在一个小木屋门口，嘴里叼着烟斗，脚下放着一柄锄头。  </p>
+<p>端了端背后的枪，我向他走去。  </p>
+<p>你好。我向他打了声招呼。</p>
+<p>他抬头看了看我，目光在我背后的枪上停了几秒，便又低下头，继续吐着烟圈。  </p>
+<p>他应该心情不是太好。我想。我是去前线的，不过在树林里迷路了，可以在你这借宿一晚吗。  </p>
+<p>他抬起头，又看了看我，站起身，向木屋走去，我连忙跟着走了进去。  </p>
+<p>木屋很简陋，只有一张床，一张桌子和一张凳子，我注意到屋子的角落竟然有一杆枪，这让我很惊讶。  </p>
+<p>一夜过去了，第二天早上，我一醒来就看见他坐在门口昨天的位置，起身我想了想，坐到了他的旁边。</p>
+<p>我以前是一个农民。 他看着前方，突然开口，脸上带着一丝怀念的神情。</p>
+<p>哦。我不太明白他的意思。</p>
+<p>在八年前，我拥有自己的一片土地，和我的妻子一起照顾那块地，但之后，战争爆发了。他停顿了一下，又拿起了他的烟斗，似乎想到了什么。</p>
+<p>战争开始后，我失去了一切，土地，家庭，甚至我自己，只有这个烟斗一直陪着我，那几年，我拿着枪，跟着部队，看着一片片土地被我们毁灭，就像当初我自己的土地一样。</p>
+<p>他的嘴唇在颤抖，我不知道该说些什么，便无聊地数着身上剩余的子弹。</p>
+<p>直到两年前，我落在了部队后面，在树林里迷了路，出来后，我就看到了这片土地。</p>
+<p>我看到他的眼睛在发光，这时，我才发现，我已经没有多少子弹了。 </p>
+<p>看到这片土地的时候，我突然有种莫名的心安，我想扔掉手中的枪，重新拿起我的锄头，后来我就在这里住了下来，但当我再次拿起锄头的时候，我发现我什么都不会了，什么都干不了。 </p>
+<p>他突然双手抱住头，我听见里面传来呜咽声，似乎在哭泣，我想了想，还是没有开口向他借些子弹。</p>
+<p>之后，我便告别了他，向前面的部队赶去。 </p>
+<p>在那之后，我没有再见过他，直到第三年，我在战场上又见到了他，手里拿着那把墙角的抢，而那个烟斗已经不知道去哪了。</p>
+<blockquote>
+<p>高中时想了很多乱七八糟的东西，也写了了许多乱七八糟的东西，这几天没事，把以前写的东西电子化一下。</p>
+</blockquote>
+
+    
+
     
 </div>
-<script type="text/javascript">
-    $.ajax({
-        url: "https://sslapi.hitokoto.cn/",
-        dataType: "json",
-        method:'GET',
-        async: true,
-        success: function(result) {
-            $('#hitokoto').find('.hitokoto-content').text(result.hitokoto);
-            $('#hitokoto').find('.hitokoto_author').text('-「'+result.from+'」');
-        },
-        error: function() {
-            $('#hitokoto').find('.hitokoto-content').text('愿岁并谢，与长友兮');
-        }
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+
+
+
+
+
+<div id="gitalk-container" style="padding: 20px 40px;">
+
+</div>
+<!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> -->
+<script src="/js/gitalk.js"></script>
+<script defer="defer">
+    var gitalk = new Gitalk({
+        // clientID: '91370bc80a5b2b0be3c0',
+        clientID: '329ecc9e1c3927e738e2',
+        clientSecret:'c78b6621483c618980849b47033e329e093d636b',
+        // clientSecret: '2fbfa669d70b52433e90a903aa90e248ff8ad4b0',
+        repo: 'hezhengjie.github.io',
+        owner: 'hezhengjie',
+        admin: ['hezhengjie']
     })
+
+    gitalk.render('gitalk-container')
+
+
 </script>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/02/19/我是你爸爸/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/02/14/又一年情人节  /" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -499,6 +683,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 
