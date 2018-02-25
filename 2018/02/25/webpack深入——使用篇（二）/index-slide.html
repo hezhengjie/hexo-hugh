@@ -1,0 +1,515 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>webpack深入——使用篇（二）</title>
+
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/css/reveal.min.css">
+        
+        <!-- theme -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            var theme ='black';
+            switch (theme){
+                case 'black':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/black.min.css';
+                    break;
+                case 'beige':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/beige.min.css';
+                    break;
+                case 'blood':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/blood.min.css';
+                    break;
+                case 'league':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/league.min.css';
+                    break;
+                case 'moon':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/moon.min.css';
+                    break;
+                case 'night':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/night.min.css';
+                    break;
+                case 'serif':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/serif.min.css';
+                    break;
+                case 'sky':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/sky.min.css';
+                    break;
+                case 'solarized':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/solarized.min.css';
+                    break;
+                case 'white':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/white.min.css';
+                    break;
+                default:
+            }
+            
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/lib/css/zenburn.min.css">
+        <link href="https://cdn.bootcss.com/reveal.js/3.4.1/css/print/paper.min.css" rel="stylesheet">
+        <!-- Printing and PDF exports -->
+        
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown
+                         data-separator="^\n"
+                         data-separator-vertical="^\n"
+                         data-separator-notes="^Note:">
+  <script type="text/template">webpack深入——使用篇（二）
+
+
+
+
+>水平有限，欢迎批评指正
+
+>目录：  
+>
+[webpack深入 ——使用篇（一）](https://www.hughhe.cn/2018/02/19/webpack%E6%B7%B1%E5%85%A5-%E4%BD%BF%E7%94%A8%E7%AF%87%EF%BC%88%E4%B8%80%EF%BC%89/)
+
+在我们打包项目时，除了js文件之外，还有许多其他类型的文件，比如css，less，ts以及图片等资源都是需要打包进去的，webpack默认是不识别其他类型的文件或者说是模块的，是通过 各种不同的loader 来支持各种语言和预处理器编写模块。loader 描述了 webpack 如何处理 非 JavaScript(non-JavaScript) 模块。
+
+loader的配置在webpack的配置文件中的module中的rule进行配置（在webpack 1.x中是module.loaders进行配置）
+
+>下面的内容主要基于webpack3.x（2.x与3.x在基本配置上没有太大区别，但是1.x与3.x在loader这块还是有挺大的区别的）
+
+## 模块（module） 
+
+module是webpack中最主要的配置项之一，想要webpack能完整的打包我们的项目，module里需要配置一些模块的加载规则。
+
+#### 1.noParse    
+noParse配置的文件，是你不希望webpack去压缩打包的文件,单纯引入的文件与库，与externals不同（externals的文件是不包含在最终打包出的文件中，但是noParse的文件只是不重复压缩打包，还是包含在最终的文件中的），更像是全局上的loader中的exclude。  
+
+noParse会更适合针对没有 AMD/CommonJS 的源代码，并且引入dist文件的话，比如一些成熟并且比较大的lib（jquery之类）
+
+```javascript  
+noParse: /jquery|lodash/
+
+// 从 webpack 3.0.0 开始
+noParse: function(content) {
+  return /jquery|lodash/.test(content);
+}
+
+```
+
+#### 2.rules
+
+重点来了，整个module中最重要的部分就是rules，rules定义了你要怎么去解析打包你项目中的各个模块。
+
+rules是一个数组，是一条模块加载时的规则链，由多个规则组成。  
+
+``` javascript  
+module: {
+      rules: [
+          {
+              //规则1
+          },
+          {
+               //规则2
+          }
+       ]
+}
+```
+每个规则可以分为三部分 - 条件(condition)，结果(result)和嵌套规则(nested rule)。  
+
+**条件(condition)**   
+
+条件，语义理解，就是满足整个条件的话，就走整个规则，其实就是规则的过滤条件，毕竟我们不是所有模块都需要走整个loader。
+
+我们常用的条件的输入是由test, include, exclude 和 resource四个属性共同作用。
+
+resource 是一个完成的绝对路径，只能匹配一个文件，一般我们不会用这个（用了这个之后test, include, exclude其实都不会生效了）  
+
+``` javascript
+{
+  resource: '/path/to/style.css'
+}
+```
+
+test, include, exclude这三个是我们常用的三个属性。
+
+**test**一般是提供一个正则表达式或正则表达式的数组，绝对路径符合这个正则的则意味着满足这个条件。  
+  
+**include和exclude**是一个字符串或者字符串数组，include和exclude相反，include表示哪些目录中的文件需要走这个规则，
+exclude表示哪些目录中的文件不要走这个规则，也就是过滤掉一些文件（比如node_modules中的一些文件）
+
+``` javascript  
+module: {
+      rules: [
+          {
+              test: /\.vue$/,
+              use: [{
+                  loader: "vue-loader"
+              }],
+              include: [
+          		 path.resolve(__dirname, "app")
+        		 ]
+          },
+          {
+              test: /\.js$/,
+              use: [{
+                  loader: "babel-loader"
+              }],
+              exclude: [/node_modules/]
+          }
+        ]
+ }
+
+```
+>还有一个issuer的属性，不怎么常用，也是用来限制条件的，这个选项可以用来将 loader 应用到一个特定模块或一组模块的依赖中，issuer用来指定这个rule应用于哪个文件（包括这个文件所引用的依赖）  
+>
+>例如: 从 app.js 导入 './style.css'，resource 是 /path/to/style.css. issuer 是 /path/to/app.js，我们把issuer设置为/path/to/app.js，则这个文件以及从这个文件导入的依赖都会应用这个rule。
+
+**结果(result)**
+
+结果，说白了就是符合条件的模块或者文件该怎么取打包加载，一般一个规则的结果是一个loader，当然还有其他属性也会影响rule的结果。  
+
+loader, options, use，parser这些属性共同作用。
+
+**use** 可以说是最重要的一个属性，指定要用的loader，接受一个对象数组（对象里必须有一个 loader 属性是字符串，整个对象被称为UseEntry），原则上每个rule至少得有一个loader
+
+```javascript  
+     {
+              test: /\.vue$/,
+              use: [{
+                  loader: "vue-loader"
+              }]
+     }
+```
+
+UseEntry必须有一个 loader 属性是字符串，可以有一个 options 属性为字符串或对象。值可以传递到 loader 中，在webpack1.x中有 query 属性，相当于options。
+
+```javascript  
+     {
+  		loader: "css-loader",
+  		options: {
+    		modules: true
+  		}
+	  }
+```
+
+>use: [ { loader } ]可以简写为loader，如果没有别的options的话，可以采用简写比如：
+>use: [ { loader: "style-loader "} ]可以简写为use: [ "style-loader" ]  
+
+**parser**解析选项对象，用来禁用一些解析器，默认的解析器有以下这些
+
+``` javascript
+parser: {
+  amd: false, // 禁用 AMD
+  commonjs: false, // 禁用 CommonJS
+  system: false, // 禁用 SystemJS
+  harmony: false, // 禁用 ES2015 Harmony import/export
+  requireInclude: false, // 禁用 require.include
+  requireEnsure: false, // 禁用 require.ensure
+  requireContext: false, // 禁用 require.context
+  browserify: false, // 禁用特殊处理的 browserify bundle
+  requireJs: false, // 禁用 requirejs.*
+  node: false, // 禁用 __dirname, __filename, module, require.extensions, require.main 等。
+  node: {...} // 在模块级别(module level)上重新配置 node 层(layer)
+}
+```
+
+## 常用的loader
+常用的[Loaders](https://doc.webpack-china.org/loaders/)官方文档都有列出来,下面列一些我们在vue开发中最常用的一些loader。
+
+**1.vue-loader**   
+将vue的单文件组件转换为 JavaScript 模块，针对.vue文件，把 \<style\> 和 \<template\> 中的静态资源当作模块来对待，并使用 webpack loader 进行处理。
+所以如果你对style部分用了less或者sass的话，可以在loader的options增加less或者sass的loader，如下所示
+
+```javascript
+{
+      test: /\.vue$/,
+      loader: 'vue-loader',
+      options: {
+        loaders: {
+          html:'',//<template>模块的loader
+          css:'less-loader',//<style> 模块的loader
+          js: 'babel-loader!eslint-loader'//<script> 模块的loader
+        }
+      }
+    }
+```
+
+当然实际上有时候不配置options的loaders也是可以的，vue-loader有个神奇的功能，当项目中配置了 babel-loader 或者 buble-loader，vue-loader 会使用他们处理所有 .vue 文件中的 \<script\> 部分  同样在style部分，vue-loader会根据 lang 属性自动推断出要使用的 loader，比如lang=“less”使用less-loader。(当然，前提是你要安装了对应的loader)
+ 
+所以大部分情况下我们不需要配options也可以完美地执行webpack。
+
+**2.babel-loader**
+
+顾名思义，将文件babel的loader，现代开发中，我们基本都是用es6的语法进行开发，然后走babel，babel-loader的基本配置如下：
+
+```javascript
+		{
+              test: /\.js$/,
+              use: [{
+                  loader: "babel-loader"
+              }],
+              exclude: [/node_modules/]//把node_modules中的文件过滤掉
+          }
+```
+babel的一些配置可以写在.babelrc中，或者写在loader的options中，比如presets和plugins 
+
+**3.style-loader和css-loader**  
+style-loader 与 css-loader 一般结合使用，css-loader用来解析css文件，一般解析css中的@import和url()两部分,style-loader将css插入到页面的style标签(css文件被打包到js中，最终通过js插入到html中，需要style-loader来做这步操作，如果css单独打包的话就不需要了)
+
+
+```javascript
+		{
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      }
+```
+针对vue，还有一个vue-style-loader，和style-loader没有大的区别，ssr的时候做了一些操作。
+
+**4.less-loader和sass-loader**  
+
+没啥说的，less和sass的loader，可以和style-loader和css-loader链式调用。  
+
+``` javascript
+{
+   test: /\.less$/,
+    use: ["style-loader","css-loader","postcss-loader","less-loader"]
+}
+
+```
+
+通常，生产环境下比较推荐的做法是，使用 ExtractTextPlugin 将样式表抽离成专门的单独文件。这样，样式表将不再依赖于 JavaScript.
+
+``` javascript
+	new ExtractTextPlugin({
+        filename:"[name].css",
+        disable: env == "dev",
+        allChunks: true
+    })
+    
+    {
+              test: /\.less$/,
+              use:ExtractTextPlugin.extract({
+                       use: ["css-loader?minimize","postcss-loader","less-loader"]
+           })
+     }
+
+```
+
+
+**5.json-loader** 
+
+现在没啥用的loader，webpack >= v2.0.0 默认支持导入 JSON 文件，所以不用这个loader也没啥问题。
+
+**6.url-loader和file-loader**  
+
+这两个loader的作用基本是一样的，会将你引用的文件输出到输出目录并返回 public URL，（比如图片或者字体文件等其他类型的文件）可以说url-loader是file-loader的超集（url-loader在文件大小（单位 byte）低于指定的限制时，可以返回一个 DataURL），所以平时使用url-loader就行了。
+
+``` javascript  
+
+{
+              test: /\.(jpe?g|png|gif|svg)$/i,
+              use: [{
+                  loader: "url-loader",
+                  options: {
+                      limit: 25000,
+                      name: 'images/[name].[hash:7].[ext]'    // 将图片都放入images文件夹下，[hash:7]防缓存
+                  }
+              }]
+          },
+
+```
+
+最后贴出常用的module配置：
+
+```javascript 
+
+ module: {
+      rules: [
+          {
+              test: /\.vue$/,
+              use: [{
+                  loader: "vue-loader"
+              }]
+          },
+          {
+              test: /\.js$/,
+              use: [{
+                  loader: "babel-loader"
+              }],
+              exclude: [/node_modules/]
+          },
+          {
+              test: /\.html$/,
+              use: [{
+                  loader:"vue-html-loader"
+              }]
+          },
+          {
+              test: /\.css$/,
+              use: env == "dev" ?["style-loader","css-loader?minimize","postcss-loader","less-loader"]:ExtractTextPlugin.extract({
+                  use: ["css-loader?minimize","postcss-loader","less-loader"]
+              })
+          },
+          {
+              test: /\.less$/,
+              use: env == "dev" ?["style-loader","css-loader?minimize","postcss-loader","less-loader"]:ExtractTextPlugin.extract({
+                                      use: ["css-loader?minimize","postcss-loader","less-loader"]})
+          },
+          {
+              test: /\.(jpe?g|png|gif|svg)$/i,
+              use: [{
+                  loader: "url-loader",
+                  options: {
+                      limit: 25000,
+                      name: 'images/[name].[hash:7].[ext]'    // 将图片都放入images文件夹下，[hash:7]防缓存
+                  }
+              }]
+          },
+          {
+              test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+              use: [{
+                  loader: "url-loader",
+                  options: {
+                      limit: 10000,
+                      name: 'fonts/[name].[hash:7].[ext]'    // 将字体放入fonts文件夹下
+                  }
+              }]
+          }
+          ]
+  },
+
+```
+
+## 解析(Resolve)  
+
+webpack的配置中，与input，output，module并列的有一个resolve，用于设置模块如何被解析。  
+
+webpack将代码都划分为一个一个模块（包括css和图片文件等），webpack内部通过resolver来找到对应的引用也就是所谓的解析，resolve属性可以修改默认的解析规则。  
+
+resolve属性接受一个对象，对象里有许多其他配置项，常用的有alias，extensions。
+
+**1.alias**  
+
+最常用到的resolve属性，创建 import 或 require 的别名，来确保模块引入变得更简单。  
+
+有时候我们的项目结构比较复杂的话，要引入一个模块可能会有很长的相对路径，比如 import util from '../../src/common/util/util' 这类的，十分麻烦，alias提供了一套别名系统，可以用简短的别名代替长长的路径。 
+
+```javascript 
+alias: {
+  Util: path.resolve(__dirname, 'src/common/util')
+}
+
+//设置完上面的别名后，我们引用util就可以
+
+import util from '../../src/common/util/util'
+
+//变成
+import util from 'Util/util'
+
+```
+
+也可以在给定对象的键后的末尾添加 $，以表示精准匹配。  
+
+**2.extensions**
+
+一个数组，自动解析确定的扩展，能够使用户在引入模块时不带扩展，默认值为[".js", ".json"]，要想省力的话，那就尽可能多的配置这个吧，把你用到的所有文件类型都加进数组里，那样你引用文件的时候可以少打几个后缀名了。
+
+``` javascript 
+
+resolve: {
+        // 添加后缀名顺序
+        extensions: ['.js', '.jsx', '.vue', '.less'],
+        alias: {
+            '@common': path.resolve(rootDir, './common')
+        }
+  }
+
+```
+  </script>
+</section>
+            </div>
+        </div>
+
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/lib/js/head.min.js"></script>
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/js/reveal.min.js"></script>
+
+        <script>
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+ // 是否在右下角展示控制条
+  controls: true,
+  // 是否显示演示的进度条
+  progress: true,
+  // 是否显示当前幻灯片的页数编号，也可以使用代码 “slideNumber: 'c/t'” ，表示当前页/总页数。
+  slideNumber: false,
+  // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  history: false,
+  // 是否启用键盘快捷键来导航
+  keyboard: true,
+  // 是否启用幻灯片的概览模式，可使用 "Esc" 或 "o" 键来切换概览模式
+  overview: true,
+  // 是否将幻灯片垂直居中
+  center: true,
+  // 是否在触屏设备上启用触摸滑动切换
+  touch: true,
+  // 是否循环演示
+  loop: false,
+  // 是否将演示的方向变成 RTL，即从右往左
+  rtl: false,
+  // 是否每次演示的时候，随机幻灯片的顺序
+  shuffle: false,
+  // 全局开启和关闭碎片。
+  fragments: true,
+  // 标识演示文稿是否在嵌入模式中运行，即包含在屏幕的有限部分中的
+  embedded: false,
+  // 标识当问号键被点击的时候是否应该显示一个帮助的覆盖层
+  help: true,
+  // 标识演讲者备注标志是否让所有观看者可见
+  showNotes: false,
+  // 两个幻灯片之间自动切换的时间间隔（毫秒）
+  // 当设置成 0 的时候则禁止自动切换
+  // 该值可以被幻灯片上的 “data-autoslide” 属性覆盖
+  autoSlide: 0,
+  // 当遇到用户输入的时候停止自动切换
+  autoSlideStoppable: true,
+  // 当自动滑动时，使用此方法进行导航。
+  autoSlideMethod: Reveal.navigateNext,
+  // 是否启用通过鼠标滚轮来导航幻灯片
+  mouseWheel: false,
+  // 是否在移动设备上隐藏地址栏
+  hideAddressBar: true,
+  // 是否在一个弹出的 iframe 中打开幻灯片中的链接
+  previewLinks: false,
+  // 切换过渡效果
+  transition: 'default', // none/fade/slide/convex/concave/zoom
+  // 过渡速度
+  transitionSpeed: 'default', // default/fast/slow
+  // 全屏幻灯片背景的过渡效果
+  backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+  // 加载除当前可见的幻灯片之外的幻灯片数量
+  viewDistance: 3,
+  // 视差背景图片
+  parallaxBackgroundImage: '',
+  // e.g. 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'
+  // 视差背景尺寸
+  parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+  // 移动视差背景（水平和垂直）滑动变化的数量, 例如 100
+  // - 除了指定自动计算
+  // - 设置为 0 时，禁止沿轴运动
+  parallaxBackgroundHorizontal: null,
+  parallaxBackgroundVertical: null,
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/marked.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/markdown.min.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/notes/notes.min.js', async: true },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
+</html>

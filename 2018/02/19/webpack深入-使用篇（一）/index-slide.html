@@ -1,0 +1,298 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>webpack深入 ——使用篇（一）</title>
+
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/css/reveal.min.css">
+        
+        <!-- theme -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            var theme ='black';
+            switch (theme){
+                case 'black':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/black.min.css';
+                    break;
+                case 'beige':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/beige.min.css';
+                    break;
+                case 'blood':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/blood.min.css';
+                    break;
+                case 'league':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/league.min.css';
+                    break;
+                case 'moon':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/moon.min.css';
+                    break;
+                case 'night':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/night.min.css';
+                    break;
+                case 'serif':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/serif.min.css';
+                    break;
+                case 'sky':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/sky.min.css';
+                    break;
+                case 'solarized':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/solarized.min.css';
+                    break;
+                case 'white':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/white.min.css';
+                    break;
+                default:
+            }
+            
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/lib/css/zenburn.min.css">
+        <link href="https://cdn.bootcss.com/reveal.js/3.4.1/css/print/paper.min.css" rel="stylesheet">
+        <!-- Printing and PDF exports -->
+        
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown
+                         data-separator="^\n"
+                         data-separator-vertical="^\n"
+                         data-separator-notes="^Note:">
+  <script type="text/template">webpack深入 ——使用篇（一）
+
+
+webpack 作为现在最通用的一个JavaScript 打包器,其特点就是高度可配置，不过这也导致了webpack的配置相当繁琐与难以理解，有时候你配错一点东西就会造成整个打包失败，尤其是不同版本的webpack的配置还有些许不同，更是让人难受（ps.所以Parcel才会打着零配置Web应用打包工具的名头）。
+
+这里本人想要深入理解一下webpack，从使用到源码。
+
+webpack的使用主要有四个核心概念，接下来将挨个讲解。
+
+>入口(entry)  
+>
+>输出(output)  
+
+>模块（module）或者loader  
+
+>插件(plugins)
+
+
+### 入口（entry）
+
+入口起点，整个webpack打包的最初入口，从配置的这个或者这些文件开始，webpack开始查找对应的直接依赖和间接依赖，最终打包出对应的文件。
+
+一般区分为单入口，多入口，根据文档结构读入口
+
+**单入口：**  
+
+```javascript  
+entry: './path/to/my/entry/file.js'
+```  
+
+**多入口：**  
+
+```javascript 
+entry: {
+    pageOne: './src/pageOne/index.js',
+    pageTwo: './src/pageTwo/index.js',
+    pageThree: './src/pageThree/index.js'
+  }  
+```  
+**根据文档结构读入口：**
+
+```javascript
+var relativeToRootPath = "src/entry";
+function getEntry() {
+  var jsPath = path.resolve(relativeToRootPath);
+  var dirs = fs.readdirSync(jsPath);
+  var matchs = [], files = {};
+  dirs.forEach(function (item) {
+    var pathname = path.resolve(relativeToRootPath,item);
+    var stat = fs.lstatSync(pathname);
+    matchs = item.match(/(.+)\.js$/);
+    if(!stat.isDirectory()&&matchs){
+        files[matchs[1]] = [pathname];
+    }
+    else if(stat.isDirectory()) {
+      var dirs = fs.readdirSync(path.resolve(relativeToRootPath,pathname));
+      dirs.forEach(function (item) {
+        matchs = item.match(/(.+)\.js$/);
+        if (matchs) {
+        files[matchs[1]] =[path.resolve(relativeToRootPath,pathname, item)];
+      }
+      });
+    }
+          else{}
+
+  });
+  return files;
+}
+
+entry: getEntry()
+```
+
+### 输出（output） 
+
+output是一个对象，最简单的单文件的output：
+
+```
+output: {
+    filename: 'bundle.js',
+    path: '/home/proj/public/assets'
+  }  
+```
+
+多入口文件，对应多输出文件,通过[]占位符,来让入口和出口对应
+
+``` 
+output: {
+    filename: '[name].js',
+    path: __dirname + '/dist'
+  }
+  
+```  
+output其实有许多配置项，有一些我们可能根本不会用到， 也有一些我们会常用到：  
+**1.filename**  
+最基本的配置项，必填，可以是写死的名称，路径，也可以用占位符来动态生成（多入口的情况下），比如[name].js或者[hash].js,[id].js  
+
+常用的占位符有四种，filename可以用这四种任意拼接。 
+  
+>[hash] 模块标识符(module identifier)的 hash  
+[chunkhash] chunk 内容的 hash  
+[name] 模块名称  
+[id] 模块标识符(module identifier)  
+
+**2.chunkFilename**  
+与filename类似，不过filename是对应有入口文件的，chunkFilename则是我们通过 CommonsChunkPlugin这类的插件生成的文件的输出名
+
+**3.library和libraryTarget**
+
+webpack默认会将文件打包，最终导出一个变量，当我们要用webpack打包一个组件或者模块时，我们更希望他能将导出的值赋给module.export。  
+
+libraryTarget指定我们打包后对象的导出方式，或者说暴露方式。  
+
+library就是暴露方式的对象名（必填）
+
+libraryTarget有多种方式：
+
+>**1.var（默认值）**：直接暴露为一个对象 var object = _ entry _ return _;  
+	
+>**2.this**：暴露为this的一个属性 this['library']= _ entry _ return _;
+	
+>**3.window和global**:暴露为window或者global的一个属性 window['library']= _ entry _ return _  
+
+下面的这些值一般用于模块的开发中
+		
+>**1.commonjs2**：暴露为module.exports 对象 module.exports = _ entry _ return _;，也就是我们es6默认支持的模块导出形式。
+		
+>**2.amd** : 暴露为 AMD 模块 ,define("MyLibrary", [], function() {
+		  // 此模块返回值，是入口 chunk 返回的值
+		});, 用于require.js这类的amd模块加载器  
+		
+>**3.umd**：最常用也是最完善的模块导出，他会将你的 library 暴露为所有的模块定义下都可运行的方式，也就是你怎么用他都兼容，无论是amd还是commonjs，还是global都支持。
+
+**4.path**
+最终打包文件的输出的绝对路径  
+
+``` javascript  
+path: path.resolve(__dirname, 'dist')
+```
+
+5.publicPath 
+
+publicPath 也是一个非常重要的配置项，主要是在加载一些资源时对应的路径，也就是此输出目录对应的公开 URL。
+如果是相对路径的话，则是相对于html页面来，比如“/”就是html下的目录。
+
+当然正式环境下，我们可能会把一些静态资源都传到CDN上，这样我们就需要把这个publicPath配成我们cdn的路径，否则就找不到相应的资源了
+
+默认值是一个空字符串 ""。
+
+  </script>
+</section>
+            </div>
+        </div>
+
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/lib/js/head.min.js"></script>
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/js/reveal.min.js"></script>
+
+        <script>
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+ // 是否在右下角展示控制条
+  controls: true,
+  // 是否显示演示的进度条
+  progress: true,
+  // 是否显示当前幻灯片的页数编号，也可以使用代码 “slideNumber: 'c/t'” ，表示当前页/总页数。
+  slideNumber: false,
+  // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  history: false,
+  // 是否启用键盘快捷键来导航
+  keyboard: true,
+  // 是否启用幻灯片的概览模式，可使用 "Esc" 或 "o" 键来切换概览模式
+  overview: true,
+  // 是否将幻灯片垂直居中
+  center: true,
+  // 是否在触屏设备上启用触摸滑动切换
+  touch: true,
+  // 是否循环演示
+  loop: false,
+  // 是否将演示的方向变成 RTL，即从右往左
+  rtl: false,
+  // 是否每次演示的时候，随机幻灯片的顺序
+  shuffle: false,
+  // 全局开启和关闭碎片。
+  fragments: true,
+  // 标识演示文稿是否在嵌入模式中运行，即包含在屏幕的有限部分中的
+  embedded: false,
+  // 标识当问号键被点击的时候是否应该显示一个帮助的覆盖层
+  help: true,
+  // 标识演讲者备注标志是否让所有观看者可见
+  showNotes: false,
+  // 两个幻灯片之间自动切换的时间间隔（毫秒）
+  // 当设置成 0 的时候则禁止自动切换
+  // 该值可以被幻灯片上的 “data-autoslide” 属性覆盖
+  autoSlide: 0,
+  // 当遇到用户输入的时候停止自动切换
+  autoSlideStoppable: true,
+  // 当自动滑动时，使用此方法进行导航。
+  autoSlideMethod: Reveal.navigateNext,
+  // 是否启用通过鼠标滚轮来导航幻灯片
+  mouseWheel: false,
+  // 是否在移动设备上隐藏地址栏
+  hideAddressBar: true,
+  // 是否在一个弹出的 iframe 中打开幻灯片中的链接
+  previewLinks: false,
+  // 切换过渡效果
+  transition: 'default', // none/fade/slide/convex/concave/zoom
+  // 过渡速度
+  transitionSpeed: 'default', // default/fast/slow
+  // 全屏幻灯片背景的过渡效果
+  backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+  // 加载除当前可见的幻灯片之外的幻灯片数量
+  viewDistance: 3,
+  // 视差背景图片
+  parallaxBackgroundImage: '',
+  // e.g. 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'
+  // 视差背景尺寸
+  parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+  // 移动视差背景（水平和垂直）滑动变化的数量, 例如 100
+  // - 除了指定自动计算
+  // - 设置为 0 时，禁止沿轴运动
+  parallaxBackgroundHorizontal: null,
+  parallaxBackgroundVertical: null,
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/marked.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/markdown.min.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/notes/notes.min.js', async: true },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
+</html>
