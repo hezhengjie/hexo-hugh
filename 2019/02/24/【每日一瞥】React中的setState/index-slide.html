@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>【每日一瞥】React中的setState</title>
+
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/css/reveal.min.css">
+        
+        <!-- theme -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            var theme ='black';
+            switch (theme){
+                case 'black':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/black.min.css';
+                    break;
+                case 'beige':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/beige.min.css';
+                    break;
+                case 'blood':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/blood.min.css';
+                    break;
+                case 'league':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/league.min.css';
+                    break;
+                case 'moon':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/moon.min.css';
+                    break;
+                case 'night':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/night.min.css';
+                    break;
+                case 'serif':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/serif.min.css';
+                    break;
+                case 'sky':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/sky.min.css';
+                    break;
+                case 'solarized':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/solarized.min.css';
+                    break;
+                case 'white':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/white.min.css';
+                    break;
+                default:
+            }
+            
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/lib/css/zenburn.min.css">
+        <link href="https://cdn.bootcss.com/reveal.js/3.4.1/css/print/paper.min.css" rel="stylesheet">
+        <!-- Printing and PDF exports -->
+        
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown
+                         data-separator="^\n"
+                         data-separator-vertical="^\n"
+                         data-separator-notes="^Note:">
+  <script type="text/template">【每日一瞥】React中的setState
+
+
+
+
+##### 【问题】React 中 setState 什么时候是同步的，什么时候是异步的？
+
+在React中，我们通过state来管理store，直接通过this.state调用，通过setState方法来变更state。但是需要注意的是setState并不是一直都是实时变更的，setState并不能保持同步，一部分setState的变更会被延迟到下一次event loop时才会被触发。那么React 中 setState 什么时候是同步的，什么时候是异步的？
+
+
+###  setState更新机制
+
+官方文档里这样说道：  
+
+> 关于 setState() 这里有三件事情需要知道  
+> 
+> 1.不要直接更新状态  
+> 
+> 2.状态更新可能是异步的  
+> 
+> 3.状态更新合并
+> 
+> 
+
+关于第一点，直接修改state是被严令禁止的， React本身是通过一个队列机制来实现 state 更新，所有通过setState()的更新，会被放入一个状态队列，做合并操作，对state进行更新。直接修改this.state 的值，则不会放入状态队列（同时也不会触发render的重新绘制）。当下一次调用 setState 对状态队列进行合并时，之前对 this.state 的修改将会被忽略，造成无法预知的错误。  
+
+所以除非你不用setState()或者你不希望这个值的变化重新触发render，否则绝对不要直接修改state（对于这部分状态是不建议放在state中的）。
+
+第二点上，就是最直接的这个问题的答案，setState可能是异步也可能是同步，那么是什么决定了他是异步还是同步呢。可以参考
+[setState() State Mutation Operation May Be Synchronous In ReactJS](https://www.bennadel.com/blog/2893-setstate-state-mutation-operation-may-be-synchronous-in-reactjs.htm)和[深入 setState 机制](https://github.com/sisterAn/blog/issues/26)  
+
+在第一篇文章里，作者举了三个例子：
+> setTimeout() - not managed by ReactJS.  
+mousedown - not managed by ReactJS.  
+onClick - managed by ReactJS.  
+
+只有最后一个click事件是React管理的，对应的结果就是，只有最后一个事件造成的setState是异步的，另外两个是同步的。
+
+> **如果是由React引发的事件处理（比如通过onClick引发的事件处理），调用setState不会同步更新this.state，除此之外的setState调用会同步执行this.state**。所谓“除此之外”，指的是绕过React通过addEventListener直接添加的事件处理函数，还有通过setTimeout/setInterval产生的异步调用。
+
+具体的原因则是由于React的更新策略，与文档上说的第三点也有关系，由于setState的状态更新是通过队列，并且会进行状态更新合并，所以当前的setState只会进队列，但不会立即更新。
+
+在React中有一个事务transaction设计思想，类似原生的event-loop机制，在事务的一开始，isBatchingUpdates变量会被设为true（isBatchingUpdates变量，来决定当前这个变更是立即执行还是进队列），如果在同一个事务里的话， setState的状态更新都会被合并然后在最终事务结束时执行。
+
+在React中，大多数生命周期和方法都会创建一个新的事务，比如componentDidUpdate和onClick事件等。所以才会有由React引发的事件处理（比如通过onClick引发的事件处理），调用setState不会同步更新this.state，除此之外的setState调用会同步执行this.state。
+
+
+
+### 保证同步的setState
+当然有时候我们确实需要保证同步的setState，除了把setState放在setTimeout这类方法内之外，React提供了另一种调用setState的方式。
+> 也可以传递一个签名为 `function(state, props) => newState` 的函数作为参数。这会将一个原子性的更新操作加入更新队列，在设置任何值之前，此操作会查询前一刻的 state 和 props。`...setState()` 并不会立即改变 `this.state` ，而是会创建一个待执行的变动。调用此方法后访问 `this.state` 有可能会得到当前已存在的 state
+
+```
+this.setState((state) => {
+    // Important: read `state` instead of `this.state` when updating.
+    return {count: state.count + 1}
+  });
+```
+相当于回调函数，把后续依赖于新的state的操作放在回调中。
+
+
+### 小程序的setData和vue中状态管理
+
+小程序中的setData与React中的setState类似，但是还是不同，小程序中的setData根据官方文档所说；
+
+>setData 函数用于将数据从逻辑层发送到视图层（异步），同时改变对应的 this.data 的值（同步）。
+>
+所以在调用setData后，我们还是能立即获取到this.data更新后的值，只是视图层的更新是异步的。
+
+与react一致的是，不要直接修改 this.data ，不调用 this.setData 是无法改变页面的状态的，还会造成数据不一致。
+
+同样，setData只是第二个参数，一个回调函数（在视图层重新渲染完之后的回调函数）
+
+vue中没有setState之类的方法，可以直接修改data的数据，监听data变化是通过改写变量的set和get方法来实现的，当然视图层的渲染更新同样是异步和状态合并的。
+
+>默认情况下， Vue 的 DOM 更新是异步执行的。理解这一点非常重要。当侦测到数据变化时， Vue 会打开一个队列，然后把在同一个事件循环 (event loop) 当中观察到数据变化的 watcher 推送进这个队列。假如一个 watcher 在一个事件循环中被触发了多次，它只会被推送到队列中一次。然后，在进入下一次的事件循环时， Vue 会清空队列并进行必要的 DOM 更新。在内部，Vue 会使用 `MutationObserver` 来实现队列的异步处理，如果不支持则会回退到 `setTimeout(fn, 0)`。
+>
+>
+
+vue中用js原生的event loop 来代替了react中的事务系统。
+
+  </script>
+</section>
+            </div>
+        </div>
+
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/lib/js/head.min.js"></script>
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/js/reveal.min.js"></script>
+
+        <script>
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+ // 是否在右下角展示控制条
+  controls: true,
+  // 是否显示演示的进度条
+  progress: true,
+  // 是否显示当前幻灯片的页数编号，也可以使用代码 “slideNumber: 'c/t'” ，表示当前页/总页数。
+  slideNumber: false,
+  // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  history: false,
+  // 是否启用键盘快捷键来导航
+  keyboard: true,
+  // 是否启用幻灯片的概览模式，可使用 "Esc" 或 "o" 键来切换概览模式
+  overview: true,
+  // 是否将幻灯片垂直居中
+  center: true,
+  // 是否在触屏设备上启用触摸滑动切换
+  touch: true,
+  // 是否循环演示
+  loop: false,
+  // 是否将演示的方向变成 RTL，即从右往左
+  rtl: false,
+  // 是否每次演示的时候，随机幻灯片的顺序
+  shuffle: false,
+  // 全局开启和关闭碎片。
+  fragments: true,
+  // 标识演示文稿是否在嵌入模式中运行，即包含在屏幕的有限部分中的
+  embedded: false,
+  // 标识当问号键被点击的时候是否应该显示一个帮助的覆盖层
+  help: true,
+  // 标识演讲者备注标志是否让所有观看者可见
+  showNotes: false,
+  // 两个幻灯片之间自动切换的时间间隔（毫秒）
+  // 当设置成 0 的时候则禁止自动切换
+  // 该值可以被幻灯片上的 “data-autoslide” 属性覆盖
+  autoSlide: 0,
+  // 当遇到用户输入的时候停止自动切换
+  autoSlideStoppable: true,
+  // 当自动滑动时，使用此方法进行导航。
+  autoSlideMethod: Reveal.navigateNext,
+  // 是否启用通过鼠标滚轮来导航幻灯片
+  mouseWheel: false,
+  // 是否在移动设备上隐藏地址栏
+  hideAddressBar: true,
+  // 是否在一个弹出的 iframe 中打开幻灯片中的链接
+  previewLinks: false,
+  // 切换过渡效果
+  transition: 'default', // none/fade/slide/convex/concave/zoom
+  // 过渡速度
+  transitionSpeed: 'default', // default/fast/slow
+  // 全屏幻灯片背景的过渡效果
+  backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+  // 加载除当前可见的幻灯片之外的幻灯片数量
+  viewDistance: 3,
+  // 视差背景图片
+  parallaxBackgroundImage: '',
+  // e.g. 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'
+  // 视差背景尺寸
+  parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+  // 移动视差背景（水平和垂直）滑动变化的数量, 例如 100
+  // - 除了指定自动计算
+  // - 设置为 0 时，禁止沿轴运动
+  parallaxBackgroundHorizontal: null,
+  parallaxBackgroundVertical: null,
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/marked.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/markdown.min.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/notes/notes.min.js', async: true },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
+</html>
