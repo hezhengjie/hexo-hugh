@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>【每日一瞥】重绘与重排（Repaint、Reflow）</title>
+
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/css/reveal.min.css">
+        
+        <!-- theme -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            var theme ='black';
+            switch (theme){
+                case 'black':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/black.min.css';
+                    break;
+                case 'beige':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/beige.min.css';
+                    break;
+                case 'blood':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/blood.min.css';
+                    break;
+                case 'league':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/league.min.css';
+                    break;
+                case 'moon':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/moon.min.css';
+                    break;
+                case 'night':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/night.min.css';
+                    break;
+                case 'serif':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/serif.min.css';
+                    break;
+                case 'sky':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/sky.min.css';
+                    break;
+                case 'solarized':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/solarized.min.css';
+                    break;
+                case 'white':
+                    link.href = 'https://cdn.bootcss.com/reveal.js/3.4.1/css/theme/white.min.css';
+                    break;
+                default:
+            }
+            
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="https://cdn.bootcss.com/reveal.js/3.4.1/lib/css/zenburn.min.css">
+        <link href="https://cdn.bootcss.com/reveal.js/3.4.1/css/print/paper.min.css" rel="stylesheet">
+        <!-- Printing and PDF exports -->
+        
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown
+                         data-separator="^\n"
+                         data-separator-vertical="^\n"
+                         data-separator-notes="^Note:">
+  <script type="text/template">【每日一瞥】重绘与重排（Repaint、Reflow）
+
+
+
+
+### 【问题】[介绍下重绘和回流（Repaint & Reflow），以及如何进行优化](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/24)
+
+重绘和重排（也叫回流）是浏览器渲染机制中的两个重要步骤和阶段，对应的其消耗的成本也不一致，为了减少浏览器的渲染成本，了解这两个概念还是很重要的。
+
+
+
+### 重绘与重排
+何谓重绘？何谓重排？
+
+由于节点的几何属性发生改变或者由于样式发生改变而不会影响布局的，称为重绘，例如outline, visibility, color、background-color等，只涉及样式的修改，不涉及布局改变的属性。
+
+对应的布局或者几何属性需要改变，造成整个dom结构都需要重新计算的，称为重排（也叫回流）
+
+> 重排一定会触发重绘，而重绘不一定会重排
+
+### 浏览器渲染机制
+
+根据[Google的文档](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-tree-construction?hl=zh-cn)
+
+浏览器渲染过程如下：
+
+> 1.解析HTML，生成DOM树，解析CSS，生成CSSOM树。  
+> 2.DOM 树与 CSSOM 树合并后形成渲染树，渲染树只包含渲染网页所需的节点。    
+> 3.布局计算每个对象的精确位置和大小。   
+> 4.最后一步是绘制，使用最终渲染树将像素渲染到屏幕上。
+
+重排就是第三步的计算布局，而重绘指第四步的绘制，所有才会有重排一定会触发重绘，而重绘不一定会重排。
+
+浏览器渲染最重要的一步就是生成渲染树。
+>1.从DOM树的根节点开始遍历每个可见节点。
+>2.对于每个可见的节点，找到CSSOM树中对应的规则，并应用它们。  
+>3.根据每个可见节点以及其对应的样式，组合生成渲染树。
+
+由于最终展示给用户的节点只是我们dom树中的一部分，所以这一步需要过滤一些不展示的节点，比如script和link这类没有视觉上的实际意义的节点以及display:none的不可见节点。
+
+
+### 何时发生重排重绘
+
+重排计算的是节点的位置和大小形状等几何信息，所以当节点的位置和几何信息变化时就会触发局部甚至整个document的重排,比如
+>添加或删除可见的DOM元素  
+元素的位置发生变化  
+元素的尺寸发生变化（包括外边距、内边框、边框大小、高度和宽度等）  
+内容发生变化，比如文本变化或图片被另一个不同尺寸的图片所替代。  
+页面一开始渲染的时候（这肯定避免不了）  
+浏览器的窗口尺寸变化（因为回流是根据视口的大小来计算元素的位置和大小的）  
+
+而一些无关位置和大小的属性变化，比如outline, visibility, color、background-color等，则不会触发重排，只会触发重绘。
+
+### 浏览器优化
+
+首先明确的一点，无论重绘，还是重排都是会造成浏览器的计算消耗，重排会造成比重绘更多的消耗，所以我们要尽量避免重绘与重排，尤其是重排。
+
+**避免频繁操作样式**   
+
+避免频繁操作样式，将多次样式修改尽可能合并到一处，可以使用cssText或者直接修改class，避免采用这类写法。
+``` 
+el.style.padding = '5px';  
+el.style.borderLeft = '1px';  
+el.style.borderRight = '2px';  
+```
+
+**避免频繁操作DOM**  
+同样的道理，操作DOM大概率会造成重排，所以对于插入或者删除DOM尽量少，
+比较推荐的修改DOM的方法是创建一个documentFragment，修改的话，可以复制一个dom出来，在它上面应用所有DOM操作，最后再把它添加到文档中。
+
+对于以上的两点，大多数现代浏览器都会通过队列化修改并批量执行来优化重排过程。浏览器会将修改操作放入到队列里，直到过了一段时间或者操作达到了一个阈值。所以即使多次操作，也只会触发一次重排或重绘。  
+
+然而，有一点注意，当你获取布局信息的操作的时候，会导致浏览器强制清空队列，进行强制同步布局。所以这里我们要**避免频繁读取会引发回流/重绘的属性**，如果确实需要多次使用，就用一个变量缓存起来。  
+具体的属性：
+>offsetTop、offsetLeft、offsetWidth、offsetHeight  
+scrollTop、scrollLeft、scrollWidth、scrollHeight  
+clientTop、clientLeft、clientWidth、clientHeight  
+getComputedStyle()  
+getBoundingClientRect  
+
+
+**对于复杂动画效果,使用绝对定位让其脱离文档流**  
+只要脱离了文档流，这个元素的任何变化都不会影响其他元素的布局，要重排也是自己重排，不影响其他，所以对于会频繁变动的元素比如动画，那尽量脱离文档流。
+
+**尽量使用不影响布局的属性**
+比如使用 transform 替代 top，left等，使用 visibility 替换 display: none （尤其是在周期内会频繁变动的，比如查看和收起）。
+在vue中要慎重使用v-if和v-show。
+
+**CSS3 硬件加速（GPU加速）**  
+
+使用css3硬件加速，可以让transform、opacity、filters这些动画不会引起重排重绘 。但是对于动画的其它属性，比如background-color这些，还是会引起重排重绘的，不过它还是可以提升这些动画的性能。
+  </script>
+</section>
+            </div>
+        </div>
+
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/lib/js/head.min.js"></script>
+        <script src="https://cdn.bootcss.com/reveal.js/3.4.1/js/reveal.min.js"></script>
+
+        <script>
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+ // 是否在右下角展示控制条
+  controls: true,
+  // 是否显示演示的进度条
+  progress: true,
+  // 是否显示当前幻灯片的页数编号，也可以使用代码 “slideNumber: 'c/t'” ，表示当前页/总页数。
+  slideNumber: false,
+  // 是否将每个幻灯片改变加入到浏览器的历史记录中去
+  history: false,
+  // 是否启用键盘快捷键来导航
+  keyboard: true,
+  // 是否启用幻灯片的概览模式，可使用 "Esc" 或 "o" 键来切换概览模式
+  overview: true,
+  // 是否将幻灯片垂直居中
+  center: true,
+  // 是否在触屏设备上启用触摸滑动切换
+  touch: true,
+  // 是否循环演示
+  loop: false,
+  // 是否将演示的方向变成 RTL，即从右往左
+  rtl: false,
+  // 是否每次演示的时候，随机幻灯片的顺序
+  shuffle: false,
+  // 全局开启和关闭碎片。
+  fragments: true,
+  // 标识演示文稿是否在嵌入模式中运行，即包含在屏幕的有限部分中的
+  embedded: false,
+  // 标识当问号键被点击的时候是否应该显示一个帮助的覆盖层
+  help: true,
+  // 标识演讲者备注标志是否让所有观看者可见
+  showNotes: false,
+  // 两个幻灯片之间自动切换的时间间隔（毫秒）
+  // 当设置成 0 的时候则禁止自动切换
+  // 该值可以被幻灯片上的 “data-autoslide” 属性覆盖
+  autoSlide: 0,
+  // 当遇到用户输入的时候停止自动切换
+  autoSlideStoppable: true,
+  // 当自动滑动时，使用此方法进行导航。
+  autoSlideMethod: Reveal.navigateNext,
+  // 是否启用通过鼠标滚轮来导航幻灯片
+  mouseWheel: false,
+  // 是否在移动设备上隐藏地址栏
+  hideAddressBar: true,
+  // 是否在一个弹出的 iframe 中打开幻灯片中的链接
+  previewLinks: false,
+  // 切换过渡效果
+  transition: 'default', // none/fade/slide/convex/concave/zoom
+  // 过渡速度
+  transitionSpeed: 'default', // default/fast/slow
+  // 全屏幻灯片背景的过渡效果
+  backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+  // 加载除当前可见的幻灯片之外的幻灯片数量
+  viewDistance: 3,
+  // 视差背景图片
+  parallaxBackgroundImage: '',
+  // e.g. 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'
+  // 视差背景尺寸
+  parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+  // 移动视差背景（水平和垂直）滑动变化的数量, 例如 100
+  // - 除了指定自动计算
+  // - 设置为 0 时，禁止沿轴运动
+  parallaxBackgroundHorizontal: null,
+  parallaxBackgroundVertical: null,
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/marked.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/markdown/markdown.min.js' },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/notes/notes.min.js', async: true },
+                    { src: 'https://cdn.bootcss.com/reveal.js/3.4.1/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
+</html>
